@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Autores
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="text-center">Autores cargados</h1>
+        </br>
+        <ul class="list-group">
+            {% for autor in object_list %}
+                <li class="list-group-item">
+                    <div class="float-left">{{ autor }}</div>
+                    {% if user_group == 'admin' %}
+                        <div>
+                            <a class="mx-3 float-right" href="{% url 'author-delete' autor.id %}">Eliminar</a>
+                            <a class="mx-3 float-right" href="{% url 'author-update' autor.id %}">Modificar</a>
+                        </div>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+        {% if user_group == 'admin' %}
+        <div class="text-center my-3">
+            <a class="btn btn-primary" href="{% url 'author-new' %}">Agregar autor</a>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Editorial - Registro
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Agregar Editorial</h1>
+        {% if user_group == 'admin' %}
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <a class="btn btn-danger" href="{% url 'editorial-list' %}">Cancelar</a>
+                <input type="submit" value="Agregar" class="btn btn-primary">
+            </form>
+        {% else %}
+            <h2>Necesitas ser administrador para agregar una editorial</h2>
+            <a class="btn btn-primary" href="{% url 'editorial-list' %}">Volver</a>
+        {% endif %}
+    </div>
+{% endblock %}

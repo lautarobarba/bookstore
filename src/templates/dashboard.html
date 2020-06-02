@@ -4,7 +4,7 @@
 
 {% block content%}
     <div class="container">
-        <h1>Dashboard</h1>
+        <h1 class="col-12 text-center">Dashboard</h1>
         {% if user.profile.group.name == 'admin' %}
 
             <h2>Países</h2>
@@ -15,19 +15,19 @@
 
             <h2>Autores</h2>
             <ul>
-                <li><a class="" href="#">Agregar autor</a></li>
-                <li><a class="" href="#">Modificar/Eliminar autor</a></li>
+                <li><a class="" href="{% url 'author-new' %}">Agregar autor</a></li>
+                <li><a class="" href="{% url 'author-list' %}">Modificar/Eliminar autor</a></li>
             </ul>
 
             <h2>Editoriales</h2>
             <ul>
-                <li><a class="" href="#">Agregar editorial</a></li>
-                <li><a class="" href="#">Modificar/Eliminar editorial</a></li>
+                <li><a class="" href="{% url 'editorial-new' %}">Agregar editorial</a></li>
+                <li><a class="" href="{% url 'editorial-list' %}">Modificar/Eliminar editorial</a></li>
             </ul>
 
             <h2>Libro</h2>
             <ul>
-                <li><a class="" href="#">Agregar libro</a></li>
+                <li><a class="" href="{% url 'book-new' %}">Agregar libro</a></li>
                 <li><a class="" href="#">Modificar/Eliminar libro</a></li>
             </ul>
 

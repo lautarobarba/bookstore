@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Autor - Edición
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Editar Autor</h1>
+        {% if user_group == 'admin' %}
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <a class="btn btn-danger" href="{% url 'author-list' %}">Cancelar</a>
+                <input type="submit" value="Editar" class="btn btn-primary">
+            </form>
+        {% else %}
+            <h2>Necesitas ser administrador para editar un autor</h2>
+            <a class="btn btn-primary" href="{% url 'country-list' %}">Volver</a>
+        {% endif %}
+    </div>
+{% endblock %}
