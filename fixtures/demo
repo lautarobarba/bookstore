@@ -1,0 +1,8 @@
+[
+{"model": "users.country", "pk": 1, "fields": 
+    {"name": "Argentina"}
+}, 
+{"model": "users.country", "pk": 2, "fields":
+    {"name": "Chile"}
+}
+]

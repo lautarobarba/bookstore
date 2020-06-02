@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Nuevo Libro
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Agregar Autor</h1>
+        {% if user_group == 'admin' %}
+            <form method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                {{ form.content | safe }}
+                <a class="btn btn-danger" href="{% url 'home' %}">Cancelar</a>
+                <input type="submit" value="Cargar Libro" class="btn btn-primary">
+            </form>
+        {% else %}
+            <h2>Necesitas ser administrador para agregar un libro</h2>
+            <a class="btn btn-primary" href="{% url 'home' %}">Volver</a>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -16,11 +16,11 @@ class BookDetailView(DetailView):
             book = Book.objects.get(id=book_id)
             print(book)
             #Con el request.user.carrito
-            cart = request.user.cart
+            #carrito = request.user.carrito
             #carrito = Carrito.objects.get(id=carrito_id)
-            print('Cart: ')
-            print(cart.id)
-            cart.products.add(book)
+            print('Carrito: ')
+            print(carrito.id)
+            #carrito.productos.add(book)
             #Hacer relacion
 
             #return HttpResponseRedirect('/success/')
