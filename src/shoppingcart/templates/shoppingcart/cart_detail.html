@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Detalle - carrito{% endblock title %}
+
+{% block content %}
+    <ul>
+        {% for book in cart.books.all %}
+            <li>
+                book.title
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock content %}

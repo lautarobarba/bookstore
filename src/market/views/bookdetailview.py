@@ -2,7 +2,7 @@ from django.views.generic.detail import DetailView
 from market.models.book import Book 
 from django.forms import Form
 from django.shortcuts import render
-from carrito.models import Carrito
+from shoppingcart.models import Cart
 
 class BookDetailView(DetailView):
     model = Book
@@ -16,11 +16,11 @@ class BookDetailView(DetailView):
             book = Book.objects.get(id=book_id)
             print(book)
             #Con el request.user.carrito
-            carrito = request.user.carrito
+            cart = request.user.cart
             #carrito = Carrito.objects.get(id=carrito_id)
-            print('Carrito: ')
-            print(carrito.id)
-            carrito.productos.add(book)
+            print('Cart: ')
+            print(cart.id)
+            cart.products.add(book)
             #Hacer relacion
 
             #return HttpResponseRedirect('/success/')
