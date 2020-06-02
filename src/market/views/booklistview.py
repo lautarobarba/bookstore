@@ -1,5 +1,5 @@
 from django.views.generic import ListView
-from libreria.models.book import Book, Genre
+from market.models.book import Book, Genre
 
 class BookListView(ListView):
     model = Book 
