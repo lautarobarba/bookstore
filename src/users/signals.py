@@ -18,6 +18,8 @@ def create_profile(sender, instance, created, **kwargs):
         profile = Profile(user=instance)
         profile.save()
 
+
+
 #@receiver(post_save, sender=Profile)
 #def edit_profile_picture(sender, instance, created, **kwargs):
     #if instance.picture:

@@ -3,6 +3,10 @@
 {% block title %}Detalle - carrito{% endblock title %}
 
 {% block content %}
+
+    {% if can_edit %}
+
+    <h1>Carrito</h1>
     <ul>
         {% for book in cart.books.all %}
             <li>
@@ -10,4 +14,8 @@
             </li>
         {% endfor %}
     </ul>
+    {% else %}
+        <p> Este carrito no te pertenece rufian </p>
+        <a href= "{% url 'home' %}">Inicio</a>
+    {% endif %}
 {% endblock content %}
