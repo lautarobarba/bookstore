@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    {{ object }}
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        {% if object.picture %}
+            <div class="row ">
+                <img src="{{ object.picture.url }}" class="profile-image my-3" alt="{{ object.picture.url }}">
+                <h1 class="d-block my-auto mx-4">{{ object }}</h1>
+            </div>
+        {% else %}
+            <h1>Cuenta: {{ object }}</h1>
+        {% endif %}  
+        <h3>Nombre: {{ object.first_name }}</h3>
+        <h3>Apellido: {{ object.last_name }}</h3>
+        {% if user_group == 'admin' %}
+            <h3>País: {{ object.country }}<a href="{% url 'country-new' %}" class="badge mx-2">Agregar país</a></h3>
+        {% else  %}
+            <h3>País: {{ object.country }}</h3>
+        {% endif %}
+        <h3>Teléfono: {{ object.phone|phone2numeric }}</h3>
+        </br>
+        </br>
+        {% if object.user.post_set %}
+            <h1>Posts</h1>
+            <a href="{% url 'post-user-list' object.user.id %}">Ver todos</a>
+        {% endif %}
+        <br>
+        <br>
+        <h1>Grupo</h1>
+        <h3>
+            {% if object.group.name == 'admin' %}
+                Adminstradores
+            {% elif object.group.name == 'user' %}
+                Usuarios
+            {% else %}
+                Error la cuenta no pertenece a ningún grupo
+            {% endif %}
+        </h3>
+        </br>
+        {% if can_edit %}
+            <a href="{% url 'profile-update' object.pk %}">Modificar perfil</a>
+            </br>
+            <a href="{% url 'user-delete' object.user.pk %}">Eliminar cuenta</a>
+        {% endif %}
+        </br>
+        <a href="{% url 'home' %}" class="btn btn-primary my-3">Inicio</a>
+    </div>
+{% endblock %}

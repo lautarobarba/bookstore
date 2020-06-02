@@ -1,0 +1,11 @@
+# Virtual Enviroment
+venv
+
+# Python precompiled files
+*.pyc
+
+# Users profile pictures
+src/media/users
+
+# SQLite Database
+src/db.sqlite3

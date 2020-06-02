@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    {{ object }} - Edición
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Edición</h1>
+        {% if can_edit %}
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form|crispy }}
+                <a class="btn btn-primary" href="{% url 'profile-detail' object.id %}">Cancelar</a>
+                <input type="submit" value="Actualizar datos" class="btn btn-primary">
+            </form>
+        {% else %}
+            <h2>No puedes editar el perfil de este usuario</h2>
+            <a class="btn btn-primary" href="{% url 'profile-detail' object.id %}">Volver</a>
+        {% endif %}
+    </div>
+{% endblock %}
