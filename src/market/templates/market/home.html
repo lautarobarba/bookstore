@@ -1,0 +1,90 @@
+{% extends 'libreria/base.html' %}
+
+{% block title %}Home{% endblock title %}
+
+{% block content %}
+    <!-- Titular OFERTAS -->
+    <div class = "container my-3">
+        <div class = "row">
+            <div class = "col-12">
+                <h1 class="text-center">Ofertas</h1>
+            </div>
+        </div>
+    </div><!--Spacer para ofertas -->
+
+    <div id="carouselOfertas" class="carousel slide" data-ride="carousel">
+
+        <ol class="carousel-indicators">
+          <li data-target="#carouselOfertas" data-slide-to="0" class="active"></li>
+          <li data-target="#carouselOfertas" data-slide-to="1"></li>
+          <li data-target="#carouselOfertas" data-slide-to="2"></li>
+        </ol>
+
+        <div class="carousel-inner">
+            {% for book in book_list_sale %}
+                {% if forloop.first %}
+                    {% include 'libreria/card-active.html' with imagen='img/mazerunner1.jpg' titulo=book.title sinopsis=book.sinopsis %}
+                {% else %}              
+                    {% include 'libreria/card.html' with imagen='img/mazerunner2.jpg' titulo=book.title sinopsis=book.sinopsis %}
+                {% endif %}
+            {% endfor %}
+            
+        </div><!-- fin carousel inner -->
+
+        <a class="carousel-control-prev" href="#carouselOfertas" role="button" data-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselOfertas" role="button" data-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="sr-only">Next</span>
+        </a>
+    </div><!-- fin carousel ofertas -->
+
+    <!--Spacer para productos destacados -->
+    <div class = "container my-5">
+        <div class = "row">
+            <div class = "col-12">
+                <h2 class="text-center">Productos Destacados</h2>
+            </div>
+        </div>
+    </div><!--Spacer para productos destacados -->
+
+    <!--Carousel Wrapper-->
+    <div id="categoriaDestacada" class="carousel slide carousel-multi-item" data-ride="carousel">
+
+        <!--Controls-->
+        <div class="controls-top">
+            <a class="btn-floating" href="#categoriaDestacada" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
+            <a class="btn-floating" href="#categoriaDestacada" data-slide="next"><i class="fa fa-chevron-right"></i></a>
+        </div>
+        <!--/.Controls-->
+
+        <!--Indicators-->
+        <ol class="carousel-indicators">
+            <li data-target="#categoriaDestacada" data-slide-to="0" class="active"></li>
+            <li data-target="#categoriaDestacada" data-slide-to="1"></li>
+        </ol>
+        <!--/.Indicators-->
+
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
+
+            <!--First slide-->
+            <div class="carousel-item active">
+                {% for book in book_list %}
+                    {% url 'book-view' book.id as detailurl %}
+                    {% include 'libreria/card-libro.html' with detailurl=detailurl imagen='img/mazerunner1.jpg' titulo=book.title sinopsis=book.sinopsis %}
+                {% endfor %}
+            </div>
+            <!--/.First slide-->
+
+            <!--Second slide-->
+            <div class="carousel-item">
+                {% for book in book_list %}
+                    {% url 'book-view' book.id as detailurl %}
+                    {% include 'libreria/card-libro.html' with detailurl=detailurl imagen='img/mazerunner2.jpg' titulo=book.title sinopsis=book.sinopsis %}
+                {% endfor %}
+            </div>
+
+{% endblock content %}

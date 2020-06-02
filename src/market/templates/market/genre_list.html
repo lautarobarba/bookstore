@@ -1,0 +1,23 @@
+{% extends 'libreria/base.html' %}
+
+{% block title %}Detalle - Lista Generos{% endblock title %}
+
+
+{% block content%}
+    <h1>Lista de generos</h1>
+
+    {% if genre_list %}
+    <ul class="list-group">
+
+      {% for genre in genre_list %}
+      <li>
+          <a class="list-group-item list-group-item-action" href="{% url 'book-list-view' genre.genre_name %}">{{ genre.genre_name }}</a>
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>There are no genders.</p>
+    {% endif %}
+
+{% endblock content %}
