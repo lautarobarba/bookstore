@@ -1,3 +1,40 @@
-<nav class="navbar sticky-top navbar-light bg-light align-items-center">
-navbar bro
-    </nav><!-- End of Navbar -->
+{% load static %}
+<!-- Navbar -->
+<nav class="navbar navbar-expand-md sticky-top navbar-light bg-light align-items-center">
+
+    <!-- Logo -->
+    <div class="justify-content-center">
+        <a href="{% url 'home' %}" class="navbar-brand"  id="logo">
+            <img src="{% static 'images/LogoCabeza.png' %}" class="img-logo" alt="Logo The Eye Of Minds">
+            <img src="{% static 'images/LogoTexto.png' %}" class="img-logo" alt="Logo The Eye Of Minds">
+        </a>
+    </div>
+
+    <!-- Icono colapso -->
+    <button class="navbar-toggler mx-3" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar colapsable --> 
+    <div class=" collapse navbar-collapse" id="navbarMenu">
+        <!-- Parte derecha navbar -->
+        <div class="ml-auto">
+            <ul class="navbar-nav">
+                <!-- Botón Inicio -->
+                <a class="nav-item nav-link text-center" href="{% url 'home' %}">Inicio</a>
+                
+                <!-- Botón Géneros -->
+                <a class="nav-item nav-link text-center" href="#">Géneros</a>
+
+                <!-- Botones cuenta -->
+                {% if user.is_authenticated %}
+                    <a class="nav-item nav-link text-center" href="#">{{user.email}}</a>
+                    <a class="nav-item nav-link text-center" href="#">Salir</a>
+                {% else %}
+                    <a class="nav-item nav-link text-center" href="#">Iniciar sesión</a>
+                    <a class="nav-item nav-link text-center" href="#">Registrarse</a>
+                {% endif %}
+            </ul>
+        </div><!-- fin Parte derecha navbar -->
+    </div><!-- fin de los links colapsables-->
+</nav><!-- End of Navbar -->

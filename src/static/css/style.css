@@ -1,9 +1,9 @@
 .navbar-brand, .nav-link {
-    font-family: 'Chelsea Market', cursive;
+    font-family: 'Noto Sans JP', sans-serif;
 }
 
 h1 {
-    font-family: 'Chelsea Market', cursive;
+    font-family: 'Noto Sans JP', sans-serif;
 }
 
 .text-justify {
@@ -16,4 +16,10 @@ h1 {
     border-style: double;
     height: 100px;
     width: 100px;
+}
+
+.img-logo {
+    position: relative;
+    bottom: 2px;
+    width: 70px;
 }
