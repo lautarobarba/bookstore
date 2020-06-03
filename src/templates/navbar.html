@@ -40,6 +40,7 @@
                     {% endif %}
                     <a class="nav-item nav-link text-center" href="{{ user.get_absolute_url }}">{{ user.profile }}</a>
                     <a class="nav-item nav-link text-center" href="{% url 'user-logout' %}">Salir</a>
+                    <a class="nav-item nav-link text-center" href="{% url 'cart-detail' %}"></a>
                 {% else %}
                     <a class="nav-item nav-link text-center" href="{% url 'user-login' %}">Iniciar sesión</a>
                     <a class="nav-item nav-link text-center" href="{% url 'user-new' %}">Registrarse</a>
