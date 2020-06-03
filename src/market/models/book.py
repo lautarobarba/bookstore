@@ -13,14 +13,14 @@ class Book(models.Model):
         ('V', '20%'),
     ]
 
-    title = models.CharField(max_length=255)
+    title = models.CharField(verbose_name='título', max_length=255)
     isbn = models.BigIntegerField(unique=True)
     sinopsis = models.CharField(max_length=255)
-    price = models.FloatField()
-    sale = models.CharField(max_length=1 ,choices=SALE_CHOICES, null=True, blank=True)
-    authors = models.ManyToManyField(Author)
-    editorial = models.ForeignKey(Editorial, on_delete=models.CASCADE)
-    genres = models.ManyToManyField(Genre)
+    price = models.FloatField(verbose_name='precio')
+    sale = models.CharField(verbose_name='promoción', max_length=1 ,choices=SALE_CHOICES, null=True, blank=True)
+    authors = models.ManyToManyField(Author, verbose_name='autor')
+    editorial = models.ForeignKey(Editorial, verbose_name='editorial', on_delete=models.CASCADE)
+    genres = models.ManyToManyField(Genre, verbose_name='generos')
     #photo = 
 
     class Meta():

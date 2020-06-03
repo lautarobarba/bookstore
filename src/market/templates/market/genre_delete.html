@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Género - Eliminar
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1>Eliminar género</h1>
+        {% if user_group == 'admin' %}
+            <form method="post">
+                {% csrf_token %}
+                <p>Está seguro que desea eliminar el género "<strong>{{ object.name }}</strong>"?</p>
+                <a class="btn btn-warning" href="{% url 'genre-list' %}">Cancelar</a>
+                <input type="submit" value="Confirmar" class="btn btn-danger">
+            </form>
+        {% else %}
+            <h2>Necesitas ser administrador para eliminar un género</h2>
+            <a class="btn btn-primary" href="{% url 'genre-list' %}">Volver</a>
+        {% endif %}
+    </div>
+{% endblock %}

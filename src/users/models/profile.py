@@ -17,6 +17,7 @@ class Profile(models.Model):
     picture = models.ImageField(verbose_name='foto de perfil', upload_to='users/', null=True, blank=True)
     
     # Role
+    # Add default "user" group
     group = models.ForeignKey(Group, verbose_name='grupo', null=True, blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):

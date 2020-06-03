@@ -1,23 +1,30 @@
-{% extends 'libreria/base.html' %}
+{% extends 'base.html' %}
 
-{% block title %}Detalle - Lista Generos{% endblock title %}
+{% block title %}
+    Géneros
+{% endblock %}
 
-
-{% block content%}
-    <h1>Lista de generos</h1>
-
-    {% if genre_list %}
-    <ul class="list-group">
-
-      {% for genre in genre_list %}
-      <li>
-          <a class="list-group-item list-group-item-action" href="{% url 'book-list-view' genre.genre_name %}">{{ genre.genre_name }}</a>
-      </li>
-      {% endfor %}
-
-    </ul>
-    {% else %}
-      <p>There are no genders.</p>
-    {% endif %}
-
-{% endblock content %}
+{% block content %}
+    <div class="container">
+        <h1 class="text-center">Géneros cargados</h1>
+        </br>
+        <ul class="list-group">
+            {% for genero in object_list %}
+                <li class="list-group-item">
+                    <div class="float-left">{{ genero.name }}</div>
+                    {% if user_group == 'admin' %}
+                        <div>
+                            <a class="mx-3 float-right" href="{% url 'genre-delete' genero.id %}">Eliminar</a>
+                            <a class="mx-3 float-right" href="{% url 'genre-update' genero.id %}">Modificar</a>
+                        </div>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+        {% if user_group == 'admin' %}
+        <div class="text-center my-3">
+            <a class="btn btn-primary" href="{% url 'genre-new' %}">Agregar género</a>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}
