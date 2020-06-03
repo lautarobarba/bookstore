@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Libros
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="text-center">Libros cargados</h1>
+        </br>
+        <ul class="list-group">
+            {% for libro in object_list %}
+                <li class="list-group-item">
+                    <a href="{{ libro.get_absolute_url }}" class="float-left">"{{ libro.title }}" de editorial "{{ libro.editorial.name }}"</a>
+                    {% if user_group == 'admin' %}
+                        <div>
+                            <a class="mx-3 float-right" href="{% url 'book-delete' libro.id %}">Eliminar</a>
+                            <a class="mx-3 float-right" href="{% url 'book-update' libro.id %}">Modificar</a>
+                        </div>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+        {% if user_group == 'admin' %}
+        <div class="text-center my-3">
+            <a class="btn btn-primary" href="{% url 'book-new' %}">Agregar libro</a>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

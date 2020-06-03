@@ -3,7 +3,8 @@ from market.views import (
     HomeView, DashboardView, BookDetailView, GenreListView, BookListView,
     AuthorCreateView, AuthorListView, AuthorUpdateView, AuthorDeleteView,
     EditorialCreateView, EditorialListView, EditorialUpdateView, EditorialDeleteView,
-    BookCreateView,
+    GenreCreateView, GenreListView, GenreUpdateView, GenreDeleteView,
+    BookCreateView, BookAdminListView, BookUpdateView, BookDeleteView,
 )
 
 urlpatterns = [
@@ -22,6 +23,14 @@ urlpatterns = [
     path('editorial/new/', EditorialCreateView.as_view(), name='editorial-new'),
     path('editorial/update/<int:pk>', EditorialUpdateView.as_view(), name='editorial-update'),
     path('editorial/delete/<int:pk>', EditorialDeleteView.as_view(), name='editorial-delete'),
+    # Gente URLS
+    path('genre/', GenreListView.as_view(), name='genre-list'),
+    path('genre/new/', GenreCreateView.as_view(), name='genre-new'),
+    path('genre/update/<int:pk>', GenreUpdateView.as_view(), name='genre-update'),
+    path('genre/delete/<int:pk>', GenreDeleteView.as_view(), name='genre-delete'),
     # Book URLS
     path('book/new/', BookCreateView.as_view(), name='book-new'),
+    path('book/admin/', BookAdminListView.as_view(), name='book-admin-list'),
+    path('book/update/<int:pk>', BookUpdateView.as_view(), name='book-update'),
+    path('book/delete/<int:pk>', BookDeleteView.as_view(), name='book-delete'),
 ]

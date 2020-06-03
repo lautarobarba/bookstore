@@ -2,22 +2,22 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-    Autor - Registro
+    Género - Registro
 {% endblock %}
 
 {% block content %}
     <div class="container">
-        <h1>Agregar Autor</h1>
+        <h1>Agregar Género</h1>
         {% if user_group == 'admin' %}
             <form method="post">
                 {% csrf_token %}
                 {{ form|crispy }}
-                <a class="btn btn-danger" href="{% url 'author-list' %}">Cancelar</a>
+                <a class="btn btn-danger" href="{% url 'genre-list' %}">Cancelar</a>
                 <input type="submit" value="Agregar" class="btn btn-primary">
             </form>
         {% else %}
-            <h2>Necesitas ser administrador para agregar un autor</h2>
-            <a class="btn btn-primary" href="{% url 'author-list' %}">Volver</a>
+            <h2>Necesitas ser administrador para agregar un género</h2>
+            <a class="btn btn-primary" href="{% url 'genre-list' %}">Volver</a>
         {% endif %}
     </div>
 {% endblock %}

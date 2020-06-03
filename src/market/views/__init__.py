@@ -2,8 +2,8 @@ from .home import HomeView
 from .dashboard import DashboardView
 from .author import AuthorCreateView, AuthorListView, AuthorUpdateView, AuthorDeleteView
 from .editorial import EditorialCreateView, EditorialListView, EditorialUpdateView, EditorialDeleteView
-from .book import BookCreateView
-
+from .genre import GenreCreateView, GenreListView, GenreUpdateView, GenreDeleteView
+from .book import (
+    BookCreateView, BookAdminListView, BookUpdateView, BookDeleteView, BookDetailView
+)
 from .booklistview import BookListView
-from .genrelistview import GenreListView
-from .bookdetailview import BookDetailView
