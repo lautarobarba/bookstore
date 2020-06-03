@@ -11,7 +11,9 @@
         <ul class="list-group">
             {% for genero in object_list %}
                 <li class="list-group-item">
-                    <div class="float-left">{{ genero.name }}</div>
+                    <div class="float-left">
+                        <a href ="{% url 'book-list-view' genero.name %}" >{{ genero.name }}</a>
+                    </div>
                     {% if user_group == 'admin' %}
                         <div>
                             <a class="mx-3 float-right" href="{% url 'genre-delete' genero.id %}">Eliminar</a>

@@ -7,7 +7,7 @@ class BookListView(ListView):
 
     def get(self, request, *args, **kwargs):
         nombre_genero = self.kwargs['slug']
-        genero_obj = Genre.objects.get(genre_name=nombre_genero)
+        genero_obj = Genre.objects.get(name=nombre_genero)
         self.genero_id = genero_obj.id
         #print('Genero id: ')
         #print(self.genero_id)

@@ -31,17 +31,17 @@
                 <a class="nav-item nav-link text-center" href="{% url 'home' %}">Inicio</a>
                 
                 <!-- Botón Géneros -->
-                <a class="nav-item nav-link text-center" href="#">Géneros</a>
+                <a class="nav-item nav-link text-center" href="{% url 'genre-list' %}">Géneros</a>
 
                 <!-- Botones cuenta -->
                 {% if user.is_authenticated %}
                     {% if user.profile.group.name == 'admin' %}
                         <a class="nav-item nav-link text-center" href="{% url 'dashboard' %}">Dashboard</a>
                     {% endif %}
+                    <a class="nav-item nav-link text-center" href="{% url 'cart-detail' user.cart.id %}"><span class="fa fa-shopping-cart fa-lg btn"></span></a>
                     <a class="nav-item nav-link text-center" href="{{ user.get_absolute_url }}">{{ user.profile }}</a>
                     <a class="nav-item nav-link text-center" href="{% url 'user-logout' %}">Salir</a>
-                    <a class="nav-item nav-link text-center" href="{% url 'cart-detail' %}"></a>
-                {% else %}
+                    {% else %}
                     <a class="nav-item nav-link text-center" href="{% url 'user-login' %}">Iniciar sesión</a>
                     <a class="nav-item nav-link text-center" href="{% url 'user-new' %}">Registrarse</a>
                 {% endif %}

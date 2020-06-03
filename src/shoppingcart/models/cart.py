@@ -12,8 +12,12 @@ class Cart(models.Model):
     def __str__(self):
         return '{1} {0}'.format(self.client.profile.first_name, 'carrito de ')
 
+    def get_absolute_url(self):
+        return reverse('cart-detail', args=[str(self.id)])
+
 class ProductList(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     quantity = models.IntegerField()
+
 
