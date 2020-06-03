@@ -43,3 +43,4 @@ class ProfileOwnerMixin(GroupContextMixin):
         context = super().get_context_data(**kwargs)
         context['can_edit'] = self.can_edit
         return context
+
