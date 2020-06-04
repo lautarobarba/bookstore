@@ -2,7 +2,7 @@ from django.db import models
 from django.urls import reverse
 
 class Editorial(models.Model):
-    name = models.CharField(verbose_name='nombre', max_length=255)
+    name = models.CharField(verbose_name='nombre', max_length=255, unique=True)
     
     class Meta():
         ordering = ['name']

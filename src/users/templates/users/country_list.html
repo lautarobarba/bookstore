@@ -11,7 +11,7 @@
         <ul class="list-group">
             {% for pais in object_list %}
                 <li class="list-group-item">
-                    <div class="float-left">{{ pais.name }}</div>
+                    <div class="float-left title-case">{{ pais.name }}</div>
                     {% if user_group == 'admin' %}
                         <div>
                             <a class="mx-3 float-right" href="{% url 'country-delete' pais.id %}">Eliminar</a>
@@ -26,5 +26,7 @@
             <a class="btn btn-primary" href="{% url 'country-new' %}">Agregar país</a>
         </div>
         {% endif %}
+        
+        {% include 'paginator.html' %}
     </div>
 {% endblock %}
