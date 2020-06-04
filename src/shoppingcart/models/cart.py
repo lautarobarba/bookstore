@@ -6,8 +6,7 @@ User = get_user_model()
 
 class Cart(models.Model):
     client = models.OneToOneField(User, on_delete=models.CASCADE)
-    #books = models.ManyToManyField(Book, through='ProductList')
-    books = models.ManyToManyField(Book)
+    books = models.ManyToManyField(Book, through='ProductList')
     last_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
@@ -17,7 +16,13 @@ class Cart(models.Model):
     def get_absolute_url(self):
         return reverse('cart-detail', args=[str(self.id)])
 
-class Order(models.Model):
+
+class ProductList(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
-    quantity = models.IntegerField()
+    quantity = models.IntegerField(default=0)
+
+    def get_value(self):
+        return self.book.price*self.quantity
+
+     

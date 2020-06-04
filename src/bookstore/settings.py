@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'market.apps.MarketConfig',
     'shoppingcart.apps.ShoppingcartConfig',
+    'django_template_maths',
 ]
 
 MIDDLEWARE = [

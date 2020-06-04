@@ -1,10 +1,15 @@
 from django.views.generic.detail import DetailView
-from shoppingcart.models import Cart
+from django.views.generic import ListView
+from shoppingcart.models import Cart, ProductList
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .mixins import CartOwnerMixin
 
-class CartDetailView(CartOwnerMixin, LoginRequiredMixin, DetailView):
-    model = Cart
+class CartDetailView(CartOwnerMixin, LoginRequiredMixin, ListView):
+    model = ProductList
+    template_name = 'shoppingcart/cart_detail.html'
+
+    def get_queryset(self):
+        return ProductList.objects.filter(cart__id = self.kwargs['pk'])
 
     #login_url = '/users/login/'
 

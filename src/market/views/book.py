@@ -4,7 +4,8 @@ from django.forms import Form
 from django.contrib.auth.mixins import LoginRequiredMixin
 from market.models import Book
 from django.urls import reverse_lazy
-
+from shoppingcart.models import ProductList
+from django.shortcuts import redirect,render
 # Custom mixins
 from users.views.mixins import GroupContextMixin
 
@@ -64,9 +65,12 @@ class BookDetailView(DetailView):
             book = Book.objects.get(id=book_id)
 
             cart = request.user.cart
+            o, status = ProductList.objects.get_or_create(cart = cart, book = book)
+            o.quantity += 1
+            o.save()
+            #cart.books.add(book, through_defaults={'quantity': 1})
 
-            #cart.books.add(book, quantity=)
-
-            return render(request, self.template_name, {'form': form})
+            #return render(request, self.template_name, {'form': form})
+            return redirect(book)
         else:
             return render(request, self.template_name, {'form': form})
