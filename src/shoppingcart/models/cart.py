@@ -6,11 +6,13 @@ User = get_user_model()
 
 class Cart(models.Model):
     client = models.OneToOneField(User, on_delete=models.CASCADE)
-    books = models.ManyToManyField(Book, through='ProductList')
+    #books = models.ManyToManyField(Book, through='ProductList')
+    books = models.ManyToManyField(Book)
     last_updated = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return '{1} {0}'.format(self.client.profile.first_name, 'carrito de ')
+        #return '{1} {0}'.format(self.client.profile, 'carrito de ')
+        return f'Carrito de {self.client.profile}'
 
     def get_absolute_url(self):
         return reverse('cart-detail', args=[str(self.id)])
@@ -19,5 +21,3 @@ class ProductList(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     quantity = models.IntegerField()
-
-
