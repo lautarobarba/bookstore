@@ -1,6 +1,7 @@
 from django.views.generic import DetailView
 from users.models import Profile
 from django.views.generic.edit import UpdateView
+from django.contrib.auth.mixins import UserPassesTestMixin
 
 # Custom mixins
 from .mixins import ProfileOwnerMixin
