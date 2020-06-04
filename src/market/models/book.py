@@ -30,7 +30,7 @@ class Book(models.Model):
         ]
 
     def get_absolute_url(self):
-        return reverse('book-view', args=[str(self.id)])
+        return reverse('book-detail', args=[str(self.id)])
 
     def __str__(self):
         return '{0} {1}'.format(self.title, self.editorial)

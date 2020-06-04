@@ -9,8 +9,11 @@ from market.views import (
 
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
-    path('book/<int:pk>/', BookDetailView.as_view(), name='book-view'),
-    path('genre/<slug:slug>/', BookListView.as_view(), name='book-list-view'),  
+    path('book/<int:pk>/', BookDetailView.as_view(), name='book-detail'),
+    path('book/', BookListView.as_view(), {'type': 'all'}, name='book-list'),  
+    path('book/genre/<slug:genre>/', BookListView.as_view(), {'type': 'genre'}, name='book-genre-list'),  
+    path('book/author/<slug:first_name>-<slug:last_name>/', BookListView.as_view(), {'type': 'author'} , name='book-author-list'),  
+    path('book/editorial/<slug:editorial>/', BookListView.as_view(), {'type': 'editorial'} , name='book-editorial-list'),  
     path('dashboard/', DashboardView.as_view(), name='dashboard'),
     # Author URLS
     path('author/', AuthorListView.as_view(), name='author-list'),

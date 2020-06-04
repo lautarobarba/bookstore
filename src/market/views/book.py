@@ -18,6 +18,30 @@ class BookAdminListView(GroupContextMixin, LoginRequiredMixin, ListView):
     template_name = 'market/book_admin_list.html'
     queryset = Book.objects.order_by('title')
 
+class BookListView(ListView):
+    model = Book 
+
+    def get(self, request, *args, **kwargs):
+        self.type = self.kwargs['type']
+        if self.type == 'genre':
+            self.genre = self.kwargs['genre']
+        elif self.type == 'author':
+            self.author_first_name = self.kwargs['first_name']
+            self.author_last_name = self.kwargs['last_name']
+        elif self.type == 'editorial':
+            self.editorial = self.kwargs['editorial'] 
+        return super().get(request, *args, **kwargs)
+
+    def get_queryset(self):
+        if self.type == 'genre':
+            return Book.objects.filter(genres__name__icontains=self.genre)
+        elif self.type == 'author':
+            return Book.objects.filter(authors__first_name__icontains=self.author_first_name, authors__last_name__icontains=self.author_last_name)
+        elif self.type == 'editorial':
+            return Book.objects.filter(editorial__name__icontains=self.editorial)
+        else:
+            return Book.objects.all()
+
 class BookUpdateView(GroupContextMixin, LoginRequiredMixin, UpdateView):
     model = Book
     template_name = 'market/book_update.html'
@@ -33,22 +57,22 @@ class BookDetailView(DetailView):
     form_class = Form
     template_name = 'market/book_detail.html'
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            book_id = self.kwargs['pk']
-            book = Book.objects.get(id=book_id)
-            print(book)
+    #def post(self, request, *args, **kwargs):
+        #form = self.form_class(request.POST)
+        #if form.is_valid():
+            #book_id = self.kwargs['pk']
+            #book = Book.objects.get(id=book_id)
+            #print(book)
             #Con el request.user.carrito
             #carrito = request.user.carrito
             #carrito = Carrito.objects.get(id=carrito_id)
-            print('Carrito: ')
-            print(carrito.id)
+            #print('Carrito: ')
+            #print(carrito.id)
             #carrito.productos.add(book)
             #Hacer relacion
 
             #return HttpResponseRedirect('/success/')
-            return render(request, self.template_name, {'form': form})
+            #return render(request, self.template_name, {'form': form})
             #return libro
-        else:
-            return render(request, self.template_name, {'form': form})
+        #else:
+            #return render(request, self.template_name, {'form': form})

@@ -1,23 +1,17 @@
 {% extends 'base.html' %}
 
-{% block title %}Detalle - Lista Libros{% endblock title %}
+{% block title %}Lista Libros{% endblock title %}
 
 
 {% block content%}
-    <h1>Lista de libros</h1>
-
-    {% if object_list %}
-        <ul class="list-group">
+    <div class="text-center">
+        <h1>Lista de libros</h1>
 
             {% for book in object_list %}
-            <li>
-                <a class="list-group-item list-group-item-action" href="{% url 'book-view' book.pk %}">{{ book.title }}</a>
-            </li>
+
+                {% include 'market/book-card.html' %}
+
             {% endfor %}
 
-        </ul>
-    {% else %}
-    <p>No hay libros para este genero.</p>
-    {% endif %}
-
+    </div>
 {% endblock content %}
