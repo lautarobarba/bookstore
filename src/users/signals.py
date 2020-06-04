@@ -42,24 +42,10 @@ def create_profile(sender, instance, created, **kwargs):
 def asign_group(sender, instance, created, **kwargs):
     if instance.group == None:
         if instance.user.is_superuser:
-            admin_group = None
-            try: 
-                admin_group = Group.objects.get(name='admin')
-            except:
-                # If admin group does not exist
-                admin_group = Group(name='admin')
-                admin_group.save()
-            finally:
-                instance.group = admin_group
-                instance.save()
+            admin_group, status = Group.objects.get_or_create(name='admin')
+            instance.group = admin_group
+            instance.save()
         else:
-            user_group = None
-            try: 
-                user_group = Group.objects.get(name='user')
-            except:
-                # If user group does not exist
-                user_group = Group(name='user')
-                user_group.save()
-            finally:
-                instance.group = user_group
-                instance.save()
+            user_group, status = Group.objects.get_or_create(name='user')
+            instance.group = user_group
+            instance.save()

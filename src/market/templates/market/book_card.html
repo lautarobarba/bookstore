@@ -1,9 +1,7 @@
 {% load static %}
 <div class="col-md-3" style="float:left">
     <div class="card mb-2 text-center">
-        <h1>FOTO</h1>
-        <!-- <img href="#" class="card-img-top"
-            src="{% static book.imagen %}" alt="{{ titulo }}"> -->
+        <img class="card-img-top book-cover mx-auto my-1" src="{{ book.cover.url }}" alt="{{ titulo }}">
         <div class="card-body">
             <h4 class="card-title">{{ book.title }}</h4>
             <p class="card-text">{{ book.price }}</p>
