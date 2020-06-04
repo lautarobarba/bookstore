@@ -22,11 +22,7 @@
 
         <div class="carousel-inner">
             {% for book in book_list_sale %}
-                {% if forloop.first %}
-                    {% include 'libreria/card-active.html' with imagen='img/mazerunner1.jpg' titulo=book.title sinopsis=book.sinopsis %}
-                {% else %}              
-                    {% include 'libreria/card.html' with imagen='img/mazerunner2.jpg' titulo=book.title sinopsis=book.sinopsis %}
-                {% endif %}
+                {% include 'market/book_card.html' %}
             {% endfor %}
             
         </div><!-- fin carousel inner -->
@@ -74,7 +70,7 @@
             <div class="carousel-item active">
                 {% for book in book_list %}
                     {% url 'book-view' book.id as detailurl %}
-                    {% include 'libreria/card-libro.html' with detailurl=detailurl imagen='img/mazerunner1.jpg' titulo=book.title sinopsis=book.sinopsis %}
+                    {% include 'market/book_card.html' %}
                 {% endfor %}
             </div>
             <!--/.First slide-->
@@ -83,7 +79,7 @@
             <div class="carousel-item">
                 {% for book in book_list %}
                     {% url 'book-view' book.id as detailurl %}
-                    {% include 'libreria/card-libro.html' with detailurl=detailurl imagen='img/mazerunner2.jpg' titulo=book.title sinopsis=book.sinopsis %}
+                    {% include 'market/book_card.html' %}
                 {% endfor %}
             </div>
 

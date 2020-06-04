@@ -23,3 +23,9 @@ h1 {
     bottom: 2px;
     width: 70px;
 }
+
+.book-cover {
+    position: relative;
+    height: 400px;
+    width: 300px;
+}

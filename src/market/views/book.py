@@ -57,22 +57,16 @@ class BookDetailView(DetailView):
     form_class = Form
     template_name = 'market/book_detail.html'
 
-    #def post(self, request, *args, **kwargs):
-        #form = self.form_class(request.POST)
-        #if form.is_valid():
-            #book_id = self.kwargs['pk']
-            #book = Book.objects.get(id=book_id)
-            #print(book)
-            #Con el request.user.carrito
-            #carrito = request.user.carrito
-            #carrito = Carrito.objects.get(id=carrito_id)
-            #print('Carrito: ')
-            #print(carrito.id)
-            #carrito.productos.add(book)
-            #Hacer relacion
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            book_id = self.kwargs['pk']
+            book = Book.objects.get(id=book_id)
 
-            #return HttpResponseRedirect('/success/')
-            #return render(request, self.template_name, {'form': form})
-            #return libro
-        #else:
-            #return render(request, self.template_name, {'form': form})
+            cart = request.user.cart
+
+            #cart.books.add(book, quantity=)
+
+            return render(request, self.template_name, {'form': form})
+        else:
+            return render(request, self.template_name, {'form': form})

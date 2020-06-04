@@ -21,7 +21,9 @@ class Book(models.Model):
     authors = models.ManyToManyField(Author, verbose_name='autor')
     editorial = models.ForeignKey(Editorial, verbose_name='editorial', on_delete=models.CASCADE)
     genres = models.ManyToManyField(Genre, verbose_name='generos')
-    #photo = 
+    cover = models.ImageField(verbose_name='portada', upload_to='book_cover/', null=True, blank=True)
+    created = models.DateTimeField(verbose_name='creado', auto_now_add=True, null=True)
+    #pictures = models.ManyToManyField(Genre, verbose_name='generos')
 
     class Meta():
         ordering = ['title']

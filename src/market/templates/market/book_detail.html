@@ -8,7 +8,7 @@
         <div class="row justify-content-center">
             <div class="col-12 col-md-8 col-lg-6">
                 <div class="card mx-auto w-75">
-                    <img src="#" class="card-img-top card-img-size" alt="#">
+                    <img src="{{ book.cover.url }}" class="card-img-top card-img-size" alt="#">
                     <div class="card-body">
                         <h5 class="card-title text-capitalize font-weight-bold d-inline-block">{{ book.title }}</h5> 
                         <h5 class="text-wrap float-right d-inline-block"><span class="badge badge-success">{{ book.price }} $</span></h5>
@@ -34,7 +34,6 @@
                         <div class="text-center">
                             <form method="post">
                                 {% csrf_token %}
-                                <!-- <a type="submit" href="#" class="btn btn-primary">Agregar al carro</a> -->
                                 <input type="submit" class="btn btn-primary" value="Agregar al carro">
                             </form>
                         </div>
