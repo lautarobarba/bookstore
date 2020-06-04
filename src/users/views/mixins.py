@@ -23,6 +23,10 @@ class GroupContextMixin(ContextMixin, View):
         context['user_id'] = self.user_id
         return context
 
+    def form_invalid(self, form):
+        self.get(self.request, self.args, self.kwargs)
+        return super().form_invalid(form)
+
 class ProfileOwnerMixin(GroupContextMixin):
     """
     Allow owners to edit only their profiles
