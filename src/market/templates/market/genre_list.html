@@ -12,7 +12,7 @@
             {% for genero in object_list %}
                 <li class="list-group-item">
                     <div class="float-left">
-                        <a href ="#" >{{ genero.name }}</a>
+                        <a href ="{% url 'book-genre-list' genero.name %}" >{{ genero.name }}</a>
                     </div>
                     {% if user_group == 'admin' %}
                         <div>
