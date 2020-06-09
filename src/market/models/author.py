@@ -9,7 +9,7 @@ class Author(models.Model):
         ordering = ['last_name']
 
     def __str__(self):
-        fullname = '{0}{1}{2}'.format(self.first_name, '-', self.last_name)
+        fullname = '{0} {1}'.format(self.first_name, self.last_name)
         return fullname.lower()
 
     def get_absolute_url(self):
