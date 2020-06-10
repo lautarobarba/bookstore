@@ -1,6 +1,7 @@
 from django.views.generic import DetailView
 from users.models import Profile
 from django.views.generic.edit import UpdateView
+from django.views.generic import ListView
 from django.contrib.auth.mixins import UserPassesTestMixin
 
 # Custom mixins
@@ -17,3 +18,4 @@ class ProfileUpdateView(ProfileOwnerMixin, UpdateView):
     model = Profile
     template_name = 'users/profile_update.html'
     fields = ['first_name', 'last_name', 'country', 'phone', 'picture']
+
