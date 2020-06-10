@@ -41,7 +41,7 @@
     <div class = "container my-5">
         <div class = "row">
             <div class = "col-12">
-                <h2 class="text-center">Productos Destacados</h2>
+                <h2 class="text-center">Últimos Libros</h2>
             </div>
         </div>
     </div><!--Spacer para productos destacados -->
@@ -68,8 +68,7 @@
 
             <!--First slide-->
             <div class="carousel-item active">
-                {% for book in book_list %}
-                    {% url 'book-view' book.id as detailurl %}
+                {% for book in book_list|slice:":5" %}
                     {% include 'market/book_card.html' %}
                 {% endfor %}
             </div>
@@ -77,10 +76,11 @@
 
             <!--Second slide-->
             <div class="carousel-item">
-                {% for book in book_list %}
-                    {% url 'book-view' book.id as detailurl %}
+                {% for book in book_list|slice:"4:" %}
                     {% include 'market/book_card.html' %}
                 {% endfor %}
             </div>
+        </div>
+    </div>
 
 {% endblock content %}

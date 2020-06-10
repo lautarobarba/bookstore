@@ -3,9 +3,9 @@
 {% block title %}Detalle - carrito{% endblock title %}
 
 {% block content %}
-
+    <a href="{% url 'home' %}" class="btn btn-primary btn-lg" role="button">Seguir Comprando</a>
     {% if can_edit %}
-    <h1>Carrito</h1>
+    <h1 class="text-center">Carrito</h1>
     <table class="table ">
     <thead class = "thead-dark"> 
         <tr>
@@ -24,10 +24,15 @@
                 <td>{{ renglon.book.price }}</td>
                 <td>{{ renglon.quantity }}</td>
                 <td>{{ renglon.get_value }}</td>
-                <td>{{ renglon.book.price|mul:renglon.quantity }}</td>
             </tr>
         {% endfor %}
     </tbody>
+    <tfoot>
+        <tr>
+          <th class="text-align-right" id="total" colspan="4">Total :</th>
+          <td>{{ total }}</td>
+        </tr>
+    </tfoot>
     </table>
     {% else %}
         <p> Este carrito no te pertenece rufian </p>

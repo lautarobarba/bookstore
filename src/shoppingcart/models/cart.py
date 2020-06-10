@@ -16,6 +16,12 @@ class Cart(models.Model):
     def get_absolute_url(self):
         return reverse('cart-detail', args=[str(self.id)])
 
+    def get_total(self):
+        total = 0
+        for book in self.productlist_set.all():
+            #print(book)
+            total += book.get_value()
+        return total 
 
 class ProductList(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)

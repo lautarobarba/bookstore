@@ -69,7 +69,6 @@ class BookDetailView(DetailView):
             o.quantity += 1
             o.save()
             #cart.books.add(book, through_defaults={'quantity': 1})
-
             #return render(request, self.template_name, {'form': form})
             return redirect(book)
         else:

@@ -8,6 +8,14 @@ class CartDetailView(CartOwnerMixin, LoginRequiredMixin, ListView):
     model = ProductList
     template_name = 'shoppingcart/cart_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        #cart = ProductList.objects.get(cart__id = self.kwargs['pk']).cart
+        cart = Cart.objects.get(pk = self.kwargs['pk'])
+        #print(cart)
+        context['total'] = cart.get_total()
+        return context
+
     def get_queryset(self):
         return ProductList.objects.filter(cart__id = self.kwargs['pk'])
 
