@@ -25,4 +25,12 @@ def add_to_wishlist(request, pk):
 
     return redirect('home')
 
+def remove_from_wishlist(request, pk):
+    book = get_object_or_404(Book, pk = pk)
+    wishlist = request.user.wishlist
+
+    wishlist.books.remove(book)
+
+    return redirect('home')
+
 

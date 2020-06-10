@@ -35,7 +35,16 @@ class Book(models.Model):
         return reverse('book-detail', args=[str(self.id)])
 
     def get_add_to_wishlist(self):
+        return reverse('add-to-wishlist', args=[str(self.id)])
+
+    def get_remove_from_wishlist(self):
+        return reverse('remove-from-wishlist', args=[str(self.id)])
+
+    def get_add_to_cart(self):
         return reverse('add-to-cart', args=[str(self.id)])
+
+    def get_remove_from_cart(self):
+        return reverse('remove-from-cart', args=[str(self.id)])
 
     def __str__(self):
         return '{0} {1}'.format(self.title, self.editorial)

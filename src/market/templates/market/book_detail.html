@@ -32,10 +32,13 @@
                         {% endif %}
                         <p class="card-text text-wrap text-justify"><strong>Sinopsis: </strong>{{ book.sinopsis }}</p>
                         <div class="text-center">
+                            {% comment %}
                             <form method="post">
                                 {% csrf_token %}
                                 <input type="submit" class="btn btn-primary" value="Agregar al carro">
                             </form>
+                            {% endcomment %}
+                            <a href="{{ book.get_add_to_cart }}" class="btn btn-primary">Agregar al carro</a>
                         </div>
                     </div>
                 </div>

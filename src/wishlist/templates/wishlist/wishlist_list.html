@@ -13,15 +13,19 @@
         <tr>
             <th scope="col">#</th>
             <th scope="col">Libro</th>
-            <th scope="col">Precio</th>        
+            <th scope="col">Precio</th>
+            <th scope="col">Comprar</th>  
+            <th scope="col">Sacar</th>      
         </tr>
     </thead>
     <tbody>
         {% for book in object_list %}       
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
-                <td><a href="{{ renglon.book.get_absolute_url }}">{{ book }}</a></td>
+                <td><a href="{{ book.get_absolute_url }}">{{ book }}</a></td>
                 <td>{{ book.price }}</td>
+                <td><a href="{{ book.get_add_to_cart }}" class="btn btn-primary">Agregar al carrito</a></td>
+                <td><a href="{{ book.get_remove_from_wishlist }}" class="btn btn-danger">Sacar</a></td>
             </tr>
         {% endfor %}
     </tbody>
