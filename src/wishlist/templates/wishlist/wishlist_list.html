@@ -7,11 +7,25 @@
 {% block content %}
 
     {% if can_edit %}
-        <ul>
-            {% for book in object_list %}
-                <li>{{ book }}</li>
-            {% endfor %}      
-        </ul>
+    <h1 class="text-center">Lista de Deseados</h1>
+    <table class="table ">
+    <thead class = "thead-dark"> 
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Libro</th>
+            <th scope="col">Precio</th>        
+        </tr>
+    </thead>
+    <tbody>
+        {% for book in object_list %}       
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td><a href="{{ renglon.book.get_absolute_url }}">{{ book }}</a></td>
+                <td>{{ book.price }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
         {% else %}
             <p> Esta wishlist no te pertenece rufian </p>
             <a href= "{% url 'home' %}">Inicio</a>
