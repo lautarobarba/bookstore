@@ -13,7 +13,8 @@
             <th scope="col">Libro</th>
             <th scope="col">Precio</th>
             <th scope="col">Cantidad</th> 
-            <th scope="col">Total</th>          
+            <th scope="col">Total</th>     
+            <th scope="col">Eliminar</th>     
         </tr>
     </thead>
     <tbody>
@@ -24,6 +25,7 @@
                 <td>{{ renglon.book.price }}</td>
                 <td>{{ renglon.quantity }}</td>
                 <td>{{ renglon.get_value }}</td>
+                <td><a class="btn btn-primary" href="{{ renglon.book.get_remove_from_cart }}">Eliminar</a></td>
             </tr>
         {% endfor %}
     </tbody>

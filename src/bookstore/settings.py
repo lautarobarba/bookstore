@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'market.apps.MarketConfig',
     'shoppingcart.apps.ShoppingcartConfig',
     'django_template_maths',
+    'wishlist.apps.WishlistConfig',
 ]
 
 MIDDLEWARE = [
