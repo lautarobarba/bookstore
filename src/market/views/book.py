@@ -58,18 +58,18 @@ class BookDetailView(DetailView):
     form_class = Form
     template_name = 'market/book_detail.html'
 
-    def post(self, request, *args, **kwargs):
-        form = self.form_class(request.POST)
-        if form.is_valid():
-            book_id = self.kwargs['pk']
-            book = Book.objects.get(id=book_id)
+    #def post(self, request, *args, **kwargs):
+        #form = self.form_class(request.POST)
+        #if form.is_valid():
+            #book_id = self.kwargs['pk']
+            #book = Book.objects.get(id=book_id)
 
-            cart = request.user.cart
-            o, status = ProductList.objects.get_or_create(cart = cart, book = book)
-            o.quantity += 1
-            o.save()
+            #cart = request.user.cart
+            #o, status = ProductList.objects.get_or_create(cart = cart, book = book)
+            #o.quantity += 1
+            #o.save()
             #cart.books.add(book, through_defaults={'quantity': 1})
             #return render(request, self.template_name, {'form': form})
-            return redirect(book)
-        else:
-            return render(request, self.template_name, {'form': form})
+            #return redirect(book)
+        #else:
+            #return render(request, self.template_name, {'form': form})

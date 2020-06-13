@@ -15,7 +15,7 @@ class Profile(models.Model):
     country = models.ForeignKey(Country, verbose_name='país', null=True, blank=True, on_delete=models.SET_NULL)
     phone = models.CharField(verbose_name='teléfono', max_length=12, null=True, blank=True)
     picture = models.ImageField(verbose_name='foto de perfil', upload_to='users/', null=True, blank=True)
-    
+
     # Role
     # Add default "user" group
     group = models.ForeignKey(Group, verbose_name='grupo', null=True, blank=True, on_delete=models.SET_NULL)

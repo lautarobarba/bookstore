@@ -22,7 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('market.urls')),
     path('user/', include('users.urls')),
-    path('shoppingcart/', include('shoppingcart.urls')),   
+    path('shoppingcart/', include('shoppingcart.urls')),
+    path('wishlist/', include('wishlist.urls')),   
 ]
 
 if settings.DEBUG:
