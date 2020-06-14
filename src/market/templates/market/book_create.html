@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base_dashboard.html' %}
 {% load crispy_forms_tags %}
 
 {% block title %}
@@ -8,7 +8,7 @@
 {% block content %}
     <div class="container">
         <h1>Agregar Libro</h1>
-        {% if user_group == 'admin' %}
+        {% if user.profile.group.name == 'admin' %}
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form|crispy }}

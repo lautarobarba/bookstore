@@ -1,0 +1,113 @@
+
+    <!-- Sidebar -->
+    <nav id="sidebar" class="active">
+        <div class="sidebar-header">
+            <h3>Dashboard</h3>
+        </div>
+    
+        {% if user.profile.group.name == 'admin' %}
+            <ul class="active list-group" data-toggle="collapse" aria-expanded="false">
+                <li><a href="{% url 'country-list' %}" class="list-group-item list-group-item-action active">
+                    Países
+                </a></li>
+                <li><a href="{% url 'country-new' %}" class="list-group-item list-group-item-action">Agregar País</a></li>
+                <li><a href="{% url 'country-list' %}" class="list-group-item list-group-item-action">Eliminar/Modificar País</a></li>
+            </ul>
+            <ul class="list-group" data-toggle="collapse" aria-expanded="false">
+                <li><a href="{% url 'author-list' %}" class="list-group-item list-group-item-action active">
+                    Autores
+                </a></li>
+                <li><a href="{% url 'author-new' %}" class="list-group-item list-group-item-action">Agregar Autor</a></li>
+                <li><a href="{% url 'author-list' %}" class="list-group-item list-group-item-action">Eliminar/Modificar Autor</a></li>
+            </ul>
+            <ul class="list-group" data-toggle="collapse" aria-expanded="false">
+                <li><a href="{% url 'editorial-list' %}" class="list-group-item list-group-item-action active">
+                    Editoriales
+                </a></li>
+                <li><a href="{% url 'editorial-new' %}" class="list-group-item list-group-item-action">Agregar Editorial</a></li>
+                <li><a href="{% url 'editorial-list' %}" class="list-group-item list-group-item-action">Eliminar/Modificar Editorial</a></li>
+            </ul>
+            <ul class="list-group" data-toggle="collapse" aria-expanded="false">
+                <li><a href="{% url 'genre-list' %}" class="list-group-item list-group-item-action active">
+                    Géneros
+                </a></li>
+                <li><a href="{% url 'genre-new' %}" class="list-group-item list-group-item-action">Agregar Género</a></li>
+                <li><a href="{% url 'genre-list' %}" class="list-group-item list-group-item-action">Eliminar/Modificar Género</a></li>
+            </ul>
+            <ul class="list-group" data-toggle="collapse" aria-expanded="false">
+                <li><a href="{% url 'book-admin-list' %}" class="list-group-item list-group-item-action active">
+                    Libros
+                </a></li>
+                <li><a href="{% url 'book-new' %}" class="list-group-item list-group-item-action">Agregar Libro</a></li>
+                <li><a href="{% url 'book-admin-list' %}" class="list-group-item list-group-item-action">Eliminar/Modificar Libro</a></li>
+            </ul>
+    </nav>
+   
+        
+    
+    {% else %}
+        <h2>No tienes permitido ver este sitio. No eres administrador.</h2>
+        <a class="btn btn-primary" href="{% url 'home' %}">Volver</a>
+    {% endif %}
+
+ 
+
+   
+<!--
+        <div class="container">
+            <h1 class="col-12 text-center">Dashboard</h1>
+            {% if user.profile.group.name == 'admin' %}
+
+                <h2>Países</h2>
+                <ul class="list-group">
+                    <li><a class="list-group-item active" href="{% url 'country-list' %}">Lista de países</a></li>
+                    <li><a class="list-group-item" href="{% url 'country-new' %}">Agregar país</a></li>
+                    <li><a class="list-group-item" href="{% url 'country-list' %}">Modificar/Eliminar país</a></li>
+                </ul>
+
+                <h2>Autores</h2>
+                <ul>
+                    <li><a class="list-group-item" href="{% url 'author-new' %}">Agregar autor</a></li>
+                    <li><a class="list-group-item" href="{% url 'author-list' %}">Modificar/Eliminar autor</a></li>
+                </ul>
+
+                <h2>Editoriales</h2>
+                <ul>
+                    <li><a class="list-group-item" href="{% url 'editorial-new' %}">Agregar editorial</a></li>
+                    <li><a class="list-group-item" href="{% url 'editorial-list' %}">Modificar/Eliminar editorial</a></li>
+                </ul>
+
+                <h2>Géneros</h2>
+                <ul>
+                    <li><a class="list-group-item" href="{% url 'genre-new' %}">Agregar género</a></li>
+                    <li><a class="list-group-item" href="{% url 'genre-list' %}">Modificar/Eliminar género</a></li>
+                </ul>
+
+                <h2>Libro</h2>
+                <ul>
+                    <li><a class="list-group-item" href="{% url 'book-new' %}">Agregar libro</a></li>
+                    <li><a class="list-group-item" href="{% url 'book-admin-list' %}">Modificar/Eliminar libro</a></li>
+                </ul>
+
+                <h2>Promoción</h2>
+                <ul>
+                    <li><a class="list-group-item" href="#">Agregar promoción</a></li>
+                    <li><a class="list-group-item" href="#">Modificar/Eliminar promoción</a></li>
+                </ul>
+
+                <h2>Grupos</h2>
+                <ul>
+                    <li><a class="list-group-item" href="#">Agregar grupo</a></li>
+                    <li><a class="list-group-item" href="#">Modificar/Eliminar grupo</a></li>
+                </ul>
+
+                <div class="col-12 text-center">
+                    <a class="btn btn-primary mx-auto" href="{% url 'home' %}">Volver al Inicio</a>
+                </div>
+            {% else %}
+                <h2>No tienes permitido ver este sitio. No eres administrador.</h2>
+                <a class="btn btn-primary" href="{% url 'home' %}">Volver</a>
+            {% endif %} 
+        
+        </div>
+        -->

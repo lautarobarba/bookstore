@@ -36,7 +36,7 @@
                 <!-- Botones cuenta -->
                 {% if user.is_authenticated %}
                     {% if user.profile.group.name == 'admin' %}
-                        <a class="nav-item nav-link text-center" href="{% url 'dashboard' %}">Dashboard</a>
+                        <button id="sidebarCollapse" class="nav-item nav-link text-center" href="{% url 'dashboard' %}">Dashboard</button>
                     {% endif %}
                     <a class="nav-item nav-link text-center" href="{% url 'wishlist-list' user.wishlist.id %}"><span class="fa fa-heart fa-lg btn"></span></a>
                     <a class="nav-item nav-link text-center" href="{% url 'cart-detail' user.cart.id %}"><span class="fa fa-shopping-cart fa-lg btn"></span></a>
