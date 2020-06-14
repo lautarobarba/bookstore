@@ -24,10 +24,13 @@ h1 {
     width: 70px;
 }
 
+.card {
+    height: 500px;
+}
 .book-cover {
     position: relative;
-    height: 400px;
-    width: 300px;
+    height: 60%;
+    width: 100%;
 }
 
 .wrapper {
