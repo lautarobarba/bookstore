@@ -1,12 +1,13 @@
 {% load static %}
 <div class="col-md-3" style="float:left">
-    <div class="card mb-2 text-center">
+    <div class="card mb-2 text-center border-warning">
         <img class="card-img-top book-cover mx-auto my-1" src="{{ book.cover.url }}" alt="{{ titulo }}">
         <div class="card-body">
-            <h4 class="card-title">{{ book.title }}</h4>
-            <p class="card-text">{{ book.price }}</p>
-            <a href="{{ book.get_absolute_url }}" class="btn btn-primary">Ver</a>
-            <a href="{{ book.get_add_to_wishlist }}" class="btn btn-primary">Agregar a deseados</a>
+            <h4 class="card-title ">{{ book.title }}</h4>
+            <p class="card-text mb-2 font-weight-bold">${{ book.price }}</p>
+            <p class="text-center text-truncate" >{{ book.sinopsis }}</p>
+            <a href="{{ book.get_absolute_url }}" class="btn btn-primary">VER</a>
+            <a href="{{ book.get_add_to_wishlist }}" class="btn btn-danger"><i class="fa fa-heart"></i></a>
         </div>
     </div>
 </div>

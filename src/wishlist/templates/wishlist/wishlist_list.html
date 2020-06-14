@@ -7,7 +7,7 @@
 {% block content %}
 
     {% if can_edit %}
-    <h1 class="text-center">Lista de Deseados</h1>
+    <h1 class="text-center"> TUS ME GUSTA</h1>
     <table class="table ">
     <thead class = "thead-dark"> 
         <tr>
@@ -26,6 +26,12 @@
                 <td>{{ book.price }}</td>
                 <td><a href="{{ book.get_add_to_cart }}" class="btn btn-primary">Agregar al carrito</a></td>
                 <td><a href="{{ book.get_remove_from_wishlist }}" class="btn btn-danger">Sacar</a></td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td>
+                    <p> TUS ME GUSTA ESTÁN VACÍOS </p>
+                </td>
             </tr>
         {% endfor %}
     </tbody>

@@ -1,7 +1,9 @@
 from django.shortcuts import get_object_or_404, redirect
 from market.models import Book
 from shoppingcart.models import ProductList
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def add_to_cart(request, pk):
     book = get_object_or_404(Book, pk = pk)
     cart = request.user.cart
@@ -10,8 +12,16 @@ def add_to_cart(request, pk):
     o.quantity += 1
     o.save()
 
-    return redirect('home')
+    wishlist = request.user.wishlist
+    #print(book)
+    #print(wishlist.books.get(pk = pk))
+    #if (book == wishlist.books.get(pk = pk)):
+        #print("hello")
+        #book.get_remove_from_wishlist()
 
+    return redirect(cart.get_absolute_url())
+
+@login_required
 def remove_from_cart(request, pk):
     book = get_object_or_404(Book, pk = pk)
     cart = request.user.cart
@@ -25,4 +35,4 @@ def remove_from_cart(request, pk):
             o.quantity -= 1
             o.save()
 
-    return redirect('home')
+    return redirect(cart.get_absolute_url())

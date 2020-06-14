@@ -7,41 +7,53 @@
     <div class = "container my-3">
         <div class = "row">
             <div class = "col-12">
-                <h1 class="text-center">Ofertas</h1>
+                <h1 class="text-center">OFERTAS<i class="fa fa-gift ml-2"></i></h1>
             </div>
         </div>
     </div><!--Spacer para ofertas -->
 
-    <div id="carouselOfertas" class="carousel slide" data-ride="carousel">
+    <!--Carousel ofertas Wrapper-->
+    <div id="carouselOfertas" class="carousel slide carousel-multi-item" data-ride="carousel">
 
+        <!--Controls-->
+        <div class="controls-top text-center">
+            <a class="btn-floating" href="#carouselOfertas" data-slide="prev"><i class="fa fa-lg fa-chevron-left"></i></a>
+            <a class="btn-floating" href="#carouselOfertas" data-slide="next"><i class="fa fa-lg fa-chevron-right"></i></a>
+        </div>
+        <!--/.Controls-->
+
+        <!--Indicators-->
         <ol class="carousel-indicators">
             <li data-target="#carouselOfertas" data-slide-to="0" class="active"></li>
             <li data-target="#carouselOfertas" data-slide-to="1"></li>
-            <li data-target="#carouselOfertas" data-slide-to="2"></li>
         </ol>
+        <!--/.Indicators-->
 
-        <div class="carousel-inner">
-            {% for book in book_list_sale %}
-                {% include 'market/book_card.html' %}
-            {% endfor %}
-            
-        </div><!-- fin carousel inner -->
+        <!--Slides-->
+        <div class="carousel-inner" role="listbox">
 
-        <a class="carousel-control-prev" href="#carouselOfertas" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselOfertas" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
-    </div><!-- fin carousel ofertas -->
+            <!--First slide-->
+            <div class="carousel-item active">
+                {% for book in book_list_sale|slice:":4" %}
+                    {% include 'market/book_card.html' %}
+                {% endfor %}
+            </div>
+            <!--/.First slide-->
 
+            <!--Second slide-->
+            <div class="carousel-item">
+                {% for book in book_list_sale|slice:"4:" %}
+                    {% include 'market/book_card.html' %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
     <!--Spacer para productos destacados -->
     <div class = "container my-5">
         <div class = "row">
             <div class = "col-12">
-                <h2 class="text-center">Últimos Libros</h2>
+                <h2 class="text-center">ÚLTIMOS LIBROS<i class="fa fa-book ml-2"></i></h2>
             </div>
         </div>
     </div><!--Spacer para productos destacados -->
@@ -50,9 +62,9 @@
     <div id="categoriaDestacada" class="carousel slide carousel-multi-item" data-ride="carousel">
 
         <!--Controls-->
-        <div class="controls-top">
-            <a class="btn-floating" href="#categoriaDestacada" data-slide="prev"><i class="fa fa-chevron-left"></i></a>
-            <a class="btn-floating" href="#categoriaDestacada" data-slide="next"><i class="fa fa-chevron-right"></i></a>
+        <div class="controls-top text-center">
+            <a class="btn-floating" href="#categoriaDestacada" data-slide="prev"><i class="fa fa-lg fa-chevron-left"></i></a>
+            <a class="btn-floating" href="#categoriaDestacada" data-slide="next"><i class="fa fa-lg fa-chevron-right"></i></a>
         </div>
         <!--/.Controls-->
 
@@ -68,7 +80,7 @@
 
             <!--First slide-->
             <div class="carousel-item active">
-                {% for book in book_list|slice:":5" %}
+                {% for book in book_list|slice:":4" %}
                     {% include 'market/book_card.html' %}
                 {% endfor %}
             </div>

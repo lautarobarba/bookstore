@@ -5,6 +5,7 @@ from django.shortcuts import get_object_or_404, redirect
 from market.models import Book
 from wishlist.models import Wishlist
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -17,20 +18,22 @@ class WishlistDetailView(WishlistOwnerMixin, LoginRequiredMixin, ListView):
         #print(list)
         return list
 
+@login_required
 def add_to_wishlist(request, pk):
     book = get_object_or_404(Book, pk = pk)
     wishlist = request.user.wishlist
 
     wishlist.books.add(book)
 
-    return redirect('home')
+    return redirect('/')
 
+@login_required
 def remove_from_wishlist(request, pk):
     book = get_object_or_404(Book, pk = pk)
     wishlist = request.user.wishlist
 
     wishlist.books.remove(book)
 
-    return redirect('home')
+    return redirect(wishlist.get_absolute_url())
 
 

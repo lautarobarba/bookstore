@@ -18,11 +18,13 @@ class Book(models.Model):
     sinopsis = models.CharField(max_length=255)
     price = models.FloatField(verbose_name='precio')
     sale = models.CharField(verbose_name='promoción', max_length=1 ,choices=SALE_CHOICES, null=True, blank=True)
+    created = models.DateTimeField(verbose_name='creado', auto_now_add=True, null=True)
+    #Relations
     authors = models.ManyToManyField(Author, verbose_name='autor')
     editorial = models.ForeignKey(Editorial, verbose_name='editorial', on_delete=models.CASCADE)
     genres = models.ManyToManyField(Genre, verbose_name='generos')
     cover = models.ImageField(verbose_name='portada', upload_to='book_cover/', null=True, blank=True)
-    created = models.DateTimeField(verbose_name='creado', auto_now_add=True, null=True)
+    
     #pictures = models.ManyToManyField(Genre, verbose_name='generos')
 
     class Meta():
