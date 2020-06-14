@@ -25,7 +25,11 @@ SECRET_KEY = 'nvce7whn2y5x)rykajn@zv$em7n&zny(8ye21&%-xor*)&x!i3'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['theeyeofminds.sytes.net', 'localhost', '127.0.0.1',]
+ALLOWED_HOSTS = [
+    'theeyeofminds.sytes.net',
+    'localhost',
+    '127.0.0.1',
+]
 
 
 # Application definition
