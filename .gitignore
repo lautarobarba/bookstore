@@ -7,6 +7,9 @@ venv
 # Users profile pictures
 src/media/users
 
+# Book covers pictures
+src/media/book_cover
+
 # SQLite Database
 src/db.sqlite3
 .vscode/settings.json
