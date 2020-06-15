@@ -3,6 +3,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
 from django.urls import reverse
 from .country import Country
+from PIL import Image
 
 # User set in global settings
 User = get_user_model()
@@ -19,6 +20,16 @@ class Profile(models.Model):
     # Role
     # Add default "user" group
     group = models.ForeignKey(Group, verbose_name='grupo', null=True, blank=True, on_delete=models.SET_NULL)
+
+
+    # Modifico el save para que redimensione la imagen antes de guardar
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        img = Image.open(self.picture.path)
+
+        if img.height > 300 or img.weight > 300:
+            img.thumbnail((300, 300))
+            img.save(self.picture.path)
 
     def __str__(self):
         if self.first_name and self.last_name:

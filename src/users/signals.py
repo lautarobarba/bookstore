@@ -18,26 +18,6 @@ def create_profile(sender, instance, created, **kwargs):
         profile = Profile(user=instance)
         profile.save()
 
-
-
-#@receiver(post_save, sender=Profile)
-#def edit_profile_picture(sender, instance, created, **kwargs):
-    #if instance.picture:
-        #print('Este perfil tiene una foto')
-        #print(instance.picture.url)
-        #img_filename = '..' + instance.picture.url
-        #print(img_filename)
-        #with Image.open(img_filename) as img:
-            #print(img.size)
-
-            #if (img.height > 300) or (img.width > 300):
-                #print('Se edito el tamaño de la imagen')
-                #img.thumbnail((300, 300))
-                #img.save(img_filename)
-
-            #print(img.size)
-
-
 @receiver(post_save, sender=Profile)
 def asign_group(sender, instance, created, **kwargs):
     if instance.group == None:
