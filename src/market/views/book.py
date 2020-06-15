@@ -58,18 +58,21 @@ class BookDetailView(DetailView):
     form_class = Form
     template_name = 'market/book_detail.html'
 
-    #def post(self, request, *args, **kwargs):
-        #form = self.form_class(request.POST)
-        #if form.is_valid():
-            #book_id = self.kwargs['pk']
-            #book = Book.objects.get(id=book_id)
+class BookSearchView(ListView):
+    model = Book 
+    form_class = Form
 
-            #cart = request.user.cart
-            #o, status = ProductList.objects.get_or_create(cart = cart, book = book)
-            #o.quantity += 1
-            #o.save()
-            #cart.books.add(book, through_defaults={'quantity': 1})
-            #return render(request, self.template_name, {'form': form})
-            #return redirect(book)
-        #else:
-            #return render(request, self.template_name, {'form': form})
+    def get(self, request, *args, **kwargs):
+        try:
+            q = request.GET.get('q')
+        except:
+            q = None
+
+        self.q = q
+        return super().get(request, *args, **kwargs)
+
+    def get_queryset(self):
+        if self.q:
+            return Book.objects.filter(title__icontains=self.q)
+        else:
+            return Book.objects.all()

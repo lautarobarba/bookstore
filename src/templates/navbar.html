@@ -18,18 +18,24 @@
     <!-- Navbar colapsable --> 
     <div class="collapse navbar-collapse" id="navbarMenu">
 
-        <!-- Parte central de la navbar 
+        <!-- Parte central de la navbar -->
         <div class="d-flex flex-row mx-auto text-center">
-            <a class="nav-item nav-link text-center" href="#"><span class="fa fa-search btn btn-outline-secondary"></span></span></a>
+            <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'book-search' %}">
+                <input name="q" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit"><span class="fa fa-search"></span></button>
+            </form>
+        </div>   
+        
+        <!-- icono del carrito 
             <a class="nav-item nav-link text-center" href="#"><span class="fa fa-shopping-cart fa-lg btn btn-outline-secondary"></span></a>
-        </div> -->
+        -->
 
         <!-- Parte derecha navbar -->
         <div class="ml-auto">
             <ul class="navbar-nav">
                 <!-- Botón Inicio -->
                 <a class="nav-item nav-link text-center" href="{% url 'home' %}">Inicio</a>
-                
+
                 <!-- Botón Géneros -->
                 <a class="nav-item nav-link text-center" href="{% url 'genre-list' %}">Géneros</a>
 
