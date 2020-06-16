@@ -14,9 +14,9 @@ urlpatterns = [
     ####
     path('book/search/', BookSearchView.as_view(), name='book-search'),  
     ####
-    path('book/genre/<slug:genre>/', BookListView.as_view(), {'type': 'genre'}, name='book-genre-list'),  
-    path('book/author/<slug:first_name>-<slug:last_name>/', BookListView.as_view(), {'type': 'author'} , name='book-author-list'),  
-    path('book/editorial/<slug:editorial>/', BookListView.as_view(), {'type': 'editorial'} , name='book-editorial-list'),  
+    path('book/genre/<str:genre>/', BookListView.as_view(), {'type': 'genre'}, name='book-genre-list'),  
+    path('book/author/<str:first_name>-<str:last_name>/', BookListView.as_view(), {'type': 'author'} , name='book-author-list'),  
+    path('book/editorial/<str:editorial>/', BookListView.as_view(), {'type': 'editorial'} , name='book-editorial-list'),  
     path('dashboard/', DashboardView.as_view(), name='dashboard'),
     # Author URLS
     path('author/', AuthorListView.as_view(), name='author-list'),

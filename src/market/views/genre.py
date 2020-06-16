@@ -12,9 +12,10 @@ class GenreCreateView(GroupContextMixin, LoginRequiredMixin, CreateView):
     template_name = 'market/genre_create.html'
     fields = '__all__'
 
-class GenreListView(GroupContextMixin, LoginRequiredMixin, ListView):
+class GenreListView(ListView):
     model = Genre
     queryset = Genre.objects.order_by('name')
+    paginate_by = 10
 
 class GenreUpdateView(GroupContextMixin, LoginRequiredMixin, UpdateView):
     model = Genre

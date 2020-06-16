@@ -6,14 +6,14 @@
 
 {% block content %}
     <div class="container">
-        <h1 class="text-center">Géneros cargados</h1>
+        <h1 class="text-center">Géneros</h1>
         <ul class="list-group">
             {% for genero in object_list %}
                 <li class="list-group-item">
                     <div class="float-left">
                         <a href ="{% url 'book-genre-list' genero.name %}" >{{ genero.name }}</a>
                     </div>
-                    {% if user_group == 'admin' %}
+                    {% if user.is_authenticated and user.profile.group.name == 'admin' %}
                         <div>
                             <a class="mx-3 float-right" href="{% url 'genre-delete' genero.id %}">Eliminar</a>
                             <a class="mx-3 float-right" href="{% url 'genre-update' genero.id %}">Modificar</a>
@@ -22,10 +22,13 @@
                 </li>
             {% endfor %}
         </ul>
-        {% if user_group == 'admin' %}
-        <div class="text-center my-3">
-            <a class="btn btn-primary" href="{% url 'genre-new' %}">Agregar género</a>
+        <div class="my-2">
+            {% include 'paginator.html' %}
         </div>
+        {% if user.is_authenticated and user.profile.group.name == 'admin' %}
+            <div class="text-center my-0">
+                <a class="btn btn-primary" href="{% url 'genre-new' %}">Agregar género</a>
+            </div>
         {% endif %}
     </div>
 {% endblock %}

@@ -10,49 +10,64 @@
         </a>
     </div>
 
-    <!-- Icono colapso -->
-    <button class="navbar-toggler mx-3" type="button" data-toggle="collapse" data-target="#navbarMenu" aria-controls="navbarMenu" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    <div class="align-right">
+        <!-- Icono colapso Búsqueda -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSearch" aria-controls="navbarSearch" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fa fa-search"></i>
+        </button>
 
-    <!-- Navbar colapsable --> 
-    <div class="collapse navbar-collapse" id="navbarMenu">
+        <!-- Icono colapso Libro -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarBook" aria-controls="navbarBook" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fa fa-book"></i><i class="fa fa-caret-down ml-1"></i>
+        </button>
 
+        <!-- Icono colapso Usuario -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarUser" aria-controls="navbarUser" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fa fa-user"></i><i class="fa fa-caret-down ml-1"></i>
+        </button>
+    </div>
+
+    <!-- Navbar colapsable Búsqueda --> 
+    <div class="collapse navbar-collapse" id="navbarSearch">
         <!-- Parte central de la navbar -->
-        <div class="d-flex flex-row mx-auto text-center">
+        <div class="d-flex mx-auto text-center">
             <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'book-search' %}">
-                <input name="q" class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit"><span class="fa fa-search"></span></button>
+                <input name="q" class="form-control mr-sm-2 d-inline" type="search" placeholder="Buscar" aria-label="Search">
+                <button class="btn btn-outline-secondary my-2 my-sm-0 d-inline" type="submit"><i class="fa fa-search"></i></button>
             </form>
-        </div>   
-        
-        <!-- icono del carrito 
-            <a class="nav-item nav-link text-center" href="#"><span class="fa fa-shopping-cart fa-lg btn btn-outline-secondary"></span></a>
-        -->
+        </div>
+    </div><!-- fin Navbar colapsable Búsqueda -->
 
-        <!-- Parte derecha navbar -->
-        <div class="ml-auto">
-            <ul class="navbar-nav">
-                <!-- Botón Inicio -->
-                <a class="nav-item nav-link text-center" href="{% url 'home' %}">Inicio</a>
+    <!-- Navbar colapsable Libro --> 
+    <div class="collapse navbar-collapse" id="navbarBook">
+        <ul class="navbar-nav">
+            <!-- Botón Géneros -->
+            <a class="nav-item nav-link text-center" href="{% url 'genre-list' %}">Géneros</a>
+            <!-- Botón Autores -->
+            <a class="nav-item nav-link text-center" href="#">Autores</a>
+            <!-- Botón Novedades -->
+            <a class="nav-item nav-link text-center" href="#">Novedades</a>
+            <!-- Botón Ofertas -->
+            <a class="nav-item nav-link text-center" href="#">Ofertas</a>
+        </ul>
+    </div><!-- fin Navbar colapsable Libro -->
 
-                <!-- Botón Géneros -->
-                <a class="nav-item nav-link text-center" href="{% url 'genre-list' %}">Géneros</a>
-
-                <!-- Botones cuenta -->
-                {% if user.is_authenticated %}
-                    {% if user.profile.group.name == 'admin' %}
-                        <button id="sidebarCollapse" class="nav-item nav-link text-center" href="{% url 'dashboard' %}">Dashboard</button>
-                    {% endif %}
-                    <a class="nav-item nav-link text-center" href="{% url 'wishlist-list' user.wishlist.id %}"><span class="fa fa-heart fa-lg btn"></span></a>
-                    <a class="nav-item nav-link text-center" href="{% url 'cart-detail' user.cart.id %}"><span class="fa fa-shopping-cart fa-lg btn"></span></a>
-                    <a class="nav-item nav-link text-center" href="{{ user.get_absolute_url }}">{{ user.profile }}</a>
-                    <a class="nav-item nav-link text-center" href="{% url 'user-logout' %}">Salir</a>
-                    {% else %}
-                    <a class="nav-item nav-link text-center" href="{% url 'user-login' %}">Iniciar sesión</a>
-                    <a class="nav-item nav-link text-center" href="{% url 'user-new' %}">Registrarse</a>
+    <!-- Navbar colapsable Usuario --> 
+    <div class="collapse navbar-collapse" id="navbarUser">
+        <ul class="navbar-nav">
+            <!-- Botones cuenta -->
+            {% if user.is_authenticated %}
+                {% if user.profile.group.name == 'admin' %}
+                    <button id="sidebarCollapse" class="nav-item nav-link text-center" href="{% url 'dashboard' %}">Dashboard</button>
                 {% endif %}
-            </ul>
-        </div><!-- fin Parte derecha navbar -->
-    </div><!-- fin de los links colapsables-->
-</nav><!-- End of Navbar -->
+                <a class="nav-item nav-link text-center" href="{% url 'wishlist-list' user.wishlist.id %}"><span class="fa fa-heart fa-lg btn"></span></a>
+                <a class="nav-item nav-link text-center" href="{% url 'cart-detail' user.cart.id %}"><span class="fa fa-shopping-cart fa-lg btn"></span></a>
+                <a class="nav-item nav-link text-center" href="{{ user.get_absolute_url }}">{{ user.profile }}</a>
+                <a class="nav-item nav-link text-center" href="{% url 'user-logout' %}">Salir</a>
+                {% else %}
+                <a class="nav-item nav-link text-center" href="{% url 'user-login' %}">Iniciar sesión</a>
+                <a class="nav-item nav-link text-center" href="{% url 'user-new' %}">Registrarse</a>
+            {% endif %}
+        </ul>
+    </div><!-- fin Navbar colapsable Usuario -->
+</nav><!-- fin Navbar -->
