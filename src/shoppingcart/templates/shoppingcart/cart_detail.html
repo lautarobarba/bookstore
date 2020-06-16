@@ -44,6 +44,10 @@
         </tr>
     </tfoot>
     </table>
+
+    <!-- Comprar -->
+    <a href="{% url 'order-new' %}" class="btn btn-primary btn-lg" role="button">Finalizar Compra</a>
+
     {% else %}
         <p> Este carrito no te pertenece rufian </p>
         <a href= "{% url 'home' %}">Inicio</a>

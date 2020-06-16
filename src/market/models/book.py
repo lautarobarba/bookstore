@@ -39,8 +39,8 @@ class Book(models.Model):
         super().save(*args, **kwargs)
         if self.cover:
             img = Image.open(self.cover.path)
-            if img.height > 700 or img.width > 400:
-                img.thumbnail((700, 400))
+            if img.height > 400 or img.width > 250:
+                img.thumbnail((400, 200))
                 img.save(self.cover.path)
         
     def get_absolute_url(self):

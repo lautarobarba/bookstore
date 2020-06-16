@@ -2,8 +2,6 @@ import json
 from market.models import Book, Author, Editorial, Genre
 from random import randrange
 
-#import .cargar_autores, .cargar_editoriales, .cargar_generos, .cargar_paises
-
 # Selecciono Autor, Editorial y Género de manera aleatoria
 with open('autores.json', 'r') as fp:
     autores = json.load(fp)
@@ -29,4 +27,4 @@ for l in libros:
     #Necesita una id para crear la relación, por eso lo guarde antes
     n.authors.add(autor_random)
     n.genres.add(genero_random)
-    print('GUARDADO: ' + n)
+    print('GUARDADO: ' + n.title)

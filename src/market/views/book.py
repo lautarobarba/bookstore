@@ -61,7 +61,7 @@ class BookSearchView(ListView):
     form_class = Form
     template_name = 'market/book_search_list.html'
     paginate_by = 10
-
+    
     def get(self, request, *args, **kwargs):
         try:
             self.title = request.GET.get('title')

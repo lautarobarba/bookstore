@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Comprar{% endblock title %}
+
+{% block content %}
+    <div class="container">
+        <h1>¿Esta seguro que desea confirmar la Compra?</h1>
+        <form method="post">
+            {% csrf_token %}
+            <a class="btn btn-danger" href="#">Cancelar</a>
+            <!-- <input type="hidden" name="user_id" value="{{ user.id }}"> -->
+            <input type="submit" value="Confirmar Compra" class="btn btn-primary">
+        </form>
+    </div>
+{% endblock content %}

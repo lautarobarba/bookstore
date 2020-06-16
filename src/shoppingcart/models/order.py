@@ -5,16 +5,14 @@ from django.urls import reverse
 
 User = get_user_model()
 
-class Cart(models.Model):
-    client = models.OneToOneField(User, on_delete=models.CASCADE)
-    books = models.ManyToManyField(Book, through='ProductList')
+class Order(models.Model):
+    client = models.ForeignKey(User, on_delete=models.CASCADE)
+    books = models.ManyToManyField(Book, through='OrderLine')
+    date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'Carrito de {self.client.profile}'
-
-    def get_absolute_url(self):
-        return reverse('cart-detail', args=[str(self.id)])
-
+        return f'Compra N°: {self.id}. Cliente: {self.client.profile}'
+    
     def get_total(self):
         total = 0
         for book in self.productlist_set.all():
@@ -22,8 +20,11 @@ class Cart(models.Model):
             total += book.get_value()
         return total
 
-class ProductList(models.Model):
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    def get_absolute_url(self):
+        return reverse('cart-detail', args=[str(sself.client.cart.id)])
+
+class OrderLine(models.Model):
+    order = models.ForeignKey(Order, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)
     quantity = models.IntegerField(default=0)
 
