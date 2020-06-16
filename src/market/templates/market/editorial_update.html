@@ -2,13 +2,13 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-    Editorial - Edición
+    Editorial
 {% endblock %}
 
 {% block content %}
     <div class="container">
         <h1>Editar Editorial</h1>
-        {% if user_group == 'admin' %}
+        {% if user.is_authenticated and user.profile.group.name == 'admin' %}
             <form method="post">
                 {% csrf_token %}
                 {{ form|crispy }}

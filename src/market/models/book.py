@@ -34,7 +34,6 @@ class Book(models.Model):
             models.UniqueConstraint(fields=['title', 'editorial'], name='unique title in editorial')
         ]
 
-    # Modifico el save para que redimensione la imagen antes de guardar
     def save(self, *args, **kwargs):
         super().save(*args, **kwargs)
         img = Image.open(self.cover.path)

@@ -2,13 +2,13 @@
 {% load crispy_forms_tags %}
 
 {% block title %}
-    Autor - Edición
+    Autor
 {% endblock %}
 
 {% block content %}
     <div class="container">
         <h1>Editar Autor</h1>
-        {% if user_group == 'admin' %}
+        {% if user.is_authenticated and user.profile.group.name == 'admin' %}
             <form method="post">
                 {% csrf_token %}
                 {{ form|crispy }}
@@ -17,7 +17,7 @@
             </form>
         {% else %}
             <h2>Necesitas ser administrador para editar un autor</h2>
-            <a class="btn btn-primary" href="{% url 'country-list' %}">Volver</a>
+            <a class="btn btn-primary" href="{% url 'author-list' %}">Volver</a>
         {% endif %}
     </div>
 {% endblock %}

@@ -7,11 +7,17 @@ class Author(models.Model):
 
     class Meta():
         ordering = ['last_name', 'first_name']
+        #Agregar unique(first_name + last_name) 
+        #Para que no se repitan autores
 
     def __str__(self):
         fullname = '{0} {1}'.format(self.first_name, self.last_name)
-        #return fullname.lower()
         return fullname
+    
+    def save(self, *args, **kwargs):
+        self.first_name = self.first_name.title()
+        self.last_name = self.last_name.title()
+        super().save(*args, **kwargs)
 
     def get_absolute_url(self):
         return reverse('author-list')

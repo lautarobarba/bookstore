@@ -6,15 +6,15 @@
 
 {% block content %}
     <div class="container">
-        <h1 class="text-center">Editoriales cargadas</h1>
-        </br>
+        <h1 class="text-center">Editoriales</h1>
+        <br>
         <ul class="list-group">
             {% for editorial in object_list %}
                 <li class="list-group-item">
                     <div class="float-left">
-                        <a href="{% url 'book-editorial-list' editorial.name %}">{{ editorial.name }}</a>
+                        <a href="{% url 'book-editorial-list' editorial %}">{{ editorial }}</a>
                     </div>
-                    {% if user_group == 'admin' %}
+                    {% if user.is_authenticated and user.profile.group.name == 'admin' %}
                         <div>
                             <a class="mx-3 float-right" href="{% url 'editorial-delete' editorial.id %}">Eliminar</a>
                             <a class="mx-3 float-right" href="{% url 'editorial-update' editorial.id %}">Modificar</a>
@@ -23,10 +23,14 @@
                 </li>
             {% endfor %}
         </ul>
-        {% if user_group == 'admin' %}
-        <div class="text-center my-3">
-            <a class="btn btn-primary" href="{% url 'editorial-new' %}">Agregar editorial</a>
+        <br>
+        <div class="my-2">
+            {% include 'paginator.html' %}
         </div>
+        {% if user.is_authenticated and user.profile.group.name == 'admin' %}
+            <div class="text-center my-0">
+                <a class="btn btn-primary" href="{% url 'editorial-new' %}">Agregar editorial</a>
+            </div>
         {% endif %}
     </div>
 {% endblock %}
