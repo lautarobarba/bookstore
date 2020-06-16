@@ -31,24 +31,27 @@
     {% include 'navbar.html' %}
     
     
-    <!-- Main Content -->
+    <!-- Sidebar para Admins -->
     <div class="container-fluid justify-content-center mt-3">   
         <div class="wrapper">
         {% if user.is_authenticated %}
             {% include 'sidebar.html' %}
         {% endif %}
-                <div class="container" id="content">
-                    {% block content %}
-                        <p>BASE TEMPLATE</p>
-                        <p>PLEASE ADD SOME CONTENT</p>
-                    {% endblock %}         
-                </div>
-            </div>
-        </div> 
-    </div><!-- End of Main Content -->
+            
+            <!-- Main Content -->
+            <div class="container" id="content">
+                {% block content %}
+                    <p>BASE TEMPLATE</p>
+                    <p>PLEASE ADD SOME CONTENT</p>
+                {% endblock %}         
+            </div><!-- fin Main Content -->
+        
+        </div>
+    </div><!-- fin Sidebar para Admins -->
 
-        <!-- Footer -->
-        {% include 'footer.html' %}
+    
+    <!-- Footer -->
+    {% include 'footer.html' %}
 
 
     <!-- Optional JavaScript -->

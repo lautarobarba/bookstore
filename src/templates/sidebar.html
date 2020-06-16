@@ -1,49 +1,47 @@
-
+{% if user.profile.group.name == 'admin' %}
     <!-- Sidebar -->
     <nav id="sidebar" class="active">
+        <!-- Header -->
         <div class="sidebar-header">
             <h3>Dashboard</h3>
         </div>
-    
-        {% if user.profile.group.name == 'admin' %}
-            <div class="active list-group" data-toggle="collapse" aria-expanded="false">
-                <a href="{% url 'country-list' %}" class="list-group-item list-group-item-action active">
-                    Países
-                </a>
-                <a href="{% url 'country-new' %}" class="list-group-item list-group-item-action">Agregar País</a>
-                <a href="{% url 'country-list' %}" class="list-group-item list-group-item-action">Eliminar/Modificar País</a>
-            </div>
-            <div class="list-group" data-toggle="collapse" aria-expanded="false">
-                <a href="{% url 'author-list' %}" class="list-group-item list-group-item-action active">
-                    Autores
-                </a>
-                <a href="{% url 'author-new' %}" class="list-group-item list-group-item-action">Agregar Autor</a>
-                <a href="{% url 'author-list' %}" class="list-group-item list-group-item-action">Eliminar/Modificar Autor</a>
-            </div>
-            <div class="list-group" data-toggle="collapse" aria-expanded="false">
-                <a href="{% url 'editorial-list' %}" class="list-group-item list-group-item-action active">
-                    Editoriales
-                </a>
-                <a href="{% url 'editorial-new' %}" class="list-group-item list-group-item-action">Agregar Editorial</a>
-                <a href="{% url 'editorial-list' %}" class="list-group-item list-group-item-action">Eliminar/Modificar Editorial</a>
-            </div>
-            <div class="list-group" data-toggle="collapse" aria-expanded="false">
-                <a href="{% url 'genre-list' %}" class="list-group-item list-group-item-action active">
-                    Géneros
-                </a>
-                <a href="{% url 'genre-new' %}" class="list-group-item list-group-item-action">Agregar Género</a>
-                <a href="{% url 'genre-list' %}" class="list-group-item list-group-item-action">Eliminar/Modificar Género</a>
-            </div>
-            <div class="list-group" data-toggle="collapse" aria-expanded="false">
-                <a href="{% url 'book-admin-list' %}" class="list-group-item list-group-item-action active">
-                    Libros
-                </a>
-                <a href="{% url 'book-new' %}" class="list-group-item list-group-item-action">Agregar Libro</a>
-                <a href="{% url 'book-admin-list' %}" class="list-group-item list-group-item-action">Eliminar/Modificar Libro</a>
-            </div>
+        <!-- Items -->
+        <div class="active list-group" data-toggle="collapse" aria-expanded="false">
+            <a href="{% url 'country-list' %}" class="list-group-item list-group-item-action active">
+                Países
+            </a>
+            <a href="{% url 'country-new' %}" class="list-group-item list-group-item-action">Agregar País</a>
+            <a href="{% url 'country-list' %}" class="list-group-item list-group-item-action">Eliminar/Modificar País</a>
+        </div>
+        <div class="list-group" data-toggle="collapse" aria-expanded="false">
+            <a href="{% url 'author-list' %}" class="list-group-item list-group-item-action active">
+                Autores
+            </a>
+            <a href="{% url 'author-new' %}" class="list-group-item list-group-item-action">Agregar Autor</a>
+            <a href="{% url 'author-list' %}" class="list-group-item list-group-item-action">Eliminar/Modificar Autor</a>
+        </div>
+        <div class="list-group" data-toggle="collapse" aria-expanded="false">
+            <a href="{% url 'editorial-list' %}" class="list-group-item list-group-item-action active">
+                Editoriales
+            </a>
+            <a href="{% url 'editorial-new' %}" class="list-group-item list-group-item-action">Agregar Editorial</a>
+            <a href="{% url 'editorial-list' %}" class="list-group-item list-group-item-action">Eliminar/Modificar Editorial</a>
+        </div>
+        <div class="list-group" data-toggle="collapse" aria-expanded="false">
+            <a href="{% url 'genre-list' %}" class="list-group-item list-group-item-action active">
+                Géneros
+            </a>
+            <a href="{% url 'genre-new' %}" class="list-group-item list-group-item-action">Agregar Género</a>
+            <a href="{% url 'genre-list' %}" class="list-group-item list-group-item-action">Eliminar/Modificar Género</a>
+        </div>
+        <div class="list-group" data-toggle="collapse" aria-expanded="false">
+            <a href="{% url 'book-admin-list' %}" class="list-group-item list-group-item-action active">
+                Libros
+            </a>
+            <a href="{% url 'book-new' %}" class="list-group-item list-group-item-action">Agregar Libro</a>
+            <a href="{% url 'book-admin-list' %}" class="list-group-item list-group-item-action">Eliminar/Modificar Libro</a>
+        </div>
     </nav>
-
-    
-        {% endif %}
+{% endif %}
 
  

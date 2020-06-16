@@ -15,7 +15,7 @@ class Profile(models.Model):
     last_name = models.CharField(verbose_name='apellido', max_length=255, null=True, blank=True)
     country = models.ForeignKey(Country, verbose_name='país', null=True, blank=True, on_delete=models.SET_NULL)
     phone = models.CharField(verbose_name='teléfono', max_length=12, null=True, blank=True)
-    picture = models.ImageField(verbose_name='foto de perfil', upload_to='users/', null=True, blank=True)
+    picture = models.ImageField(verbose_name='foto de perfil', upload_to='users/', default='default.jpg')
 
     # Role
     # Add default "user" group
@@ -24,13 +24,12 @@ class Profile(models.Model):
 
     # Modifico el save para que redimensione la imagen antes de guardar
     def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
         if self.picture:
             img = Image.open(self.picture.path)
-
-            if img.height > 300 or img.weight > 300:
+            if img.height > 300 or img.width > 300:
                 img.thumbnail((300, 300))
-                img.save(self.picture.path)
+        super().save(*args, **kwargs)
+        
 
     def __str__(self):
         if self.first_name and self.last_name:

@@ -34,14 +34,14 @@ class Book(models.Model):
             models.UniqueConstraint(fields=['title', 'editorial'], name='unique title in editorial')
         ]
 
+    # Modifico el tamaño de la portada antes de guardar
     def save(self, *args, **kwargs):
+        if self.cover:
+            img = Image.open(self.cover.path)
+            if img.height > 500 or img.width > 300:
+                img.thumbnail((500, 300))
         super().save(*args, **kwargs)
-        img = Image.open(self.cover.path)
-
-        if img.height > 500 or img.weight > 300:
-            img.thumbnail((500, 300))
-            img.save(self.cover.path)
-
+        
     def get_absolute_url(self):
         return reverse('book-detail', args=[str(self.id)])
 
