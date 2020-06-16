@@ -6,15 +6,13 @@ from market.models import Book
 from django.urls import reverse_lazy
 from shoppingcart.models import ProductList
 from django.shortcuts import redirect,render
-# Custom mixins
-from users.views.mixins import GroupContextMixin
 
-class BookCreateView(GroupContextMixin, LoginRequiredMixin, CreateView):
+class BookCreateView(LoginRequiredMixin, CreateView):
     model = Book
     template_name = 'market/book_create.html'
     fields = '__all__'
 
-class BookAdminListView(GroupContextMixin, LoginRequiredMixin, ListView):
+class BookAdminListView(LoginRequiredMixin, ListView):
     model = Book
     template_name = 'market/book_admin_list.html'
     queryset = Book.objects.order_by('title')
@@ -43,12 +41,12 @@ class BookListView(ListView):
         else:
             return Book.objects.all()
 
-class BookUpdateView(GroupContextMixin, LoginRequiredMixin, UpdateView):
+class BookUpdateView(LoginRequiredMixin, UpdateView):
     model = Book
     template_name = 'market/book_update.html'
     fields = '__all__'
 
-class BookDeleteView(GroupContextMixin, LoginRequiredMixin, DeleteView):
+class BookDeleteView(LoginRequiredMixin, DeleteView):
     model = Book
     template_name = 'market/book_delete.html'
     success_url = reverse_lazy('book-admin-list')

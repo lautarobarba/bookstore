@@ -17,7 +17,7 @@
         <br>
         <h3>Nombre: {{ object.first_name }}</h3>
         <h3>Apellido: {{ object.last_name }}</h3>
-        {% if user_group == 'admin' %}
+        {% if user.is_authenticated and user.profile.group.name == 'admin' %}
             <h3>País: {{ object.country }}<a href="{% url 'country-new' %}" class="badge mx-2">Agregar país</a></h3>
         {% else  %}
             <h3>País: {{ object.country }}</h3>

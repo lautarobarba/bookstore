@@ -8,7 +8,7 @@
 {% block content %}
     <div class="container">
         <h1>Agregar Libro</h1>
-        {% if user.profile.group.name == 'admin' %}
+        {% if user.is_authenticated and user.profile.group.name == 'admin' %}
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form|crispy }}

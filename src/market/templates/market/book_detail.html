@@ -13,22 +13,16 @@
                         <h5 class="card-title text-capitalize font-weight-bold d-inline-block">{{ book.title }}</h5> 
                         <h5 class="text-wrap float-right d-inline-block"><span class="badge badge-success">{{ book.price }} $</span></h5>
                         <p><strong>Género/s: </strong>{% for genre in book.genres.all %} {{ genre }} {% endfor %}</p>
-                        {% if user.is_authenticated %}
-                            {% if user.profile.group.name == 'admin' %}
-                                <a href="#">Agregar nuevo género</a>
-                            {% endif %}
+                        {% if user.is_authenticated and user.profile.group.name == 'admin' %}
+                            <a href="#">Agregar nuevo género</a>
                         {% endif %}
                         <p><strong>Autor/es: </strong>{% for author in book.authors.all %} <a href="{% url 'book-author-list' author.first_name author.last_name %}">{{ author }}</a> {% endfor %}</p>
-                        {% if user.is_authenticated %}
-                            {% if user.profile.group.name == 'admin' %}
-                                <a href="#">Agregar nuevo autor</a>
-                            {% endif %}
+                        {% if user.is_authenticated and user.profile.group.name == 'admin' %}
+                            <a href="#">Agregar nuevo autor</a>
                         {% endif %}
                         <p><strong>Editorial: </strong>{{ book.editorial }}</p>
-                        {% if user.is_authenticated %}
-                            {% if user.profile.group.name == 'admin' %}
-                                <a href="#">Agregar nueva editorial</a>
-                            {% endif %}
+                        {% if user.is_authenticated and user.profile.group.name == 'admin' %}
+                            <a href="#">Agregar nueva editorial</a>
                         {% endif %}
                         <p class="card-text text-wrap text-justify"><strong>Sinopsis: </strong>{{ book.sinopsis }}</p>
                         <div class="text-center">

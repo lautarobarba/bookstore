@@ -1,33 +1,7 @@
 from django.views import View
 from django.views.generic.base import ContextMixin
 
-class GroupContextMixin(ContextMixin, View):
-    """
-    Define user's group in context as user_group 
-    """
-    def get(self, request, *args, **kwargs):
-        # Check if user is anonymous
-        # anonymous.id is always None
-        if request.user.id:
-            # User group
-            self.user_group = request.user.profile.group.name
-            self.user_id = request.user.id
-        else:
-            self.user_group = 'anonymous'
-            self.user_id = 0
-        return super().get(request, *args, **kwargs)
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['user_group'] = self.user_group
-        context['user_id'] = self.user_id
-        return context
-
-    def form_invalid(self, form):
-        self.get(self.request, self.args, self.kwargs)
-        return super().form_invalid(form)
-
-class ProfileOwnerMixin(GroupContextMixin):
+class ProfileOwnerMixin(ContextMixin, View):
     """
     Allow owners to edit only their profiles
     """
@@ -47,4 +21,3 @@ class ProfileOwnerMixin(GroupContextMixin):
         context = super().get_context_data(**kwargs)
         context['can_edit'] = self.can_edit
         return context
-
