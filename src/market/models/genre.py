@@ -10,5 +10,9 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        self.name = self.name.title()
+        super().save(*args, **kwargs)
+
     def get_absolute_url(self):
         return reverse('genre-list')

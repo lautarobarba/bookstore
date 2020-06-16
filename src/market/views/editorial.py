@@ -4,24 +4,22 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from market.models import Editorial
 from django.urls import reverse_lazy
 
-# Custom mixins
-from users.views.mixins import GroupContextMixin
-
-class EditorialCreateView(GroupContextMixin, LoginRequiredMixin, CreateView):
+class EditorialCreateView(LoginRequiredMixin, CreateView):
     model = Editorial
     template_name = 'market/editorial_create.html'
     fields = '__all__'
 
-class EditorialListView(GroupContextMixin, LoginRequiredMixin, ListView):
+class EditorialListView(ListView):
     model = Editorial
     queryset = Editorial.objects.order_by('name')
+    paginate_by = 10
 
-class EditorialUpdateView(GroupContextMixin, LoginRequiredMixin, UpdateView):
+class EditorialUpdateView(LoginRequiredMixin, UpdateView):
     model = Editorial
     template_name = 'market/editorial_update.html'
     fields = '__all__'
 
-class EditorialDeleteView(GroupContextMixin, LoginRequiredMixin, DeleteView):
+class EditorialDeleteView(LoginRequiredMixin, DeleteView):
     model = Editorial
     template_name = 'market/editorial_delete.html'
     success_url = reverse_lazy('editorial-list')

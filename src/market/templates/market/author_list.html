@@ -6,7 +6,7 @@
 
 {% block content %}
     <div class="container">
-        <h1 class="text-center">Autores cargados</h1>
+        <h1 class="text-center">Autores</h1>
         </br>
         <ul class="list-group">
             {% for autor in object_list %}
@@ -14,7 +14,7 @@
                     <div class="float-left">
                         <a href="#">{{ autor }}</a>
                     </div>
-                    {% if user_group == 'admin' %}
+                    {% if user.is_authenticated and user.profile.group.name == 'admin' %}
                         <div>
                             <a class="mx-3 float-right" href="{% url 'author-delete' autor.id %}">Eliminar</a>
                             <a class="mx-3 float-right" href="{% url 'author-update' autor.id %}">Modificar</a>
@@ -23,7 +23,10 @@
                 </li>
             {% endfor %}
         </ul>
-        {% if user_group == 'admin' %}
+        <div class="my-2">
+            {% include 'paginator.html' %}
+        </div>
+        {% if user.is_authenticated and user.profile.group.name == 'admin' %}
         <div class="text-center my-3">
             <a class="btn btn-primary" href="{% url 'author-new' %}">Agregar autor</a>
         </div>

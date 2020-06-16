@@ -9,9 +9,11 @@
 {"name":"Infantil"},
 {"name":"Autoayuda"},
 {"name":"Hogar"},
-{"name":"Enciclopedia / Manual"},
+{"name":"Enciclopedia"},
 {"name":"Politica"},
-{"name":"Economia / Marketing"},
+{"name":"Economia"},
+{"name":"Marketing"},
 {"name":"Sociedad"},
 {"name":"Deportes"},
-{"name":"Viajes / Cultura"}]
+{"name":"Cultura"},
+{"name":"Viajes"}]

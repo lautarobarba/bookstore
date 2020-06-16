@@ -12,9 +12,10 @@ class AuthorCreateView(GroupContextMixin, LoginRequiredMixin, CreateView):
     template_name = 'market/author_create.html'
     fields = '__all__'
 
-class AuthorListView(GroupContextMixin, LoginRequiredMixin, ListView):
+class AuthorListView(ListView):
     model = Author
-    queryset = Author.objects.order_by('first_name')
+    queryset = Author.objects.order_by('first_name', 'last_name')
+    paginate_by = 10
 
 class AuthorUpdateView(GroupContextMixin, LoginRequiredMixin, UpdateView):
     model = Author
