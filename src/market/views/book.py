@@ -59,18 +59,40 @@ class BookDetailView(DetailView):
 class BookSearchView(ListView):
     model = Book 
     form_class = Form
+    template_name = 'market/book_search_list.html'
+    paginate_by = 10
 
     def get(self, request, *args, **kwargs):
         try:
-            q = request.GET.get('q')
+            self.title = request.GET.get('title')
         except:
-            q = None
-
-        self.q = q
+            self.title = None
+        try:
+            self.author = request.GET.get('author')
+        except:
+            self.author = None
+        try:
+            self.genre = request.GET.get('genre')
+        except:
+            self.genre = None
+        try:
+            self.editorial = request.GET.get('editorial')
+        except:
+            self.editorial = None
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-        if self.q:
-            return Book.objects.filter(title__icontains=self.q)
+        queryset = Book.objects.all()
+        if self.title or self.author or self.genre or self.editorial:
+            if self.title:
+                queryset =  queryset.filter(title__icontains=self.title)
+            if self.author:
+                ###FALTA ARREGLAR ESTE FILTRO Y VER COMO RECIBIR LOS DATOS
+                queryset =  queryset.filter(authors__name__icontains=self.author)
+            if self.genre:
+                queryset =  queryset.filter(genres__name__icontains=self.genre)
+            if self.editorial:
+                queryset =  queryset.filter(editorial__name__icontains=self.editorial)
         else:
-            return Book.objects.all()
+            queryset = queryset.filter(title='')
+        return queryset

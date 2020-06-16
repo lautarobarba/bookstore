@@ -12,7 +12,7 @@ urlpatterns = [
     path('book/<int:pk>/', BookDetailView.as_view(), name='book-detail'),
     path('book/', BookListView.as_view(), {'type': 'all'}, name='book-list'),
     ####
-    path('book/search/', BookSearchView.as_view(), name='book-search'),  
+    path('book/search/', BookSearchView.as_view(), name='book-search'),
     ####
     path('book/genre/<str:genre>/', BookListView.as_view(), {'type': 'genre'}, name='book-genre-list'),  
     path('book/author/<str:first_name>-<str:last_name>/', BookListView.as_view(), {'type': 'author'} , name='book-author-list'),  
@@ -28,7 +28,7 @@ urlpatterns = [
     path('editorial/new/', EditorialCreateView.as_view(), name='editorial-new'),
     path('editorial/update/<int:pk>', EditorialUpdateView.as_view(), name='editorial-update'),
     path('editorial/delete/<int:pk>', EditorialDeleteView.as_view(), name='editorial-delete'),
-    # Gente URLS
+    # Genre URLS
     path('genre/', GenreListView.as_view(), name='genre-list'),
     path('genre/new/', GenreCreateView.as_view(), name='genre-new'),
     path('genre/update/<int:pk>', GenreUpdateView.as_view(), name='genre-update'),
