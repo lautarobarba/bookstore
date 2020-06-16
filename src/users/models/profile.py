@@ -29,7 +29,7 @@ class Profile(models.Model):
             img = Image.open(self.picture.path)
             if img.height > 300 or img.width > 300:
                 img.thumbnail((300, 300))
-                super().save(*args, **kwargs)
+                img.save(self.picture.path)
         
 
     def __str__(self):
