@@ -24,7 +24,7 @@ class Book(models.Model):
     authors = models.ManyToManyField(Author, verbose_name='autor')
     editorial = models.ForeignKey(Editorial, verbose_name='editorial', on_delete=models.CASCADE)
     genres = models.ManyToManyField(Genre, verbose_name='generos')
-    cover = models.ImageField(verbose_name='portada', upload_to='book_cover/', null=True, blank=True)
+    cover = models.ImageField(verbose_name='portada', upload_to='book_cover/', default='default-cover.png')
     
     #pictures = models.ManyToManyField(Genre, verbose_name='generos')
 
