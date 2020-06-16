@@ -36,11 +36,12 @@ class Book(models.Model):
 
     # Modifico el tamaño de la portada antes de guardar
     def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
         if self.cover:
             img = Image.open(self.cover.path)
             if img.height > 500 or img.width > 300:
                 img.thumbnail((500, 300))
-        super().save(*args, **kwargs)
+                super().save(*args, **kwargs)
         
     def get_absolute_url(self):
         return reverse('book-detail', args=[str(self.id)])

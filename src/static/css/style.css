@@ -18,6 +18,12 @@ h1 {
     width: 100px;
 }
 
+.profile-image-navbar {
+    border-radius: 50%;
+    height: 20px;
+    width: 20px;
+}
+
 .img-logo {
     position: relative;
     bottom: 2px;

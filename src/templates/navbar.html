@@ -23,7 +23,11 @@
 
         <!-- Icono colapso Usuario -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarUser" aria-controls="navbarUser" aria-expanded="false" aria-label="Toggle navigation">
-            <i class="fa fa-user"></i><i class="fa fa-caret-down ml-1"></i>
+            {% if user.is_authenticated %}
+                <img src="{{ user.profile.picture.url }}" class="profile-image-navbar my-auto" alt="{{ user.profile.picture.url }}"><i class="fa fa-caret-down ml-1"></i>
+            {% else %}
+                <i class="fa fa-user"></i><i class="fa fa-caret-down ml-1"></i>
+            {% endif %}
         </button>
     </div>
 

@@ -24,11 +24,12 @@ class Profile(models.Model):
 
     # Modifico el save para que redimensione la imagen antes de guardar
     def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
         if self.picture:
             img = Image.open(self.picture.path)
             if img.height > 300 or img.width > 300:
                 img.thumbnail((300, 300))
-        super().save(*args, **kwargs)
+                super().save(*args, **kwargs)
         
 
     def __str__(self):
