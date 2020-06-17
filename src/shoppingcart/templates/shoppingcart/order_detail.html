@@ -8,7 +8,7 @@
         <h2>Fecha: {{ order.date }}</h1>
         <h2>Cliente: {{ order.client.profile }}</h1>
         <table class="table ">
-        <thead class = "thead-dark">
+        <thead class="thead-dark">
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Libro</th>
@@ -31,15 +31,16 @@
         <tfoot>
             <tr>
             <th class="text-align-right" id="total" colspan="4">Total :</th>
-            <td>$ {{ total }}</td>
+            <td><strong>$ {{ total }}</strong></td>
             </tr>
         </tfoot>
         </table>
 
         <!-- Comprar -->
         {% if object_list %}
-            <div class="row justify-content-center">
+            <div class="row justify-content">
                 <a href="{% url 'home' %}" class="btn btn-primary btn-lg" role="button">Volver al Inicio</a>
+                <a target="_blank" href="{% url 'order-print' order.pk %}" class="btn btn-primary btn-lg ml-auto" role="button">Imprimir comprobante</a>
             </div>
         {% endif %}
 

@@ -3,8 +3,16 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
 from shoppingcart.models import Order, OrderLine, ProductList 
 from django.views.generic import ListView
+from django.views import View
 from django.forms import Form
 from datetime import datetime
+
+###
+import io
+from django.http import FileResponse
+from reportlab.pdfgen import canvas
+###
+
 
 class OrderCreateView(LoginRequiredMixin, CreateView):
     model = Order
@@ -94,3 +102,41 @@ class ResumeView(LoginRequiredMixin, ListView):
         else:
             queryset = queryset.filter(date__year=datetime.now().year, date__month=datetime.now().month, date__day=datetime.now().day)
         return queryset
+
+class PrintOrderView(View):
+    template_name = 'shoppingcart/order_print.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        order = Order.objects.get(pk=self.kwargs['pk'])
+        context['order'] = order
+        return context
+
+    def get(self, request, *args, **kwargs):
+        #Recupero la orden
+        order = Order.objects.get(pk=self.kwargs['pk'])
+
+        # Create a file-like buffer to receive PDF data.
+        buffer = io.BytesIO()
+
+        # Create the PDF object, using the buffer as its "file."
+        p = canvas.Canvas(buffer)
+
+        # Draw things on the PDF. Here's where the PDF generation happens.
+        # See the ReportLab documentation for the full list of functionality.
+        #p.drawString(100, 100, "Hello world.")
+
+        #ACA HAY QUE ARMAR EL PDF DE ALGUNA MANERA MÁGICA
+        #p.drawString(100, 100, order.id)
+
+
+        #################################################
+
+        # Close the PDF object cleanly, and we're done.
+        p.showPage()
+        p.save()
+
+        # FileResponse sets the Content-Disposition header so that browsers
+        # present the option to save the file.
+        buffer.seek(0)
+        return FileResponse(buffer, as_attachment=True, filename=f'Factura_{order.id}.pdf')
