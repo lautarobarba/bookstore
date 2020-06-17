@@ -38,6 +38,8 @@ class BookListView(ListView):
             return Book.objects.filter(authors__first_name__icontains=self.author_first_name, authors__last_name__icontains=self.author_last_name)
         elif self.type == 'editorial':
             return Book.objects.filter(editorial__name__icontains=self.editorial)
+        elif self.type == 'on-sale':
+            return Book.objects.exclude(sale=None)
         else:
             return Book.objects.all()
 

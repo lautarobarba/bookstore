@@ -10,13 +10,14 @@ from market.views import (
 urlpatterns = [
     path('', HomeView.as_view(), name='home'),
     path('book/<int:pk>/', BookDetailView.as_view(), name='book-detail'),
-    path('book/', BookListView.as_view(), {'type': 'all'}, name='book-list'),
-    ####
+    # Búsquedas de libros
+    path('book/all/', BookListView.as_view(), {'type': 'all'}, name='book-list'),
+    path('book/on-sale/', BookListView.as_view(), {'type': 'on-sale'}, name='book-on-sale'),
     path('book/search/', BookSearchView.as_view(), name='book-search'),
-    ####
     path('book/genre/<str:genre>/', BookListView.as_view(), {'type': 'genre'}, name='book-genre-list'),  
     path('book/author/<str:first_name>-<str:last_name>/', BookListView.as_view(), {'type': 'author'} , name='book-author-list'),  
-    path('book/editorial/<str:editorial>/', BookListView.as_view(), {'type': 'editorial'} , name='book-editorial-list'),  
+    path('book/editorial/<str:editorial>/', BookListView.as_view(), {'type': 'editorial'} , name='book-editorial-list'),
+    ##### DASHBOAR ADMINISTRADORES
     path('dashboard/', DashboardView.as_view(), name='dashboard'),
     # Author URLS
     path('author/', AuthorListView.as_view(), name='author-list'),

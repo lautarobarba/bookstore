@@ -51,10 +51,10 @@
             <a class="nav-item nav-link text-center" href="{% url 'author-list' %}">Autores</a>
             <!-- Botón Editoriales -->
             <a class="nav-item nav-link text-center" href="{% url 'editorial-list' %}">Editoriales</a>
-            <!-- Botón Novedades -->
-            <a class="nav-item nav-link text-center" href="#">Novedades</a>
             <!-- Botón Ofertas -->
-            <a class="nav-item nav-link text-center" href="#">Ofertas</a>
+            <a class="nav-item nav-link text-center" href="{% url 'book-on-sale' %}">Ofertas</a>
+            <!-- Botón Todos -->
+            <a class="nav-item nav-link text-center" href="{% url 'book-list' %}">Todos</a>
         </ul>
     </div><!-- fin Navbar colapsable Libro -->
 
@@ -66,11 +66,11 @@
                 {% if user.profile.group.name == 'admin' %}
                     <button id="sidebarCollapse" class="nav-item nav-link text-center" href="{% url 'dashboard' %}">Dashboard</button>
                 {% endif %}
-                <a class="nav-item nav-link text-center" href="{% url 'wishlist-list' user.wishlist.id %}"><span class="fa fa-heart fa-lg btn"></span></a>
-                <a class="nav-item nav-link text-center" href="{% url 'cart-detail' user.cart.id %}"><span class="fa fa-shopping-cart fa-lg btn"></span></a>
-                <a class="nav-item nav-link text-center" href="{% url 'order-list' %}">hist-comp</a>
-                <a class="nav-item nav-link text-center" href="{{ user.get_absolute_url }}">{{ user.profile }}</a>
-                <a class="nav-item nav-link text-center" href="{% url 'user-logout' %}">Salir</a>
+                <a class="nav-item nav-link text-center" href="{% url 'wishlist-list' user.wishlist.id %}"><span class="fa fa-heart btn"></span>Deseados</a>
+                <a class="nav-item nav-link text-center" href="{% url 'cart-detail' user.cart.id %}"><span class="fa fa-shopping-cart fa-lg btn"></span>Carrito</a>
+                <a class="nav-item nav-link text-center" href="{% url 'order-list' %}"><span class="fa fa-credit-card-alt btn"></span>Compras</a>
+                <a class="nav-item nav-link text-center" href="{{ user.get_absolute_url }}"><span class="fa fa-user-circle fa-lg btn"></span>Perfil</a>
+                <a class="nav-item nav-link text-center" href="{% url 'user-logout' %}"><span class="fa fa-arrow-circle-right fa-lg btn"></span>Salir</a>
                 {% else %}
                 <a class="nav-item nav-link text-center" href="{% url 'user-login' %}">Iniciar sesión</a>
                 <a class="nav-item nav-link text-center" href="{% url 'user-new' %}">Registrarse</a>
