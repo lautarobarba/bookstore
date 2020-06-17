@@ -11,6 +11,8 @@ from datetime import datetime
 import io
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
+from reportlab.lib.pagesizes import A4
+import itertools
 ###
 
 
@@ -111,30 +113,79 @@ class PrintOrderView(View):
         order = Order.objects.get(pk=self.kwargs['pk'])
         context['order'] = order
         return context
+    
+    def grouper(iterable, n):
+        args = [iter(iterable)] * n
+        return itertools.zip_longest(*args)
+
+    def export_to_pdf(data):
+        c = canvas.Canvas("factura.pdf", pagesize=A4)
+        c.drawString(0, 0, "factura")
+        w, h = A4
+        max_rows_per_page = 45
+        # Margin.
+        x_offset = 50
+        y_offset = 50
+        # Space between rows.
+        padding = 15
+        
+        xlist = [x + x_offset for x in [0, 200, 250, 300, 350, 400, 480]]
+        ylist = [h - y_offset - i*padding for i in range(max_rows_per_page + 1)]
+        
+        for rows in grouper(data, max_rows_per_page):
+            rows = tuple(filter(bool, rows))
+            c.grid(xlist, ylist[:len(rows) + 1])
+            for y, row in zip(ylist[:-1], rows):
+                for x, cell in zip(xlist, row):
+                    c.drawString(x + 2, y - padding + 3, str(cell))
+            c.showPage()
+    
+        return c
 
     def get(self, request, *args, **kwargs):
         #Recupero la orden
         order = Order.objects.get(pk=self.kwargs['pk'])
-
-        # Create a file-like buffer to receive PDF data.
-        buffer = io.BytesIO()
-
-        # Create the PDF object, using the buffer as its "file."
-        p = canvas.Canvas(buffer)
-
-        # Draw things on the PDF. Here's where the PDF generation happens.
-        # See the ReportLab documentation for the full list of functionality.
-        #p.drawString(100, 100, "Hello world.")
+        products = order.orderline_set.all()
 
         #ACA HAY QUE ARMAR EL PDF DE ALGUNA MANERA MÁGICA
         #p.drawString(100, 100, order.id)
+        data = [("Producto", "Cantidad", "Precio")]
+        for product in range(0, len(products)):
+            quantity = product.quantity
+            price = product.book.price
+            data.append((f"{product.book}", quantity, price))
 
+        buffer = io.BytesIO()
+        #p = export_to_pdf(data)
+        #p.drawString(100, 100, f"Total: {order.get_total}")
+        c = canvas.Canvas(buffer, pagesize=A4)
+        c.drawString(0, 0, "factura")
+        w, h = A4
+        max_rows_per_page = 45
+        # Margin.
+        x_offset = 50
+        y_offset = 50
+        # Space between rows.
+        padding = 15
+        
+        xlist = [x + x_offset for x in [0, 200, 250, 300, 350, 400, 480]]
+        ylist = [h - y_offset - i*padding for i in range(max_rows_per_page + 1)]
+        
+        args = [iter(data)] * max_rows_per_page
+        grouper = itertools.zip_longest(*args)
 
+        for rows in grouper:
+            rows = tuple(filter(bool, rows))
+            c.grid(xlist, ylist[:len(rows) + 1])
+            for y, row in zip(ylist[:-1], rows):
+                for x, cell in zip(xlist, row):
+                    c.drawString(x + 2, y - padding + 3, str(cell))
+            c.showPage()
         #################################################
 
         # Close the PDF object cleanly, and we're done.
-        p.showPage()
-        p.save()
+        #c.showPage()
+        c.save()
 
         # FileResponse sets the Content-Disposition header so that browsers
         # present the option to save the file.
