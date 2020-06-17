@@ -32,7 +32,7 @@
                     {% for order in object_list %}       
                         <tr>
                             <th scope="row">{{ forloop.counter }}</th>
-                            <td><a href="{% url 'profile-detail' order.client.id %}">{{ order.client }}</a></td>
+                            <td><a href="{% url 'profile-detail' order.client.id %}">{{ order.client.profile }}</a></td>
                             <td><a href="#">{{ order.id }}</a></td>
                             <td>{{ order.date }}</td>
                             <td>{{ order.get_total }}</td>
