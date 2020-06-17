@@ -48,6 +48,19 @@ class OrderListView(ListView):
     def get_queryset(self):
             return Order.objects.filter(client=self.client)
 
+class OrderDetailView(LoginRequiredMixin, ListView):
+    model = Order
+    template_name = 'shoppingcart/order_detail.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        order = Order.objects.get(pk=self.kwargs['pk'])
+        context['order'] = order
+        context['productos'] = order.orderline_set.all()
+        context['total'] = order.get_total()
+        context['owner'] = order.client.id
+        return context
+
 class ResumeView(LoginRequiredMixin, ListView):
     model = Order
     form_class = Form

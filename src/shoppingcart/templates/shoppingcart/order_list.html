@@ -21,7 +21,7 @@
                 {% for order in object_list %}       
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
-                        <td><a href="#">{{ order.id }}</a></td>
+                        <td><a href="{% url 'order-detail' order.pk %}">{{ order.id }}</a></td>
                         <td>{{ order.date }}</td>
                         <td>$ {{ order.get_total }}</td>
                     </tr>
