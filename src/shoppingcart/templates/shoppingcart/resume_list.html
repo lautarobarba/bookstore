@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Estadísticas{% endblock title %}
+
+{% block content%}
+    <div class="text-center">
+        <h1>Estadísticas</h1>
+        <!-- Búsqueda avanzada -->
+        <h2>Búsqueda Resúmen</h2>
+        <form class="justify-content-center form-inline my-2 my-lg-0" role="search" action="{% url 'resume-list' %}">
+            <input name="day" class="form-control mr-sm-2 mx-auto mx-md-2" type="search" placeholder="Día" aria-label="Search">
+            <input name="month" class="form-control mr-sm-2 mx-auto mx-md-2" type="search" placeholder="Mes" aria-label="Search">
+            <input name="year" class="form-control mr-sm-2 mx-auto mx-md-2" type="search" placeholder="Año" aria-label="Search">
+            <button class="btn btn-outline-secondary my-2 my-sm-0 mx-auto mx-md-2" type="submit">Buscar</button>
+        </form>
+        <br>
+        <!-- Listado de Compras -->
+        {% for Order in object_list %}
+            <div class="container">
+            <h3 class="text-center">Historial de Compras</h3>
+            <br>
+            <table class="table ">
+                <thead class = "thead-dark"> 
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">Compra</th>                       
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Costo Total</th>  
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in object_list %}       
+                        <tr>
+                            <th scope="row">{{ forloop.counter }}</th>
+                            <td><a href="{% url 'profile-detail' order.client.id %}">{{ order.client }}</a></td>
+                            <td><a href="#">{{ order.id }}</a></td>
+                            <td>{{ order.date }}</td>
+                            <td>{{ order.get_total }}</td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td>
+                                <p>Todavía no ha realizado ninguna compra.</p>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+                </table>
+            <br>
+        {% endfor %}
+        <br>
+        <div class="my-2">
+            {% include 'paginator.html' %}
+        </div>
+    </div>
+{% endblock content %}

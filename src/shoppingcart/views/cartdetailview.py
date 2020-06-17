@@ -1,4 +1,4 @@
-from django.views.generic.detail import DetailView
+#from django.views.generic.detail import DetailView
 from django.views.generic import ListView
 from shoppingcart.models import Cart, ProductList
 from django.contrib.auth.mixins import LoginRequiredMixin
