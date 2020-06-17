@@ -6,7 +6,7 @@ class Author(models.Model):
     last_name = models.CharField(verbose_name='apellido', max_length=255)
 
     class Meta():
-        ordering = ['last_name', 'first_name']
+        ordering = ['first_name', 'last_name']
         #Agregar unique(first_name + last_name) 
         #Para que no se repitan autores
 
