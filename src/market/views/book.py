@@ -22,6 +22,7 @@ class BookAdminListView(LoginRequiredMixin, ListView):
 
 class BookListView(ListView):
     model = Book 
+    paginate_by = 8
 
     def get(self, request, *args, **kwargs):
         self.type = self.kwargs['type']
@@ -66,7 +67,7 @@ class BookSearchView(ListView):
     model = Book 
     form_class = Form
     template_name = 'market/book_search_list.html'
-    paginate_by = 10
+    paginate_by = 8
     
     def get(self, request, *args, **kwargs):
         try:
