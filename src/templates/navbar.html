@@ -68,6 +68,7 @@
                 {% endif %}
                 <a class="nav-item nav-link text-center" href="{% url 'wishlist-list' user.wishlist.id %}"><span class="fa fa-heart fa-lg btn"></span></a>
                 <a class="nav-item nav-link text-center" href="{% url 'cart-detail' user.cart.id %}"><span class="fa fa-shopping-cart fa-lg btn"></span></a>
+                <a class="nav-item nav-link text-center" href="{% url 'order-list' %}">hist-comp</a>
                 <a class="nav-item nav-link text-center" href="{{ user.get_absolute_url }}">{{ user.profile }}</a>
                 <a class="nav-item nav-link text-center" href="{% url 'user-logout' %}">Salir</a>
                 {% else %}

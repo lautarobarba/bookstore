@@ -1,8 +1,8 @@
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
-from shoppingcart.models import Order, OrderLine, ProductList
-from django.forms import Form   
+from shoppingcart.models import Order, OrderLine, ProductList 
+from django.views.generic import ListView
 
 class OrderCreateView(LoginRequiredMixin, CreateView):
     model = Order
@@ -27,3 +27,14 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
 
         #print(new_order.books.all())
         return redirect('home')
+
+class OrderListView(ListView):
+    model = Order
+    paginate_by = 10
+
+    def get(self, request, *args, **kwargs):
+        self.client = request.user
+        return super().get(request, *args, **kwargs)
+
+    def get_queryset(self):
+            return Order.objects.filter(client=self.client)

@@ -15,7 +15,7 @@ class Order(models.Model):
     
     def get_total(self):
         total = 0
-        for book in self.productlist_set.all():
+        for book in self.orderline_set.all():
             #print(book)
             total += book.get_value()
         return total
