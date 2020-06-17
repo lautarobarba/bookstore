@@ -28,14 +28,15 @@
 </head>
 <body>
     <!-- Navbar -->
-    <!-- Para pantallas de celulares -->
-    <div class="d-md-none">
-        {% include 'navbar_small.html' %}
-    </div>
     <!-- Para pantallas de escritorio -->
     <div class="d-none d-md-block">
         {% include 'navbar_large.html' %}
     </div>
+    <!-- Para pantallas de celulares -->
+    <div class="d-md-none">
+        {% include 'navbar_small.html' %}
+    </div>
+
     
     <!-- Sidebar para Admins -->
     <div class="container-fluid justify-content-center mt-3">   
