@@ -22,6 +22,12 @@ class Cart(models.Model):
             total += book.get_value()
         return total
 
+    def is_empty(self):
+        if len(self.productlist_set.all()) == 0:
+            return True
+        else:
+            return False
+
 class ProductList(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     book = models.ForeignKey(Book, on_delete=models.CASCADE)

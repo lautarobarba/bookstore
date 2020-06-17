@@ -11,13 +11,21 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
     template_name = 'shoppingcart/order_create.html'
     fields = '__all__'
 
+    def get(self, request, *args, **kwargs):
+        self.client = request.user
+        return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['cart_empty'] = self.client.cart.is_empty() 
+        return context
+
     def post(self, request, *args, **kwargs):
         u_client = request.user
         u_cart = request.user.cart
-        #print(u_cart.books.all())
         lineas = ProductList.objects.filter(cart=u_cart)
 
-        #Creo una nueva orden con el cliente y timestamp actual
+        #Creo una nueva compra
         new_order = Order(client=u_client)
         new_order.save()
 
@@ -25,9 +33,8 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
         for l in lineas:
             new_l = OrderLine(order=new_order, book=l.book, quantity=l.quantity)
             new_l.save()
+            #Elimino los libros del carrito
             l.delete()
-
-        #print(new_order.books.all())
         return redirect('home')
 
 class OrderListView(ListView):

@@ -12,9 +12,9 @@
             <thead class = "thead-dark"> 
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">Compra</th>
+                    <th scope="col">N° Factura</th>
                     <th scope="col">Fecha</th>
-                    <th scope="col">Costo Total</th>  
+                    <th scope="col">Importe</th>  
                 </tr>
             </thead>
             <tbody>
@@ -23,7 +23,7 @@
                         <th scope="row">{{ forloop.counter }}</th>
                         <td><a href="#">{{ order.id }}</a></td>
                         <td>{{ order.date }}</td>
-                        <td>{{ order.get_total }}</td>
+                        <td>$ {{ order.get_total }}</td>
                     </tr>
                     {% empty %}
                     <tr>

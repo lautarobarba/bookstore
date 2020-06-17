@@ -4,13 +4,17 @@
 {% block title %}Comprar{% endblock title %}
 
 {% block content %}
-    <div class="container">
-        <h1>¿Esta seguro que desea confirmar la Compra?</h1>
-        <form method="post">
-            {% csrf_token %}
-            <a class="btn btn-danger" href="#">Cancelar</a>
-            <!-- <input type="hidden" name="user_id" value="{{ user.id }}"> -->
-            <input type="submit" value="Confirmar Compra" class="btn btn-primary">
-        </form>
-    </div>
+    {% if cart_empty %}
+        <h1>Tu carrito esta vacío</h1>
+        <a class="btn btn-primary" href="{% url 'cart-detail' user.cart.id %}">Volver</a>
+    {% else %}
+        <div class="container">
+            <h1>¿Esta seguro que desea confirmar la Compra?</h1>
+            <form method="post">
+                {% csrf_token %}
+                <a class="btn btn-danger" href="{% url 'cart-detail' user.cart.id %}">Cancelar</a>
+                <input type="submit" value="Confirmar Compra" class="btn btn-primary">
+            </form>
+        </div>
+    {% endif %}
 {% endblock content %}

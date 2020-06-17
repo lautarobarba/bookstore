@@ -5,48 +5,52 @@
 {% block content %}
     <a href="{% url 'home' %}" class="btn btn-primary btn-lg" role="button">Seguir Comprando<i class="fa fa-shopping-bag ml-2"></i></a>
     {% if can_edit %}
-    <h1 class="text-center">TU CARRITO DE COMPRAS</h1>
-    <table class="table ">
-    <thead class = "thead-dark"> 
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Libro</th>
-            <th scope="col">Precio</th>
-            <th scope="col">Cantidad</th> 
-            <th scope="col">Total</th>      
-        </tr>
-    </thead>
-    <tbody>
-        {% for renglon in object_list %}       
+        <h1 class="text-center">TU CARRITO DE COMPRAS</h1>
+        <table class="table ">
+        <thead class = "thead-dark"> 
             <tr>
-                <th scope="row">{{ forloop.counter }}</th>
-                <td><a href="{{ renglon.book.get_absolute_url }}">{{ renglon.book }}</a></td>
-                <td>{{ renglon.book.price }}</td>
-                <td> 
-                    <a href="{{ renglon.book.get_add_to_cart }}"><i class="fa fa-plus"></i></a>
-                        {{ renglon.quantity }}
-                    <a href="{{ renglon.book.get_remove_from_cart }}"><i class="fa fa-minus"></i></a>
-                </td>
-                <td>{{ renglon.get_value }}</td>
+                <th scope="col">#</th>
+                <th scope="col">Libro</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Cantidad</th> 
+                <th scope="col">Total</th>      
             </tr>
-            {% empty %}
+        </thead>
+        <tbody>
+            {% for renglon in object_list %}       
+                <tr>
+                    <th scope="row">{{ forloop.counter }}</th>
+                    <td><a href="{{ renglon.book.get_absolute_url }}">{{ renglon.book }}</a></td>
+                    <td>{{ renglon.book.price }}</td>
+                    <td> 
+                        <a href="{{ renglon.book.get_add_to_cart }}"><i class="fa fa-plus"></i></a>
+                            {{ renglon.quantity }}
+                        <a href="{{ renglon.book.get_remove_from_cart }}"><i class="fa fa-minus"></i></a>
+                    </td>
+                    <td>{{ renglon.get_value }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td>
+                        <p> TU CARRITO ESTÁ VACÍO </p>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
             <tr>
-                <td>
-                    <p> TU CARRITO ESTÁ VACÍO </p>
-                </td>
+            <th class="text-align-right" id="total" colspan="4">Total :</th>
+            <td>{{ total }}</td>
             </tr>
-        {% endfor %}
-    </tbody>
-    <tfoot>
-        <tr>
-          <th class="text-align-right" id="total" colspan="4">Total :</th>
-          <td>{{ total }}</td>
-        </tr>
-    </tfoot>
-    </table>
+        </tfoot>
+        </table>
 
-    <!-- Comprar -->
-    <a href="{% url 'order-new' %}" class="btn btn-primary btn-lg" role="button">Finalizar Compra</a>
+        <!-- Comprar -->
+        {% if object_list %}
+            <div class="row justify-content-center">
+                <a href="{% url 'order-new' %}" class="btn btn-success btn-lg" role="button">Finalizar Compra</a>
+            </div>
+        {% endif %}
 
     {% else %}
         <p> Este carrito no te pertenece rufian </p>
