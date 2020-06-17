@@ -7,14 +7,29 @@
         <!-- Búsqueda avanzada -->
         <h1>Búsqueda avanzada</h1>
         <form class="form-inline my-2 my-lg-0" role="search" action="{% url 'book-search' %}">
-            <input name="title" class="form-control mr-sm-2 mx-auto mx-md-2" type="search" placeholder="Titulo" aria-label="Search">
-            <!-- ARREGLAR INPUT DEL AUTOR. DEBERIA INGRESAR NOMBRE, APELLIDO O LOS DOS? -->
-            <input name="author" class="form-control mr-sm-2 mx-auto mx-md-2" type="search" placeholder="Autor" aria-label="Search">
-            <input name="genre" class="form-control mr-sm-2 mx-auto mx-md-2" type="search" placeholder="Género" aria-label="Search">
-            <input name="editorial" class="form-control mr-sm-2 mx-auto mx-md-2" type="search" placeholder="Editorial" aria-label="Search">
+            <input name="title" class="form-control mr-sm-2 mx-auto mx-md-2" type="search" placeholder="Titulo..." aria-label="Search">
+            <select class="custom-select form-control mr-sm-2 mx-auto mx-md-2" name="author">
+                <option selected>Autor...</option>
+                {% for a in autores %}
+                    <option value="{{ a }}">{{ a }}</option>
+                {% endfor %}
+            </select>
+            <select class="custom-select form-control mr-sm-2 mx-auto mx-md-2" name="genre">
+                <option selected>Género...</option>
+                {% for g in generos %}
+                    <option value="{{ g }}">{{ g }}</option>
+                {% endfor %}
+            </select>
+            <select class="custom-select form-control mr-sm-2 mx-auto mx-md-2" name="editorial">
+                <option selected>Editorial...</option>
+                {% for e in editoriales %}
+                    <option value="{{ e }}">{{ e }}</option>
+                {% endfor %}
+            </select>
+            
             <button class="btn btn-outline-secondary my-2 my-sm-0 mx-auto mx-md-2" type="submit">Buscar</button>
         </form>
-        <br>
+        <br>    
         <!-- Listado de libros -->
         {% for book in object_list %}
             {% include 'market/book_card.html' %}

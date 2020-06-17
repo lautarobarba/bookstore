@@ -7,6 +7,9 @@ from django.urls import reverse_lazy
 from shoppingcart.models import ProductList
 from django.shortcuts import redirect,render
 
+# Objetos usados en BookSearchView
+from market.models import Genre, Editorial, Author
+
 class BookCreateView(LoginRequiredMixin, CreateView):
     model = Book
     template_name = 'market/book_create.html'
@@ -33,15 +36,16 @@ class BookListView(ListView):
 
     def get_queryset(self):
         if self.type == 'genre':
-            return Book.objects.filter(genres__name__icontains=self.genre)
+            queryset =  Book.objects.filter(genres__name__icontains=self.genre)
         elif self.type == 'author':
-            return Book.objects.filter(authors__first_name__icontains=self.author_first_name, authors__last_name__icontains=self.author_last_name)
+            queryset = Book.objects.filter(authors__first_name__icontains=self.author_first_name, authors__last_name__icontains=self.author_last_name)
         elif self.type == 'editorial':
-            return Book.objects.filter(editorial__name__icontains=self.editorial)
+            queryset = Book.objects.filter(editorial__name__icontains=self.editorial)
         elif self.type == 'on-sale':
-            return Book.objects.exclude(sale=None)
+            queryset = Book.objects.exclude(sale=None)
         else:
-            return Book.objects.all()
+            queryset = Book.objects.all()
+        return queryset 
 
 class BookUpdateView(LoginRequiredMixin, UpdateView):
     model = Book
@@ -69,18 +73,18 @@ class BookSearchView(ListView):
             self.title = request.GET.get('title')
         except:
             self.title = None
-        try:
-            self.author = request.GET.get('author')
-        except:
+        if request.GET.get('author') == 'Autor...':
             self.author = None
-        try:
-            self.genre = request.GET.get('genre')
-        except:
+        else:
+            self.author = request.GET.get('author')
+        if request.GET.get('genre') == 'Género...':
             self.genre = None
-        try:
-            self.editorial = request.GET.get('editorial')
-        except:
+        else:
+            self.genre = request.GET.get('genre') 
+        if request.GET.get('editorial') == 'Editorial...':
             self.editorial = None
+        else:
+            self.editorial = request.GET.get('editorial')          
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
@@ -89,8 +93,9 @@ class BookSearchView(ListView):
             if self.title:
                 queryset =  queryset.filter(title__icontains=self.title)
             if self.author:
-                ###FALTA ARREGLAR ESTE FILTRO Y VER COMO RECIBIR LOS DATOS
-                queryset =  queryset.filter(authors__name__icontains=self.author)
+                a_first_name = self.author.split()[0]
+                a_last_name = self.author.split()[1]
+                queryset =  queryset.filter(authors__first_name__icontains=a_first_name, authors__last_name__icontains=a_last_name)
             if self.genre:
                 queryset =  queryset.filter(genres__name__icontains=self.genre)
             if self.editorial:
@@ -98,3 +103,10 @@ class BookSearchView(ListView):
         else:
             queryset = queryset.filter(title='')
         return queryset
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['generos'] = Genre.objects.all()
+        context['editoriales'] = Editorial.objects.all()
+        context['autores'] = Author.objects.all()
+        return context
