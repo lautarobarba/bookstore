@@ -13,7 +13,29 @@
             <form method="post">
                 {% csrf_token %}
                 <a class="btn btn-danger" href="{% url 'cart-detail' user.cart.id %}">Cancelar</a>
-                <input type="submit" value="Confirmar Compra" class="btn btn-primary">
+
+                <!-- Button trigger modal -->
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modalCompra">Confirmar Compra</button>
+                
+                <!-- Modal -->
+                <div class="modal fade" id="modalCompra" tabindex="-1" role="dialog" aria-labelledby="modalCompraLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalCompraLabel">Compra Realizada con Exito</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ¡¡Gracias por su Compra!!
+                            </div>
+                            <div class="modal-footer justify-content-center">
+                                <input type="submit" value="Continuar" class="btn btn-primary">
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </form>
         </div>
     {% endif %}
