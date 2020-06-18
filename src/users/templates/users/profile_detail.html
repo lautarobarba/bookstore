@@ -15,6 +15,7 @@
             <h1>Cuenta: {{ object }}</h1>
         {% endif %}
         <br>
+        <h2>Grupo: <strong>{{ object.get_group }}</strong></h1>
         <h3>Nombre: {{ object.first_name }}</h3>
         <h3>Apellido: {{ object.last_name }}</h3>
         {% if user.is_authenticated and user.profile.group.name == 'admin' %}
@@ -24,17 +25,6 @@
         {% endif %}
         <h3>Teléfono: {{ object.phone }}</h3>
         <br>
-        <br>
-        <h1>Grupo</h1>
-        <h3>
-            {% if object.group.name == 'admin' %}
-                Adminstradores
-            {% elif object.group.name == 'user' %}
-                Usuarios
-            {% else %}
-                Error la cuenta no pertenece a ningún grupo
-            {% endif %}
-        </h3>
         <br>
         {% if can_edit %}
             <a href="{% url 'profile-update' object.pk %}">Modificar perfil</a>

@@ -36,6 +36,9 @@ class User(PermissionsMixin, AbstractBaseUser):
     def get_username(self):
         return self.email
 
+    def get_group(self):
+        return self.profile.group.name
+
     def __str__(self):
         return self.email
 

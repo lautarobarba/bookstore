@@ -17,10 +17,14 @@ def create_profile(sender, instance, created, **kwargs):
 def asign_group(sender, instance, created, **kwargs):
     if instance.group == None:
         if instance.user.is_superuser:
-            admin_group, status = Group.objects.get_or_create(name='admin')
+            # Grupos extra que se crean junto al primer Administrador
+            extra_group, status = Group.objects.get_or_create(name='Gestores')
+            extra_group, status = Group.objects.get_or_create(name='Gerentes')
+            
+            admin_group, status = Group.objects.get_or_create(name='Administradores')
             instance.group = admin_group
             instance.save()
         else:
-            user_group, status = Group.objects.get_or_create(name='user')
+            user_group, status = Group.objects.get_or_create(name='Clientes')
             instance.group = user_group
             instance.save()

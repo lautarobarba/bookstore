@@ -31,6 +31,8 @@ class Profile(models.Model):
                 img.thumbnail((300, 300))
                 img.save(self.picture.path)
         
+    def get_group(self):
+        return self.group.name
 
     def __str__(self):
         if self.first_name and self.last_name:
