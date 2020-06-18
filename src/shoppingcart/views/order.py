@@ -50,7 +50,7 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
             new_l.save()
             #Elimino los libros del carrito
             l.delete()
-        return redirect('home')
+        return redirect(new_order)
 
 class OrderListView(ListView):
     model = Order
