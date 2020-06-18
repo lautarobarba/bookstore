@@ -1,24 +1,23 @@
 {% extends 'base.html' %}
-
 {% load crispy_forms_tags %}
 
 {% block title %}
-    País - Eliminar
+    Descuento - Eliminar
 {% endblock %}
 
 {% block content %}
     <div class="container">
-        <h1>Eliminar país</h1>
+        <h1>Eliminar descuento</h1>
         {% if user.is_authenticated and user.get_group == 'Administradores' %}
             <form method="post">
                 {% csrf_token %}
-                <p>Está seguro que desea eliminar el país "<strong>{{ object.name }}</strong>"?</p>
-                <a class="btn btn-warning" href="{% url 'country-list' %}">Cancelar</a>
+                <p>Está seguro que desea eliminar el descuento "<strong>{{ object.name }}</strong>"?</p>
+                <a class="btn btn-warning" href="{% url 'discount-list' %}">Cancelar</a>
                 <input type="submit" value="Confirmar" class="btn btn-danger">
             </form>
         {% else %}
-            <h2>Necesitas ser administrador para eliminar un país</h2>
-            <a class="btn btn-primary" href="{% url 'country-list' %}">Volver</a>
+            <h2>Necesitas ser administrador para eliminar un descuento</h2>
+            <a class="btn btn-primary" href="{% url 'discount-list' %}">Volver</a>
         {% endif %}
     </div>
 {% endblock %}

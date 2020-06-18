@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Descuento
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="text-center">Descuentos cargados</h1>
+        <br>
+        <ul class="list-group">
+            {% for descuento in object_list %}
+                <li class="list-group-item">
+                    <div class="float-left title-case">{{ descuento.name }}</div>
+                    {% if user.is_authenticated and user.get_group == 'Administradores' %}
+                        <div>
+                            <a class="mx-3 float-right" href="{% url 'discount-delete' descuento.id %}">Eliminar</a>
+                            <a class="mx-3 float-right" href="{% url 'discount-update' descuento.id %}">Modificar</a>
+                        </div>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+        <br>
+        <div class="my-2">
+            {% include 'paginator.html' %}
+        </div>
+        {% if user.is_authenticated and user.get_group == 'Administradores' %}
+        <div class="text-center my-3">
+            <a class="btn btn-primary" href="{% url 'discount-new' %}">Agregar descuento</a>
+        </div>
+        {% endif %}
+    </div>
+{% endblock %}

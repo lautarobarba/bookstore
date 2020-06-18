@@ -40,6 +40,13 @@
         <a href="{% url 'genre-list' %}" class="list-group-item list-group-item-action">Eliminar/Modificar Género</a>
     </div>
     <div class="list-group" data-toggle="collapse" aria-expanded="false">
+        <a href="{% url 'discount-list' %}" class="list-group-item list-group-item-action active">
+            Descuentos
+        </a>
+        <a href="{% url 'discount-new' %}" class="list-group-item list-group-item-action">Agregar Descuento</a>
+        <a href="{% url 'discount-list' %}" class="list-group-item list-group-item-action">Eliminar/Modificar Descuento</a>
+    </div>
+    <div class="list-group" data-toggle="collapse" aria-expanded="false">
         <a href="{% url 'book-admin-list' %}" class="list-group-item list-group-item-action active">
             Libros
         </a>

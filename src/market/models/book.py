@@ -18,7 +18,9 @@ class Book(models.Model):
     isbn = models.BigIntegerField(unique=True)
     sinopsis = models.CharField(max_length=255)
     price = models.FloatField(verbose_name='precio')
+    #
     sale = models.CharField(verbose_name='promoción', max_length=1 ,choices=SALE_CHOICES, null=True, blank=True)
+    #
     created = models.DateTimeField(verbose_name='creado', auto_now_add=True, null=True)
     #Relations
     authors = models.ManyToManyField(Author, verbose_name='autor')

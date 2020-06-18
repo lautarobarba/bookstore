@@ -4,6 +4,7 @@ from market.views import (
     AuthorCreateView, AuthorListView, AuthorUpdateView, AuthorDeleteView,
     EditorialCreateView, EditorialListView, EditorialUpdateView, EditorialDeleteView,
     GenreCreateView, GenreListView, GenreUpdateView, GenreDeleteView,
+    DiscountCreateView, DiscountListView, DiscountUpdateView, DiscountDeleteView,
     BookCreateView, BookAdminListView, BookUpdateView, BookDeleteView, BookSearchView,
 )
 
@@ -17,7 +18,8 @@ urlpatterns = [
     path('book/genre/<str:genre>/', BookListView.as_view(), {'type': 'genre'}, name='book-genre-list'),  
     path('book/author/<str:first_name>-<str:last_name>/', BookListView.as_view(), {'type': 'author'} , name='book-author-list'),  
     path('book/editorial/<str:editorial>/', BookListView.as_view(), {'type': 'editorial'} , name='book-editorial-list'),
-    ##### DASHBOAR ADMINISTRADORES
+    ##### DASHBOAR ADMINISTRADORES 
+    ## QUITAR NO SE USA - ELIMINAR VIEW Y TEMPLATE
     path('dashboard/', DashboardView.as_view(), name='dashboard'),
     # Author URLS
     path('author/', AuthorListView.as_view(), name='author-list'),
@@ -34,6 +36,11 @@ urlpatterns = [
     path('genre/new/', GenreCreateView.as_view(), name='genre-new'),
     path('genre/update/<int:pk>', GenreUpdateView.as_view(), name='genre-update'),
     path('genre/delete/<int:pk>', GenreDeleteView.as_view(), name='genre-delete'),
+    # Discount URLS
+    path('discount/', DiscountListView.as_view(), name='discount-list'),
+    path('discount/new/', DiscountCreateView.as_view(), name='discount-new'),
+    path('discount/update/<int:pk>', DiscountUpdateView.as_view(), name='discount-update'),
+    path('discount/delete/<int:pk>', DiscountDeleteView.as_view(), name='discount-delete'),
     # Book URLS
     path('book/new/', BookCreateView.as_view(), name='book-new'),
     path('book/admin/', BookAdminListView.as_view(), name='book-admin-list'),
