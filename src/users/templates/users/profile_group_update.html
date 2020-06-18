@@ -15,8 +15,13 @@
                 <a class="btn btn-primary" href="{% url 'profile-detail' object.id %}">Cancelar</a>
                 <input type="submit" value="Actualizar datos" class="btn btn-primary">
             </form>
+        {% elif user.get_group == 'Administradores' and object.get_group == 'Administradores' %}
+            <h2>No puedes cambiar el grupo de este usuario</h2>
+            <h2>Este usuario pertenece al grupo 'Administradores'</h2>
+            <a class="btn btn-primary" href="{% url 'profile-detail' object.id %}">Volver</a>
         {% else %}
             <h2>No puedes cambiar el grupo de este usuario</h2>
+            <h2>Necesitas ser administradores</h2>
             <a class="btn btn-primary" href="{% url 'profile-detail' object.id %}">Volver</a>
         {% endif %}
     </div>
