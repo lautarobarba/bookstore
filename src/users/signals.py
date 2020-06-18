@@ -1,15 +1,10 @@
 from django.db.models.signals import post_save
-from django.contrib.auth import get_user_model
 from django.dispatch import receiver
 from users.models import Profile
-
-
-#from PIL import Image
-#from blog.settings import BASE_DIR
-#import os
-
 from django.contrib.auth.models import Group
 
+# Custom User
+from django.contrib.auth import get_user_model
 User = get_user_model()
 
 @receiver(post_save, sender=User)
