@@ -78,24 +78,14 @@ h1 {
     display: flex;
     align-items: stretch;
 }
-/*
-#sidebar {
-    min-width: 250px;
-    max-width: 250px;
-    min-height: 100vh;
-}
-*/
-#sidebar.active {
-    margin-left: -300px;
+
+@media (max-width: 768px) {
+    .wrapper {
+        display: block;
+    }
 }
 
-/*
-@media (max-width: 768px) {
-    #sidebar {
-        margin-left: -270px;
-    }
-    #sidebar.active {
-        margin-left: 0;
-    }
+#sidebar.active {
+    margin-left: -300px;
+    display: none;
 }
-*/
