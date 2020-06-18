@@ -165,5 +165,6 @@ class PrintOrderView(LoginRequiredMixin, ListView):
 
         pdf_doc.build(doc_content)
         response.write(buffer.getvalue())
-        buffer.close()
-        return response
+        #buffer.close()
+        buffer.seek(0)
+        return FileResponse(buffer, as_attachment=True, filename='hello.pdf')
