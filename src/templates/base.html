@@ -40,19 +40,20 @@
     
     
     <div class="container-fluid justify-content-center mt-3">   
-        <div class="wrapper">
-            
+        <div class="wrapper"> 
             <!-- Sidebar para Admins -->
             {% if user.is_authenticated and user.profile.group.name == 'admin' %}
                 {% include 'sidebar.html' %}
-            {% endif %}<!-- fin Sidebar para Admins -->
-
-            <!-- Main Content -->
-            <div class="container" id="content">
-                {% block content %}
-                    <p>BASE TEMPLATE</p>
-                    <p>PLEASE ADD SOME CONTENT</p>
-                {% endblock %}         
+                <!-- Main Content -->
+                <div class="container" id="content-admin">
+            {% else %}
+                <!-- Main Content -->
+                <div class="container" id="content">
+            {% endif %}
+            {% block content %}
+                <p>BASE TEMPLATE</p>
+                <p>PLEASE ADD SOME CONTENT</p>
+            {% endblock %}         
             </div><!-- fin Main Content -->
         </div>
     </div>
@@ -73,6 +74,9 @@
                 $('#sidebar').toggleClass('active');
             });
             $('#sidebarCollapse2').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+            $('#sidebarCollapse3').on('click', function () {
                 $('#sidebar').toggleClass('active');
             });
         });

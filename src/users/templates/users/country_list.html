@@ -8,7 +8,7 @@
 {% block content %}
     <div class="container">
         <h1 class="text-center">Países cargados</h1>
-        </br>
+        <br>
         <ul class="list-group">
             {% for pais in object_list %}
                 <li class="list-group-item">
@@ -22,12 +22,14 @@
                 </li>
             {% endfor %}
         </ul>
+        <br>
+        <div class="my-2">
+            {% include 'paginator.html' %}
+        </div>
         {% if user.is_authenticated and user.profile.group.name == 'admin' %}
         <div class="text-center my-3">
             <a class="btn btn-primary" href="{% url 'country-new' %}">Agregar país</a>
         </div>
         {% endif %}
-        
-        {% include 'paginator.html' %}
     </div>
 {% endblock %}

@@ -19,6 +19,7 @@ class BookAdminListView(LoginRequiredMixin, ListView):
     model = Book
     template_name = 'market/book_admin_list.html'
     queryset = Book.objects.order_by('title')
+    paginate_by = 10
 
 class BookListView(ListView):
     model = Book 
