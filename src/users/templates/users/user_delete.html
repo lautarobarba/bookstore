@@ -8,15 +8,15 @@
 {% block content %}
     <div class="container">
         <h1>Eliminar cuenta</h1>
-        {% if can_edit %}
+        {% if can_edit or user_logged.get_group == 'Administradores' %}
             <form method="post">
-            {% csrf_token %}
-            <p>Está seguro que desea eliminar la cuenta para el usuario "<strong>{{ object.profile }}</strong>"?</p>
-            <a class="btn btn-primary" href="{% url 'profile-detail' object.profile.id %}">Cancelar</a>
-            <input type="submit" value="Confirmar" class="btn btn-danger">
-        </form>
+                {% csrf_token %}
+                <p>Está seguro que desea eliminar la cuenta para el usuario "<strong>{{ object.profile }}</strong>"?</p>
+                <a class="btn btn-primary" href="{% url 'profile-detail' object.profile.id %}">Cancelar</a>
+                <input type="submit" value="Confirmar" class="btn btn-danger">
+            </form>
         {% else %}
-            <h2>No puedes eliminar esta cuenta! No eres el propietario!</h2>
+            <h2>No puedes eliminar esta cuenta! No eres el propietario o administrador!</h2>
             <a class="btn btn-primary" href="{% url 'profile-detail' object.profile.id %}">Volver</a>
         {% endif %}
     </div>

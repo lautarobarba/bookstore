@@ -6,6 +6,12 @@
     </div>
     <!-- Items -->
     <div class="active list-group" data-toggle="collapse" aria-expanded="false">
+        <a href="{% url 'user-list' %}" class="list-group-item list-group-item-action active">
+            Usuarios
+        </a>
+        <a href="{% url 'user-list' %}" class="list-group-item list-group-item-action">Eliminar/Modificar Usuario</a>
+    </div>
+    <div class="active list-group" data-toggle="collapse" aria-expanded="false">
         <a href="{% url 'country-list' %}" class="list-group-item list-group-item-action active">
             Países
         </a>

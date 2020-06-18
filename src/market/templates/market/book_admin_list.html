@@ -8,27 +8,28 @@
     <div class="container">
         <h1 class="text-center">Libros cargados</h1>
         <br>
-        <ul class="list-group">
-            {% for libro in object_list %}
-                <li class="list-group-item">
-                    <a href="{{ libro.get_absolute_url }}" class="float-left">"{{ libro.title }}" de editorial "{{ libro.editorial.name }}"</a>
-                    {% if user.is_authenticated and user.get_group == 'Administradores' %}
+        {% if user.get_group == 'Administradores' %}
+            <ul class="list-group">
+                {% for libro in object_list %}
+                    <li class="list-group-item">
+                        <a href="{{ libro.get_absolute_url }}" class="float-left">"{{ libro.title }}" de editorial "{{ libro.editorial.name }}"</a>
                         <div>
                             <a class="mx-3 float-right" href="{% url 'book-delete' libro.id %}">Eliminar</a>
                             <a class="mx-3 float-right" href="{% url 'book-update' libro.id %}">Modificar</a>
                         </div>
-                    {% endif %}
-                </li>
-            {% endfor %}
-        </ul>
-        <br>
-        <div class="my-2">
-            {% include 'paginator.html' %}
-        </div>
-        {% if user.is_authenticated and user.get_group == 'Administradores' %}
-        <div class="text-center my-3">
-            <a class="btn btn-primary" href="{% url 'book-new' %}">Agregar libro</a>
-        </div>
+                    </li>
+                {% endfor %}
+            </ul>
+            <br>
+            <div class="my-2">
+                {% include 'paginator.html' %}
+            </div>
+            <div class="text-center my-3">
+                <a class="btn btn-primary" href="{% url 'book-new' %}">Agregar libro</a>
+            </div>
+        {% else %}
+            <h2>Debes ser un administrador para visitar este sitio.</h2>
+            <a class="btn btn-primary" href="{% url 'home' %}">Volver</a>
         {% endif %}
     </div>
 {% endblock %}

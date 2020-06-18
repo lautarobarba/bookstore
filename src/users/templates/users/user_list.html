@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Usuarios
+{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <h1 class="text-center">Usuarios registrados</h1>
+        <br>
+        {% if user.get_group == 'Administradores' %}
+            <ul class="list-group">
+                {% for u in object_list %}
+                    <li class="list-group-item">
+                        <div class="float-left">
+                            <a href="{% url 'profile-detail' u.profile.pk %}">{{ u }}</a>
+                            (G: {{ u.get_group }})
+                        </div>
+                        {% if u.get_group != 'Administradores' %}
+                            <div>
+                                <a class="mx-3 float-right" href="{% url 'user-delete' u.pk %}">Eliminar</a>
+                                <a class="mx-3 float-right" href="{% url 'profile-update' u.profile.pk %}">Perfil</a>
+                                <a class="mx-3 float-right" href="{% url 'profile-group-update' u.profile.pk %}">Grupo</a>
+                            </div>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+            <br>
+            <div class="my-2">
+                {% include 'paginator.html' %}
+            </div>
+        {% else %}
+            <h2>Debes ser un administrador para visitar este sitio.</h2>
+            <a class="btn btn-primary" href="{% url 'home' %}">Volver</a>
+        {% endif %}
+    </div>
+{% endblock %}

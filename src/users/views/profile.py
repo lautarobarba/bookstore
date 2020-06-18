@@ -19,3 +19,7 @@ class ProfileUpdateView(ProfileOwnerMixin, UpdateView):
     template_name = 'users/profile_update.html'
     fields = ['first_name', 'last_name', 'country', 'phone', 'picture']
 
+class ProfileGroupUpdateView(ProfileOwnerMixin, UpdateView):
+    model = Profile
+    template_name = 'users/profile_group_update.html'
+    fields = ['group']

@@ -1,3 +1,3 @@
-from .user import UserCreateView, UserLoginView, UserLogoutView, UserDeleteView
-from .profile import ProfileDetailView, ProfileUpdateView
+from .user import UserCreateView, UserLoginView, UserLogoutView, UserDeleteView, UserListView
+from .profile import ProfileDetailView, ProfileUpdateView, ProfileGroupUpdateView
 from .country import CountryCreateView, CountryListView, CountryUpdateView, CountryDeleteView

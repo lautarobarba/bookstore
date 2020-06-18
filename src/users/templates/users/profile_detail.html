@@ -15,18 +15,22 @@
             <h1>Cuenta: {{ object }}</h1>
         {% endif %}
         <br>
-        <h2>Grupo: <strong>{{ object.get_group }}</strong></h1>
+        <h2>Grupo: <strong>{{ object.get_group }}</strong>
+            {% if user.is_authenticated and user.get_group == 'Administradores' and object.get_group != 'Administradores' %}
+                <a href="{% url 'profile-group-update' object.pk %}" class="badge mx-2">Cambiar Grupo</a>
+            {% endif %}
+        </h2>
         <h3>Nombre: {{ object.first_name }}</h3>
         <h3>Apellido: {{ object.last_name }}</h3>
-        {% if user.is_authenticated and user.get_group == 'Administradores' %}
-            <h3>País: {{ object.country }}<a href="{% url 'country-new' %}" class="badge mx-2">Agregar país</a></h3>
-        {% else  %}
-            <h3>País: {{ object.country }}</h3>
-        {% endif %}
+        <h3>País: {{ object.country }}
+            {% if user.is_authenticated and user.get_group == 'Administradores' %}
+                <a href="{% url 'country-new' %}" class="badge mx-2">Agregar país</a>
+            {% endif %}
+        </h3>
         <h3>Teléfono: {{ object.phone }}</h3>
         <br>
         <br>
-        {% if can_edit %}
+        {% if can_edit or user.get_group == 'Administradores' %}
             <a href="{% url 'profile-update' object.pk %}">Modificar perfil</a>
             <br>
             <a href="{% url 'user-delete' object.user.pk %}">Eliminar cuenta</a>
