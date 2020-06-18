@@ -65,7 +65,7 @@
         <ul class="navbar-nav">
             <!-- Botones cuenta -->
             {% if user.is_authenticated %}
-                {% if user.profile.group.name == 'admin' %}
+                {% if user.get_group == 'Administradores' %}
                     <button id="sidebarCollapse2" class="nav-item nav-link text-center" href="{% url 'dashboard' %}">Dashboard</button>
                 {% endif %}
                 <a class="nav-item nav-link text-center" href="{% url 'wishlist-list' user.wishlist.id %}"><span class="fa fa-heart btn"></span>Deseados</a>

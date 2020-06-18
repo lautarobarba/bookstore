@@ -14,7 +14,7 @@
                     <div class="float-left">
                         <a href="{% url 'book-author-list' autor.first_name  autor.last_name %}">{{ autor }}</a>
                     </div>
-                    {% if user.is_authenticated and user.profile.group.name == 'admin' %}
+                    {% if user.is_authenticated and user.get_group == 'Administradores' %}
                         <div>
                             <a class="mx-3 float-right" href="{% url 'author-delete' autor.id %}">Eliminar</a>
                             <a class="mx-3 float-right" href="{% url 'author-update' autor.id %}">Modificar</a>
@@ -27,7 +27,7 @@
         <div class="my-2">
             {% include 'paginator.html' %}
         </div>
-        {% if user.is_authenticated and user.profile.group.name == 'admin' %}
+        {% if user.is_authenticated and user.get_group == 'Administradores' %}
             <div class="text-center my-0">
                 <a class="btn btn-primary" href="{% url 'author-new' %}">Agregar autor</a>
             </div>

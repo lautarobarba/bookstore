@@ -12,7 +12,7 @@
             {% for libro in object_list %}
                 <li class="list-group-item">
                     <a href="{{ libro.get_absolute_url }}" class="float-left">"{{ libro.title }}" de editorial "{{ libro.editorial.name }}"</a>
-                    {% if user.is_authenticated and user.profile.group.name == 'admin' %}
+                    {% if user.is_authenticated and user.get_group == 'Administradores' %}
                         <div>
                             <a class="mx-3 float-right" href="{% url 'book-delete' libro.id %}">Eliminar</a>
                             <a class="mx-3 float-right" href="{% url 'book-update' libro.id %}">Modificar</a>
@@ -25,7 +25,7 @@
         <div class="my-2">
             {% include 'paginator.html' %}
         </div>
-        {% if user.is_authenticated and user.profile.group.name == 'admin' %}
+        {% if user.is_authenticated and user.get_group == 'Administradores' %}
         <div class="text-center my-3">
             <a class="btn btn-primary" href="{% url 'book-new' %}">Agregar libro</a>
         </div>

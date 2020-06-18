@@ -3,7 +3,7 @@
 {% block title %}Compra{% endblock title %}
 
 {% block content %}
-    {% if user.id == owner or user.profile.group.name == 'admin' %}
+    {% if user.id == owner or user.get_group == 'Administradores' %}
         <h1 class="text-center">Factura N° {{ order.id }}</h1>
         <h2>Fecha: {{ order.date }}</h1>
         <h2>Cliente: {{ order.client.profile }}</h1>

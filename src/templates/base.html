@@ -42,7 +42,7 @@
     <div class="container-fluid justify-content-center mt-3">   
         <div class="wrapper"> 
             <!-- Sidebar para Admins -->
-            {% if user.is_authenticated and user.profile.group.name == 'admin' %}
+            {% if user.is_authenticated and user.get_group == 'Administradores' %}
                 {% include 'sidebar.html' %}
                 <!-- Main Content -->
                 <div class="container" id="content-admin">
