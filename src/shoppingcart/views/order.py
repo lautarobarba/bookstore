@@ -8,15 +8,16 @@ from django.forms import Form
 from datetime import datetime
 
 ### Necesario para hacer los pdfs
-import io
+from io import BytesIO
 from django.http import FileResponse
 from django.template.loader import get_template
 
 #from reportlab.pdfgen import canvas
 #from reportlab.lib.pagesizes import A4
-
+from reportlab.lib.styles import getSampleStyleSheet
+from reportlab.platypus import Paragraph, SimpleDocTemplate
 #import itertools
-
+from django.http import HttpResponse
 from xhtml2pdf import pisa
 ###
 
@@ -146,22 +147,23 @@ class PrintOrderView(LoginRequiredMixin, ListView):
 
     def get(self, request, *args, **kwargs):
         #Recupero la orden
-        order = Order.objects.get(pk=self.kwargs['pk'])
-        products = order.orderline_set.all()
+        
+        # declaro el tipo de contenido del response
+        pdf_name = 'nombre.pdf'
+        response = HttpResponse(content_type='application/pdf')
+        # nombre del archivo que va a ser devuelto
+        #response['Content-Disposition'] = f'attachment; filename="{pdf_name}"'
+        buffer = BytesIO()
+        pdf_doc = SimpleDocTemplate(buffer, rightMargin=72, leftMargin=72, topMargin=72, bottomMargin=18)
 
-        data = dict()
-        data['order'] = order 
-        data['productos'] = order.orderline_set.all()
-        data['total'] = order.get_total()
-        data['owner'] = order.client.id
+        doc_content = []
+        #Contenido
+        styles = getSampleStyleSheet()
+        title_style = styles["Title"]
+        title = Paragraph('Hola Mundo', title_style)
+        doc_content.append(title)
 
-        #PASAR EL USUARIO Y EL GRUPO LOGUEADO PARA SEGURIDAD DENTRO DEL TEMPLATE
-
-        template = get_template(self.template_name)
-        #Le paso todos los datos del contexto capturados en ge_context_data
-        html  = template.render(data)
-        buffer = io.BytesIO()
-        pdf = pisa.pisaDocument(io.BytesIO(html.encode("utf-8")), buffer)
-
-        buffer.seek(0)
-        return FileResponse(buffer, as_attachment=True, filename=f'Factura_{order.id}.pdf')
+        pdf_doc.build(doc_content)
+        response.write(buffer.getvalue())
+        buffer.close()
+        return response
