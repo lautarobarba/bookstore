@@ -14,40 +14,38 @@
         </form>
         <br>
         <!-- Listado de Compras -->
-        {% for Order in object_list %}
-            <div class="container">
-            <h3 class="text-center">Historial de Compras</h3>
-            <br>
-            <table class="table ">
-                <thead class = "thead-dark"> 
+        <div class="container">
+        <h3 class="text-center">Historial de Compras</h3>
+        <br>
+        <table class="table ">
+            <thead class = "thead-dark"> 
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Compra</th>                       
+                    <th scope="col">Fecha</th>
+                    <th scope="col">Costo Total</th>  
+                </tr>
+            </thead>
+            <tbody>
+                {% for order in object_list %}       
                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Cliente</th>
-                        <th scope="col">Compra</th>                       
-                        <th scope="col">Fecha</th>
-                        <th scope="col">Costo Total</th>  
+                        <th scope="row">{{ forloop.counter }}</th>
+                        <td><a href="{% url 'profile-detail' order.client.id %}">{{ order.client.profile }}</a></td>
+                        <td><a href="{% url 'order-detail' order.id %}">{{ order.id }}</a></td>
+                        <td>{{ order.date }}</td>
+                        <td>{{ order.get_total }}</td>
                     </tr>
-                </thead>
-                <tbody>
-                    {% for order in object_list %}       
-                        <tr>
-                            <th scope="row">{{ forloop.counter }}</th>
-                            <td><a href="{% url 'profile-detail' order.client.id %}">{{ order.client.profile }}</a></td>
-                            <td><a href="{% url 'order-detail' order.id %}">{{ order.id }}</a></td>
-                            <td>{{ order.date }}</td>
-                            <td>{{ order.get_total }}</td>
-                        </tr>
-                        {% empty %}
-                        <tr>
-                            <td>
-                                <p>Todavía no ha realizado ninguna compra.</p>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-                </table>
-            <br>
-        {% endfor %}
+                    {% empty %}
+                    <tr>
+                        <td>
+                            <p>Todavía no ha realizado ninguna compra.</p>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            </table>
+        <br>
         <br>
         <div class="my-2">
             {% include 'paginator.html' %}

@@ -12,12 +12,12 @@ def add_to_cart(request, pk):
     o.quantity += 1
     o.save()
 
-    wishlist = request.user.wishlist
+    #wishlist = request.user.wishlist
     #print(book)
     #print(wishlist.books.get(pk = pk))
     #if (book == wishlist.books.get(pk = pk)):
         #print("hello")
-        #book.get_remove_from_wishlist()
+        #redirect(book.get_remove_from_wishlist())
 
     return redirect(cart.get_absolute_url())
 
