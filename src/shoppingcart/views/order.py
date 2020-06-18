@@ -10,9 +10,14 @@ from datetime import datetime
 ### Necesario para hacer los pdfs
 import io
 from django.http import FileResponse
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import A4
-import itertools
+from django.template.loader import get_template
+
+#from reportlab.pdfgen import canvas
+#from reportlab.lib.pagesizes import A4
+
+#import itertools
+
+from xhtml2pdf import pisa
 ###
 
 
@@ -110,7 +115,6 @@ class ResumeView(LoginRequiredMixin, ListView):
         elif not self.month and not self.day:
             self.year = None
 
-
         if mensaje:
             self.mensaje = 'Búsqueda para el ' + mensaje
         else:
@@ -136,61 +140,28 @@ class ResumeView(LoginRequiredMixin, ListView):
             queryset = queryset.filter(date__year=1000)
         return queryset
 
-class PrintOrderView(View):
+class PrintOrderView(LoginRequiredMixin, ListView):
+    model = Order
     template_name = 'shoppingcart/order_print.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        order = Order.objects.get(pk=self.kwargs['pk'])
-        context['order'] = order
-        return context
 
     def get(self, request, *args, **kwargs):
         #Recupero la orden
         order = Order.objects.get(pk=self.kwargs['pk'])
         products = order.orderline_set.all()
 
-        #ACA HAY QUE ARMAR EL PDF DE ALGUNA MANERA MÁGICA
-        #p.drawString(100, 100, order.id)
-        data = [("Producto", "Cantidad", "Precio")]
-        for product in products:
-            quantity = product.quantity
-            price = product.book.price
-            data.append((f"{product.book}", quantity, price))
+        data = dict()
+        data['order'] = order 
+        data['productos'] = order.orderline_set.all()
+        data['total'] = order.get_total()
+        data['owner'] = order.client.id
 
+        #PASAR EL USUARIO Y EL GRUPO LOGUEADO PARA SEGURIDAD DENTRO DEL TEMPLATE
+
+        template = get_template(self.template_name)
+        #Le paso todos los datos del contexto capturados en ge_context_data
+        html  = template.render(data)
         buffer = io.BytesIO()
-        #p = export_to_pdf(data)
-        #p.drawString(100, 100, f"Total: {order.get_total}")
-        c = canvas.Canvas(buffer, pagesize=A4)
-        w, h = A4
-        c.drawString(100, 100, "factura")
-        max_rows_per_page = 45
-        # Margin.
-        x_offset = 50
-        y_offset = 50
-        # Space between rows.
-        padding = 15
-        
-        xlist = [x + x_offset for x in [0, 200, 250, 300, 350, 400, 480]]
-        ylist = [h - y_offset - i*padding for i in range(max_rows_per_page + 1)]
-        
-        args = [iter(data)] * max_rows_per_page
-        grouper = itertools.zip_longest(*args)
+        pdf = pisa.pisaDocument(io.BytesIO(html.encode("utf-8")), buffer)
 
-        for rows in grouper:
-            rows = tuple(filter(bool, rows))
-            c.grid(xlist, ylist[:len(rows) + 1])
-            for y, row in zip(ylist[:-1], rows):
-                for x, cell in zip(xlist, row):
-                    c.drawString(x + 2, y - padding + 3, str(cell))
-            c.showPage()
-        #################################################
-
-        # Close the PDF object cleanly, and we're done.
-        #c.showPage()
-        c.save()
-
-        # FileResponse sets the Content-Disposition header so that browsers
-        # present the option to save the file.
         buffer.seek(0)
         return FileResponse(buffer, as_attachment=True, filename=f'Factura_{order.id}.pdf')

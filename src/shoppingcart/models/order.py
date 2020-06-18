@@ -21,7 +21,7 @@ class Order(models.Model):
         return total
 
     def get_absolute_url(self):
-        return reverse('cart-detail', args=[str(sself.client.cart.id)])
+        return reverse('order-detail', kwargs={'pk':self.pk})
 
 class OrderLine(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
