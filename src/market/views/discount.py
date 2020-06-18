@@ -11,7 +11,7 @@ class DiscountCreateView(LoginRequiredMixin, CreateView):
 
 class DiscountListView(LoginRequiredMixin, ListView):
     model = Discount
-    queryset = Discount.objects.order_by('name')
+    queryset = Discount.objects.order_by('value')
     paginate_by = 10
 
 class DiscountUpdateView(LoginRequiredMixin, UpdateView):

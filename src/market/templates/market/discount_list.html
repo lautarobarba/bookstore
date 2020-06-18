@@ -11,7 +11,7 @@
         <ul class="list-group">
             {% for descuento in object_list %}
                 <li class="list-group-item">
-                    <div class="float-left title-case">{{ descuento.name }}</div>
+                    <div class="float-left title-case">{{ descuento }}</div>
                     {% if user.is_authenticated and user.get_group == 'Administradores' %}
                         <div>
                             <a class="mx-3 float-right" href="{% url 'discount-delete' descuento.id %}">Eliminar</a>
