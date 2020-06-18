@@ -30,6 +30,30 @@ h1 {
     width: 50px;
 }
 
+.carousel-control-prev {
+    left: -6rem;
+}
+
+.carousel-arrow-left {
+    background-color: black;
+    border-radius: 90%;
+    border-style: solid;
+    position: relative;
+    background-position-x: -2px;
+}
+
+.carousel-control-next {
+    right: -6rem;
+}
+
+.carousel-arrow-right {
+    background-color: black;
+    border-radius: 90%;
+    border-style: solid;
+    position: relative;
+    background-position-x: 2px;
+}
+
 .card {
     height: 500px;
 }

@@ -12,22 +12,8 @@
         </div>
     </div><!--Spacer para ofertas -->
 
-    <!--Carousel ofertas Wrapper-->
+    <!--Carousel Ofertas -->
     <div id="carouselOfertas" class="carousel slide carousel-multi-item" data-ride="carousel">
-
-        <!--Controls-->
-        <div class="controls-top text-center">
-            <a class="btn-floating" href="#carouselOfertas" data-slide="prev"><i class="fa fa-lg fa-chevron-left"></i></a>
-            <a class="btn-floating" href="#carouselOfertas" data-slide="next"><i class="fa fa-lg fa-chevron-right"></i></a>
-        </div>
-        <!--/.Controls-->
-
-        <!--Indicators-->
-        <ol class="carousel-indicators">
-            <li data-target="#carouselOfertas" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselOfertas" data-slide-to="1"></li>
-        </ol>
-        <!--/.Indicators-->
 
         <!--Slides-->
         <div class="carousel-inner" role="listbox">
@@ -37,43 +23,38 @@
                 {% for book in book_list_sale|slice:":4" %}
                     {% include 'market/book_card.html' %}
                 {% endfor %}
-            </div>
-            <!--/.First slide-->
-
+            </div><!--/.First slide-->
+            
             <!--Second slide-->
             <div class="carousel-item">
                 {% for book in book_list_sale|slice:"4:" %}
                     {% include 'market/book_card.html' %}
                 {% endfor %}
-            </div>
-        </div>
+            </div><!--/.Second slide-->
+        </div><!--/.Slides-->
+
+        <!--Controls-->
+        <a class="carousel-control-prev" href="#carouselOfertas" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon p-3 carousel-arrow-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselOfertas" role="button" data-slide="next">
+            <span class="carousel-control-next-icon p-3 carousel-arrow-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a><!--/.Controls-->
     </div>
     
-    <!--Spacer para productos destacados -->
-    <div class = "container my-5">
+    <!--Titular ÚLTIMOS LIBROS -->
+    <div class = "container mt-5 mb-3">
         <div class = "row">
             <div class = "col-12">
                 <h2 class="text-center">ÚLTIMOS LIBROS<i class="fa fa-book ml-2"></i></h2>
             </div>
         </div>
-    </div><!--Spacer para productos destacados -->
+    </div><!--Spacer para últimos libros -->
 
-    <!--Carousel Wrapper-->
+    <!--Carousel Últimos Libros -->
     <div id="categoriaDestacada" class="carousel slide carousel-multi-item" data-ride="carousel">
-
-        <!--Controls-->
-        <div class="controls-top text-center">
-            <a class="btn-floating" href="#categoriaDestacada" data-slide="prev"><i class="fa fa-lg fa-chevron-left"></i></a>
-            <a class="btn-floating" href="#categoriaDestacada" data-slide="next"><i class="fa fa-lg fa-chevron-right"></i></a>
-        </div>
-        <!--/.Controls-->
-
-        <!--Indicators-->
-        <ol class="carousel-indicators">
-            <li data-target="#categoriaDestacada" data-slide-to="0" class="active"></li>
-            <li data-target="#categoriaDestacada" data-slide-to="1"></li>
-        </ol>
-        <!--/.Indicators-->
 
         <!--Slides-->
         <div class="carousel-inner" role="listbox">
@@ -93,6 +74,16 @@
                 {% endfor %}
             </div>
         </div>
+
+        <!--Controls-->
+        <a class="carousel-control-prev" href="#categoriaDestacada" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon p-3 carousel-arrow-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#categoriaDestacada" role="button" data-slide="next">
+            <span class="carousel-control-next-icon p-3 carousel-arrow-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a><!--/.Controls-->
     </div>
 
 {% endblock content %}
