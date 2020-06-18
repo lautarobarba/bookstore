@@ -66,7 +66,7 @@
             <!-- Botones cuenta -->
             {% if user.is_authenticated %}
                 {% if user.profile.group.name == 'admin' %}
-                    <button id="sidebarCollapse" class="nav-item nav-link text-center" href="{% url 'dashboard' %}">Dashboard</button>
+                    <button id="sidebarCollapse2" class="nav-item nav-link text-center" href="{% url 'dashboard' %}">Dashboard</button>
                 {% endif %}
                 <a class="nav-item nav-link text-center" href="{% url 'wishlist-list' user.wishlist.id %}"><span class="fa fa-heart btn"></span>Deseados</a>
                 <a class="nav-item nav-link text-center" href="{% url 'cart-detail' user.cart.id %}"><span class="fa fa-shopping-cart fa-lg btn"></span>Carrito</a>
