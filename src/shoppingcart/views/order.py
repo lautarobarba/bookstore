@@ -7,7 +7,7 @@ from django.views import View
 from django.forms import Form
 from datetime import datetime
 
-###
+### Necesario para hacer los pdfs
 import io
 from django.http import FileResponse
 from reportlab.pdfgen import canvas
@@ -78,31 +78,62 @@ class ResumeView(LoginRequiredMixin, ListView):
     paginate_by = 10
 
     def get(self, request, *args, **kwargs):
-        try:
+        mensaje = None
+        today = datetime.now()
+
+        if request.GET.get('day'):
             self.day = request.GET.get('day')
-        except:
+            self.year = today.year
+            self.month = today.month
+            mensaje = f'Día {self.day} del {self.month} del {self.year}'
+        else:
             self.day = None
-        try:
+
+        if request.GET.get('month'):
             self.month = request.GET.get('month')
-        except:
-            self.month = None
-        try:
+            self.year = today.year
+            if self.day:
+                mensaje = f'Día {self.day} del {self.month} del {self.year}'
+            else:
+                mensaje = f'Mes {self.month} del {self.year}'
+        elif not self.day:
+                self.month = None
+
+        if request.GET.get('year'):
             self.year = request.GET.get('year')
-        except:
+            if self.month and self.day:
+                mensaje = f'Día {self.day} del {self.month} del {self.year}'
+            elif self.month:
+                mensaje = f'Mes {self.month} del {self.year}'
+            else:
+                mensaje = f'Año {self.year}'
+        elif not self.month and not self.day:
             self.year = None
+
+
+        if mensaje:
+            self.mensaje = 'Búsqueda para el ' + mensaje
+        else:
+            self.mensaje = None
         return super().get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['mensaje'] = self.mensaje
+        return context
 
     def get_queryset(self):
         queryset = Order.objects.all()
         if self.day or self.month or self.year:
-            if self.day:
-                queryset =  queryset.filter(date__day=self.day)
-            if self.month:
-                queryset =  queryset.filter(date__month=self.month)
             if self.year:
-                queryset =  queryset.filter(date___year=self.year)
+                queryset =  queryset.filter(date__year=int(self.year))
+            if self.month:
+                queryset =  queryset.filter(date__month=int(self.month))
+            if self.day:
+                queryset =  queryset.filter(date__day=int(self.day))
         else:
-            queryset = queryset.filter(date__year=datetime.now().year, date__month=datetime.now().month, date__day=datetime.now().day)
+            #queryset = queryset.filter(date__year=datetime.now().year, date__month=datetime.now().month, date__day=datetime.now().day)
+            queryset = queryset.filter(date__year=1000)
         return queryset
 
 class PrintOrderView(View):

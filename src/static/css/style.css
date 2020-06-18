@@ -85,11 +85,13 @@ h1 {
     }
 }
 
+/*
 @media (min-width: 768px) {
     #content-admin {
         width: 80%;
     }
 } 
+*/
 
 #sidebar.active {
     margin-left: -300px;
