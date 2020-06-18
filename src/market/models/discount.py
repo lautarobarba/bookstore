@@ -2,13 +2,13 @@ from django.db import models
 from django.urls import reverse
 
 class Discount(models.Model):
-    name = models.IntegerField(verbose_name='descuento')
+    value = models.IntegerField(verbose_name='descuento')
 
     class Meta():
-        ordering = ['name']
+        ordering = ['value']
 
     def __str__(self):
-        return self.name
+        return f'{self.value}%'
 
     def get_absolute_url(self):
         return reverse('discount-list')

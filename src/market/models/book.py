@@ -2,31 +2,22 @@ from django.db import models
 from .author import Author
 from .genre import Genre
 from .editorial import Editorial
+from .discount import Discount
 from django.urls import reverse
 from PIL import Image
 
 class Book(models.Model):
-
-    SALE_CHOICES = [
-        ('C', '5%'),
-        ('D', '10%'),
-        ('Q', '15%'),
-        ('V', '20%'),
-    ]
-
     title = models.CharField(verbose_name='título', max_length=255)
     isbn = models.BigIntegerField(unique=True)
     sinopsis = models.CharField(max_length=255)
     price = models.FloatField(verbose_name='precio')
-    #
-    sale = models.CharField(verbose_name='promoción', max_length=1 ,choices=SALE_CHOICES, null=True, blank=True)
-    #
+    discount = models.ForeignKey(Discount, verbose_name='descuento', null=True, blank=True, on_delete=models.PROTECT)
     created = models.DateTimeField(verbose_name='creado', auto_now_add=True, null=True)
-    #Relations
-    authors = models.ManyToManyField(Author, verbose_name='autor')
-    editorial = models.ForeignKey(Editorial, verbose_name='editorial', on_delete=models.CASCADE)
-    genres = models.ManyToManyField(Genre, verbose_name='generos')
     cover = models.ImageField(verbose_name='portada', upload_to='book_cover/', default='default-cover.png')
+    authors = models.ManyToManyField(Author, verbose_name='autor')
+    genres = models.ManyToManyField(Genre, verbose_name='generos')
+    editorial = models.ForeignKey(Editorial, verbose_name='editorial', on_delete=models.PROTECT)
+    
     
     #pictures = models.ManyToManyField(Genre, verbose_name='generos')
 
@@ -35,6 +26,12 @@ class Book(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['title', 'editorial'], name='unique title in editorial')
         ]
+
+    def get_price(self):
+        if self.discount:
+            return self.price - self.price * (self.discount.value / 100)
+        else:
+            return self.price
 
     # Modifico el tamaño de la portada antes de guardar
     def save(self, *args, **kwargs):
