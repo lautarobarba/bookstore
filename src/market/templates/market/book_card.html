@@ -2,10 +2,22 @@
 <div class="col-md-6 col-lg-3" style="float:left">
     <div class="card mb-2 text-center border-warning">
         <img class="card-img-top book-cover mx-auto my-auto" src="{{ book.cover.url }}" alt="{{ titulo }}">
+        <span class="book-discount">descuento</span>
         <div class="card-body">
             <h4 class="card-title ">{{ book.title }}</h4>
-            <p class="card-text mb-2 font-weight-bold">${{ book.price }}</p>
-            <p class="text-center text-truncate" >{{ book.sinopsis }}</p>
+
+            {% if book.sale %}
+                <span class="mr-1"><del>${{ book.price }}</del></span>
+                <span class="card-text badge badge-primary text-wrap">${{ book.price }}</span>
+            {%else%}
+                <span class="card-text badge badge-primary text-wrap">${{ book.price }}</span>
+            {% endif %}
+            <div class="book-description">
+                <p class="text-center text-truncate">{{ book.sinopsis }}</p>
+            </div>
+            <div class="book-authors mb-2">
+                <span class="text-center" >{% for author in book.authors.all %} {{ author }} {% if not forloop.last %}, {% endif %}{% endfor %}</span>
+            </div>
             <a href="{{ book.get_absolute_url }}" class="btn btn-primary">VER</a>
             <a href="{{ book.get_add_to_wishlist }}" class="btn btn-danger"><i class="fa fa-heart"></i></a>
         </div>
