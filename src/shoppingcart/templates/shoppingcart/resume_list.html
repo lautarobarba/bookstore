@@ -25,31 +25,37 @@
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Cliente</th>
-                    <th scope="col">Factura N°</th>                       
+                    <th scope="col">Factura N°</th>
                     <th scope="col">Fecha</th>
-                    <th scope="col">Importe</th>  
+                    <th scope="col">Importe</th>
                 </tr>
             </thead>
             <tbody>
-                {% for order in object_list %}       
+                {% for order in object_list %}
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
-                        <td><a href="{% url 'profile-detail' order.client.id %}">{{ order.client.profile }}</a></td>
+                        {% if order.c_name != 'Sin nombre' %}
+                            <td><a href="{% url 'profile-detail' order.c_profile_pk %}">{{ order.c_name }}</a></td>
+                        {% else %}
+                            <td><a href="{% url 'profile-detail' order.c_profile_pk %}">{{ order.c_email }}</a></td>
+                        {% endif %}
                         <td><a href="{% url 'order-detail' order.id %}">{{ order.id }}</a></td>
                         <td>{{ order.date }}</td>
-                        <td><strong>$ {{ order.get_total }}</strong></td>
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td><p>Lista Vacia</p></td>
+                        <td><strong>${{ order.get_total }}</strong></td>
                     </tr>
                 {% endfor %}
             </tbody>
             </table>
         <br>
-        <br>
+
         <div class="my-2">
             {% include 'paginator.html' %}
         </div>
+
+        {% if not object_list %}
+        <div class="row justify-content-center">
+            <h5><strong>Lista vacía</strong></h5>
+        </div>
+        {% endif %}
     </div>
 {% endblock content %}

@@ -2,7 +2,7 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import redirect, render
 from shoppingcart.models import Order, OrderLine, ProductList 
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.views import View
 from django.forms import Form
 from datetime import datetime
@@ -33,27 +33,47 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['cart_empty'] = self.client.cart.is_empty() 
+        context['cart_empty'] = self.client.cart.is_empty()
         return context
 
     def post(self, request, *args, **kwargs):
         u_client = request.user
         u_cart = request.user.cart
-        lineas = ProductList.objects.filter(cart=u_cart)
+        #lineas = ProductList.objects.filter(cart=u_cart)
+        cart_lines = u_cart.productlist_set.all()
 
         #Creo una nueva compra
-        new_order = Order(client=u_client)
+        new_order = Order()
+        #Datos del cliente
+        if u_client.profile.first_name and u_client.profile.last_name:
+            new_order.c_name = u_client.profile.first_name + u_client.profile.last_name
+        else:
+            new_order.c_name = 'Sin nombre'
+        new_order.c_email = u_client.email
+        new_order.c_profile_pk = u_client.profile.pk
         new_order.save()
 
         #Guardo los libros del carrito en la compra
-        for l in lineas:
-            new_l = OrderLine(order=new_order, book=l.book, quantity=l.quantity)
-            new_l.save()
+        for l in cart_lines:
+            #Por cada linea del carrito creo una linea de la orden
+            new_order_line = OrderLine()
+
+            #A que orden pertenece
+            new_order_line.order = new_order
+
+            #Datos del libro
+            new_order_line.b_title = l.book.title
+            new_order_line.b_editorial = l.book.editorial.name
+            new_order_line.b_price = l.book.get_price()
+            new_order_line.b_pk = l.book.pk
+            new_order_line.quantity = l.quantity
+
+            new_order_line.save()
             #Elimino los libros del carrito
             l.delete()
         return redirect(new_order)
 
-class OrderListView(ListView):
+class OrderListView(LoginRequiredMixin, ListView):
     model = Order
     paginate_by = 10
 
@@ -62,20 +82,11 @@ class OrderListView(ListView):
         return super().get(request, *args, **kwargs)
 
     def get_queryset(self):
-            return Order.objects.filter(client=self.client)
+            return Order.objects.filter(c_profile_pk=self.client.profile.pk)
 
-class OrderDetailView(LoginRequiredMixin, ListView):
+class OrderDetailView(LoginRequiredMixin, DetailView):
     model = Order
     template_name = 'shoppingcart/order_detail.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        order = Order.objects.get(pk=self.kwargs['pk'])
-        context['order'] = order
-        context['productos'] = order.orderline_set.all()
-        context['total'] = order.get_total()
-        context['owner'] = order.client.id
-        return context
 
 class ResumeView(LoginRequiredMixin, ListView):
     model = Order

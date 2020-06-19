@@ -6,43 +6,43 @@
     {% if can_edit %}
         <h1 class="text-center">TU CARRITO DE COMPRAS</h1>
         <table class="table ">
-        <thead class = "thead-dark"> 
-            <tr>
-                <th scope="col">Libro</th>
-                <th scope="col" class="text-center">Precio</th>
-                <th scope="col" class="text-center">Cantidad</th> 
-                <th scope="col" class="text-center">Total</th>      
-            </tr>
-        </thead>
-        <tbody>
-            {% for renglon in object_list %}       
+            <thead class = "thead-dark"> 
                 <tr>
-                    <td><a href="{{ renglon.book.get_absolute_url }}">{{ renglon.book }}</a></td>
-                    <td class="text-center align-middle">
-                        {% if renglon.book.discount %}
-                            <h6>
-                                <span class="card-text badge badge-primary text-wrap"><del>${{ renglon.book.price }}</del></span>
-                                <span class="card-text badge badge-success text-wrap">${{ renglon.book.get_price }}</span>
-                            </h6>
-                        {% else %}
-                            <h6><span class="card-text badge badge-primary text-wrap">${{ renglon.book.price }}</span></h6>
-                        {% endif %}
-                    </td>
-                    <td class="text-center align-middle"> 
-                        <a href="{{ renglon.book.get_add_to_cart }}"><i class="fa fa-plus"></i></a>
-                            {{ renglon.quantity }}
-                        <a href="{{ renglon.book.get_remove_from_cart }}"><i class="fa fa-minus"></i></a>
-                    </td>
-                    <td class="text-center align-middle">${{ renglon.get_value }}</td>
+                    <th scope="col">Libro</th>
+                    <th scope="col" class="text-center">Precio</th>
+                    <th scope="col" class="text-center">Cantidad</th> 
+                    <th scope="col" class="text-center">Total</th>      
                 </tr>
-            {% endfor %}
-        </tbody>
-        <tfoot>
-            <tr>
-                <th class="text-align-right" id="total" colspan="3">Total :</th>
-                <td class="text-center align-middle">${{ total }}</td>
-            </tr>
-        </tfoot>
+            </thead>
+            <tbody>
+                {% for renglon in object_list %}       
+                    <tr>
+                        <td><a href="{{ renglon.book.get_absolute_url }}">{{ renglon.book }}</a></td>
+                        <td class="text-center align-middle">
+                            {% if renglon.book.discount %}
+                                <h6>
+                                    <span class="card-text badge badge-primary text-wrap"><del>${{ renglon.book.price }}</del></span>
+                                    <span class="card-text badge badge-success text-wrap">${{ renglon.book.get_price }}</span>
+                                </h6>
+                            {% else %}
+                                <h6><span class="card-text badge badge-primary text-wrap">${{ renglon.book.price }}</span></h6>
+                            {% endif %}
+                        </td>
+                        <td class="text-center align-middle"> 
+                            <a href="{{ renglon.book.get_add_to_cart }}"><i class="fa fa-plus"></i></a>
+                                {{ renglon.quantity }}
+                            <a href="{{ renglon.book.get_remove_from_cart }}"><i class="fa fa-minus"></i></a>
+                        </td>
+                        <td class="text-center align-middle">${{ renglon.get_value }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th class="text-align-right" id="total" colspan="3">Total :</th>
+                    <td class="text-center align-middle">${{ total }}</td>
+                </tr>
+            </tfoot>
         </table>
 
         {% if object_list %}

@@ -25,18 +25,27 @@
                         <td>{{ order.date }}</td>
                         <td>${{ order.get_total }}</td>
                     </tr>
-                    {% empty %}
-                    <tr>
-                        <td>
-                            <p>Todavía no ha realizado ninguna compra.</p>
-                        </td>
-                    </tr>
                 {% endfor %}
             </tbody>
             </table>
         <br>
+
         <div class="my-2">
             {% include 'paginator.html' %}
         </div>
+
+        {% if object_list %}
+            <div class="row justify-content-center">
+                <a href="{% url 'home' %}" class="btn btn-primary btn-lg mx-1 my-1" role="button">Volver</a>
+            </div>    
+        {% else %}
+            <div class="row justify-content-center">
+                <h5>Todavía no se realizaron compras</h5>
+            </div>
+            <br>
+            <div class="row justify-content-center">
+                <a href="{% url 'home' %}" class="btn btn-primary btn-lg mx-1 my-1" role="button">Descubrir Libros</a>
+            </div>
+        {% endif %}
     </div>
 {% endblock %}
