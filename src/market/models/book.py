@@ -58,4 +58,5 @@ class Book(models.Model):
         return reverse('remove-from-cart', args=[str(self.id)])
 
     def __str__(self):
-        return '{0} {1}'.format(self.title, self.editorial)
+        #return '{0} {1}'.format(self.title, self.editorial)
+        return self.title

@@ -7,43 +7,47 @@
 {% block content %}
 
     {% if can_edit %}
-    <h1 class="text-center"> TUS ME GUSTA</h1>
+    <h1 class="text-center">TUS ME GUSTA</h1>
     <table class="table ">
-    <thead class = "thead-dark"> 
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Libro</th>
-            <th scope="col">Precio</th>
-            <th scope="col">Comprar</th>  
-            <th scope="col">Sacar</th>      
-        </tr>
-    </thead>
-    <tbody>
-        {% for book in object_list %}       
+        <thead class = "thead-dark"> 
             <tr>
-                <th scope="row">{{ forloop.counter }}</th>
-                <td><a href="{{ book.get_absolute_url }}">{{ book }}</a></td>
-                <td>{% if book.discount %}
-                            <span class="mr-1"><del>${{ book.price }}</del></span>
-                            <span class="card-text badge badge-primary text-wrap">${{ book.get_price }}</span>
+                <th scope="col">Libro</th>
+                <th scope="col" class="text-center">Precio</th>
+                <th scope="col" class="text-center">Comprar</th>  
+                <th scope="col" class="text-center">Sacar</th>      
+            </tr>
+        </thead>
+        <tbody>
+            {% for book in object_list %}       
+                <tr>
+                    <td><a href="{{ book.get_absolute_url }}">{{ book }}</a></td>
+                    <td class="text-center align-middle">
+                        {% if book.discount %}
+                            <h6>
+                                <span class="card-text badge badge-primary text-wrap"><del>${{ book.price }}</del></span>
+                                <span class="card-text badge badge-success text-wrap">${{ book.get_price }}</span>
+                            </h6>
                         {% else %}
-                            {{ book.price }}
+                            <h6><span class="card-text badge badge-primary text-wrap">${{ book.price }}</span></h6>
                         {% endif %}</td>
-                <td><a href="{{ book.get_add_to_cart }}" class="btn btn-primary">Agregar al carrito</a></td>
-                <td><a href="{{ book.get_remove_from_wishlist }}" class="btn btn-danger">Sacar</a></td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td>
-                    <p> TUS ME GUSTA ESTÁN VACÍOS </p>
-                </td>
-            </tr>
-        {% endfor %}
-    </tbody>
+                    <td class="text-center align-middle"><a href="{{ book.get_add_to_cart }}" class="btn btn-primary p-0"><span class="fa fa-shopping-cart fa-lg btn"></span></a></td>
+                    <td class="text-center align-middle"><a href="{{ book.get_remove_from_wishlist }}" class="btn btn-danger p-0"><span class="fa fa-times-circle fa-lg btn"></span></a></td>
+                </tr>
+                {% empty %}
+            {% endfor %}
+        </tbody>
     </table>
-        {% else %}
-            <p> Esta wishlist no te pertenece rufian </p>
-            <a href= "{% url 'home' %}">Inicio</a>
+
+        <!-- Lista Vacia -->
+        {% if not object_list %}
+            <div class="row justify-content-center">
+                <h5>TUS ME GUSTA ESTÁN VACÍOS</h5>
+            </div>
+        {% endif %}
+    
+    {% else %}
+        <p> Esta wishlist no te pertenece rufian </p>
+        <a class="btn btn-primary" href= "{% url 'home' %}">Inicio</a>
     {% endif %}
 
 {% endblock %}
