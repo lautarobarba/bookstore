@@ -29,7 +29,8 @@
                             </h6>
                         {% else %}
                             <h6><span class="card-text badge badge-primary text-wrap">${{ book.price }}</span></h6>
-                        {% endif %}</td>
+                        {% endif %}
+                    </td>
                     <td class="text-center align-middle"><a href="{{ book.get_add_to_cart }}" class="btn btn-primary p-0"><span class="fa fa-shopping-cart fa-lg btn"></span></a></td>
                     <td class="text-center align-middle"><a href="{{ book.get_remove_from_wishlist }}" class="btn btn-danger p-0"><span class="fa fa-times-circle fa-lg btn"></span></a></td>
                 </tr>
@@ -46,7 +47,7 @@
         {% endif %}
     
     {% else %}
-        <p> Esta wishlist no te pertenece rufian </p>
+        <h3> Esta wishlist no te pertenece rufian </h3>
         <a class="btn btn-primary" href= "{% url 'home' %}">Inicio</a>
     {% endif %}
 

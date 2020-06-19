@@ -3,63 +3,64 @@
 {% block title %}Detalle - carrito{% endblock title %}
 
 {% block content %}
-    <a href="{% url 'home' %}" class="btn btn-primary btn-lg" role="button">Seguir Comprando<i class="fa fa-shopping-bag ml-2"></i></a>
     {% if can_edit %}
         <h1 class="text-center">TU CARRITO DE COMPRAS</h1>
         <table class="table ">
         <thead class = "thead-dark"> 
             <tr>
-                <th scope="col">#</th>
                 <th scope="col">Libro</th>
-                <th scope="col">Precio</th>
-                <th scope="col">Cantidad</th> 
-                <th scope="col">Total</th>      
+                <th scope="col" class="text-center">Precio</th>
+                <th scope="col" class="text-center">Cantidad</th> 
+                <th scope="col" class="text-center">Total</th>      
             </tr>
         </thead>
         <tbody>
             {% for renglon in object_list %}       
                 <tr>
-                    <th scope="row">{{ forloop.counter }}</th>
                     <td><a href="{{ renglon.book.get_absolute_url }}">{{ renglon.book }}</a></td>
-                    <td>{% if renglon.book.discount %}
-                            <span class="mr-1"><del>${{ renglon.book.price }}</del></span>
-                            <span class="card-text badge badge-primary text-wrap">${{ renglon.book.get_price }}</span>
+                    <td class="text-center align-middle">
+                        {% if renglon.book.discount %}
+                            <h6>
+                                <span class="card-text badge badge-primary text-wrap"><del>${{ renglon.book.price }}</del></span>
+                                <span class="card-text badge badge-success text-wrap">${{ renglon.book.get_price }}</span>
+                            </h6>
                         {% else %}
-                            {{ renglon.book.price }}
+                            <h6><span class="card-text badge badge-primary text-wrap">${{ renglon.book.price }}</span></h6>
                         {% endif %}
                     </td>
-                    <td> 
+                    <td class="text-center align-middle"> 
                         <a href="{{ renglon.book.get_add_to_cart }}"><i class="fa fa-plus"></i></a>
                             {{ renglon.quantity }}
                         <a href="{{ renglon.book.get_remove_from_cart }}"><i class="fa fa-minus"></i></a>
                     </td>
-                    <td>{{ renglon.get_value }}</td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td>
-                        <p> TU CARRITO ESTÁ VACÍO </p>
-                    </td>
+                    <td class="text-center align-middle">${{ renglon.get_value }}</td>
                 </tr>
             {% endfor %}
         </tbody>
         <tfoot>
             <tr>
-            <th class="text-align-right" id="total" colspan="4">Total :</th>
-            <td>{{ total }}</td>
+                <th class="text-align-right" id="total" colspan="3">Total :</th>
+                <td class="text-center align-middle">${{ total }}</td>
             </tr>
         </tfoot>
         </table>
 
-        <!-- Comprar -->
         {% if object_list %}
+            <!-- Comprar -->
             <div class="row justify-content-center">
-                <a href="{% url 'order-new' %}" class="btn btn-success btn-lg" role="button">Finalizar Compra</a>
+                <a href="{% url 'home' %}" class="btn btn-primary btn-lg mx-1 my-1" role="button">Seguir Comprando<i class="fa fa-shopping-bag ml-2"></i></a>
+                <a href="{% url 'order-new' %}" class="btn btn-success btn-lg mx-1 my-1" role="button">Finalizar Compra</a>
+            </div>
+        {% else %}
+            <!-- Carrito Vacio -->
+            <div class="row justify-content-center">
+                <h5>TU CARRITO ESTÁ VACÍO</h5>
+                <a href="{% url 'home' %}" class="btn btn-primary btn-lg mx-1 my-1" role="button">Seguir Comprando<i class="fa fa-shopping-bag ml-2"></i></a>
             </div>
         {% endif %}
 
     {% else %}
-        <p> Este carrito no te pertenece rufian </p>
-        <a href= "{% url 'home' %}">Inicio</a>
+        <h3> Este carrito no te pertenece rufian </h3>
+        <a class="btn btn-primary" href= "{% url 'home' %}">Inicio</a>
     {% endif %}
 {% endblock content %}
