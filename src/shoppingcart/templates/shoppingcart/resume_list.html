@@ -9,7 +9,7 @@
         <form class="justify-content-center form-inline my-2 my-lg-0" role="search" action="{% url 'resume-list' %}">
             <input name="day" class="form-control mr-sm-2 mx-auto mx-md-2" type="number" min="1" max="31" placeholder="Día" aria-label="Search">
             <input name="month" class="form-control mr-sm-2 mx-auto mx-md-2" type="number" min="1" max="12" placeholder="Mes" aria-label="Search">
-            <input name="year" class="form-control mr-sm-2 mx-auto mx-md-2" type="number" placeholder="Año" aria-label="Search">
+            <input name="year" class="form-control mr-sm-2 mx-auto mx-md-2" type="number" min="2000" max="3000" placeholder="Año" aria-label="Search">
             <button class="btn btn-outline-secondary my-2 my-sm-0 mx-auto mx-md-2" type="submit">Buscar</button>
         </form>
         <br>
