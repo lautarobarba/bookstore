@@ -21,7 +21,13 @@
                 <tr>
                     <th scope="row">{{ forloop.counter }}</th>
                     <td><a href="{{ renglon.book.get_absolute_url }}">{{ renglon.book }}</a></td>
-                    <td>{{ renglon.book.price }}</td>
+                    <td>{% if renglon.book.discount %}
+                            <span class="mr-1"><del>${{ renglon.book.price }}</del></span>
+                            <span class="card-text badge badge-primary text-wrap">${{ renglon.book.get_price }}</span>
+                        {% else %}
+                            {{ renglon.book.price }}
+                        {% endif %}
+                    </td>
                     <td> 
                         <a href="{{ renglon.book.get_add_to_cart }}"><i class="fa fa-plus"></i></a>
                             {{ renglon.quantity }}

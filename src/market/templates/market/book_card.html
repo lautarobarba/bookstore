@@ -2,13 +2,15 @@
 <div class="col-md-6 col-lg-3" style="float:left">
     <div class="card mb-2 text-center border-warning">
         <img class="card-img-top book-cover mx-auto my-auto" src="{{ book.cover.url }}" alt="{{ titulo }}">
-        <span class="book-discount">descuento</span>
+        {% if book.discount %}
+            <span class="book-discount">{{ book.discount }}</span>
+        {% endif %}
         <div class="card-body">
             <h4 class="card-title ">{{ book.title }}</h4>
 
-            {% if book.sale %}
+            {% if book.discount %}
                 <span class="mr-1"><del>${{ book.price }}</del></span>
-                <span class="card-text badge badge-primary text-wrap">${{ book.price }}</span>
+                <span class="card-text badge badge-primary text-wrap">${{ book.get_price }}</span>
             {%else%}
                 <span class="card-text badge badge-primary text-wrap">${{ book.price }}</span>
             {% endif %}

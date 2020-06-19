@@ -22,7 +22,9 @@
                 <tr>
                     <th scope="row">{{ forloop.counter }}</th>
                     <td><a href="{{ renglon.book.get_absolute_url }}">{{ renglon.book }}</a></td>
-                    <td>{{ renglon.book.price }}</td>
+                    <td>
+                     ${{ renglon.book.get_price }}
+                    </td>
                     <td>{{ renglon.quantity }}</td>
                     <td>$ {{ renglon.get_value }}</td>
                 </tr>

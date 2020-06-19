@@ -44,7 +44,7 @@ class BookListView(ListView):
         elif self.type == 'editorial':
             queryset = Book.objects.filter(editorial__name__icontains=self.editorial)
         elif self.type == 'on-sale':
-            queryset = Book.objects.exclude(sale=None)
+            queryset = Book.objects.exclude(discount=None)
         else:
             queryset = Book.objects.all()
         return queryset 

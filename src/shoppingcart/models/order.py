@@ -29,4 +29,4 @@ class OrderLine(models.Model):
     quantity = models.IntegerField(default=0)
 
     def get_value(self):
-        return self.book.price*self.quantity
+        return self.book.get_price()*self.quantity
