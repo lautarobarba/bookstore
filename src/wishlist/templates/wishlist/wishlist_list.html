@@ -23,7 +23,12 @@
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
                 <td><a href="{{ book.get_absolute_url }}">{{ book }}</a></td>
-                <td>{{ book.price }}</td>
+                <td>{% if book.discount %}
+                            <span class="mr-1"><del>${{ book.price }}</del></span>
+                            <span class="card-text badge badge-primary text-wrap">${{ book.get_price }}</span>
+                        {% else %}
+                            {{ book.price }}
+                        {% endif %}</td>
                 <td><a href="{{ book.get_add_to_cart }}" class="btn btn-primary">Agregar al carrito</a></td>
                 <td><a href="{{ book.get_remove_from_wishlist }}" class="btn btn-danger">Sacar</a></td>
             </tr>

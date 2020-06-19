@@ -11,7 +11,14 @@
                     <img src="{{ book.cover.url }}" class="card-img-top card-img-size" alt="#">
                     <div class="card-body">
                         <h5 class="card-title text-capitalize font-weight-bold d-inline-block">{{ book.title }}</h5> 
-                        <h5 class="text-wrap float-right d-inline-block"><span class="badge badge-success">{{ book.price }} $</span></h5>
+                        <h4 class="text-wrap float-right d-inline-block"><span class="badge">
+                            {% if book.discount %}
+                                <span class="mr-1"><del>${{ book.price }}</del></span>
+                                <span class="card-text badge badge-primary text-wrap">${{ book.get_price }}</span>
+                            {% else %}
+                                {{ book.price }}
+                            {% endif %}
+                        </span></h4>
                         <p><strong>Género/s: </strong>{% for genre in book.genres.all %} {{ genre }} {% endfor %}</p>
                         {% if user.is_authenticated and user.get_group == 'Administradores' %}
                             <a href="#">Agregar nuevo género</a>
