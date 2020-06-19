@@ -3,7 +3,7 @@
 {% block title %}Compra{% endblock title %}
 
 {% block content %}
-    {% if user.pk == order.c_pk or user.get_group == 'Administradores' %}
+    {% if order.c_profile_pk == user.profile.pk or user.get_group == 'Administradores' %}
         <h1 class="text-center">Factura N° {{ order.id }}</h1>
         <h2>Fecha: {{ order.date }}</h1>
         <h2>Cliente: <a href="{% url 'profile-detail' order.c_profile_pk %}">{{ order.c_name }}</a></h1>
