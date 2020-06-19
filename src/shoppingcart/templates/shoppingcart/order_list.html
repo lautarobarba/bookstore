@@ -23,7 +23,7 @@
                         <th scope="row">{{ forloop.counter }}</th>
                         <td><a href="{% url 'order-detail' order.pk %}">{{ order.id }}</a></td>
                         <td>{{ order.date }}</td>
-                        <td>$ {{ order.get_total }}</td>
+                        <td>${{ order.get_total }}</td>
                     </tr>
                     {% empty %}
                     <tr>
