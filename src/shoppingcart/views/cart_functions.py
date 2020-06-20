@@ -12,14 +12,19 @@ def add_to_cart(request, pk):
     o.quantity += 1
     o.save()
 
-    #wishlist = request.user.wishlist
+    wishlist = request.user.wishlist
     #print(book)
     #print(wishlist.books.get(pk = pk))
-    #if (book == wishlist.books.get(pk = pk)):
-        #print("hello")
-        #redirect(book.get_remove_from_wishlist())
+    try:
+        book = wishlist.books.get(pk = pk)
+        wishlist.books.remove(book)
+    except(Book.DoesNotExist):
+        print("Ese libro no existe en la wishlist")
 
-    return redirect(cart.get_absolute_url())
+    if(status):    
+        return redirect(book.get_absolute_url())
+    else:
+        return redirect(cart.get_absolute_url())
 
 @login_required
 def remove_from_cart(request, pk):
