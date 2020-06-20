@@ -9,6 +9,7 @@ from shoppingcart.views import (
 urlpatterns = [
     path('cartdetail/<int:pk>/', CartDetailView.as_view(), name='cart-detail'),
     path('add-to-cart/<int:pk>/', add_to_cart, name='add-to-cart'),
+    path('add-to-cart-from-wishlist/<int:pk>/', add_to_cart, name='add-to-cart-from-wishlist'),
     path('remove-from-cart/<int:pk>/', remove_from_cart, name='remove-from-cart'),
     path('order/new/', OrderCreateView.as_view(), name='order-new'),
     path('order/list/', OrderListView.as_view(), name='order-list'),

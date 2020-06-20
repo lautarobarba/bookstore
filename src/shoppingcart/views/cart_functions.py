@@ -26,6 +26,20 @@ def add_to_cart(request, pk):
     else:
         return redirect(cart.get_absolute_url())
 
+def add_to_cart_from_wishlist(request, pk):
+    book = get_object_or_404(Book, pk = pk)
+    cart = request.user.cart
+
+    o, status = ProductList.objects.get_or_create(cart = cart, book = book)
+    o.quantity += 1
+    o.save()
+
+    wishlist = request.user.wishlist
+
+    wishlist.books.remove(book)
+
+    return redirect(cart.get_absolute_url())
+
 @login_required
 def remove_from_cart(request, pk):
     book = get_object_or_404(Book, pk = pk)
