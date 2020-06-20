@@ -12,12 +12,31 @@ def add_to_cart(request, pk):
     o.quantity += 1
     o.save()
 
-    #wishlist = request.user.wishlist
+    wishlist = request.user.wishlist
     #print(book)
     #print(wishlist.books.get(pk = pk))
-    #if (book == wishlist.books.get(pk = pk)):
-        #print("hello")
-        #redirect(book.get_remove_from_wishlist())
+    try:
+        book = wishlist.books.get(pk = pk)
+        wishlist.books.remove(book)
+    except(Book.DoesNotExist):
+        print("Ese libro no existe en la wishlist")
+
+    if(status):    
+        return redirect(book.get_absolute_url())
+    else:
+        return redirect(cart.get_absolute_url())
+
+def add_to_cart_from_wishlist(request, pk):
+    book = get_object_or_404(Book, pk = pk)
+    cart = request.user.cart
+
+    o, status = ProductList.objects.get_or_create(cart = cart, book = book)
+    o.quantity += 1
+    o.save()
+
+    wishlist = request.user.wishlist
+
+    wishlist.books.remove(book)
 
     return redirect(cart.get_absolute_url())
 
