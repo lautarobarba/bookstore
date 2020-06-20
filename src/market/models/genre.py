@@ -1,8 +1,9 @@
 from django.db import models
 from django.urls import reverse
+from .validators import StringWithoutSlashValidator
 
 class Genre(models.Model):
-    name = models.CharField(verbose_name='nombre', max_length=255, unique=True)
+    name = models.CharField(verbose_name='nombre', max_length=255, unique=True, validators=[StringWithoutSlashValidator])
 
     class Meta():
         ordering = ['name']

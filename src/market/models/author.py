@@ -1,9 +1,10 @@
 from django.db import models
 from django.urls import reverse
+from .validators import StringWithoutSlashValidator
 
 class Author(models.Model):
-    first_name = models.CharField(verbose_name='nombre', max_length=255)
-    last_name = models.CharField(verbose_name='apellido', max_length=255)
+    first_name = models.CharField(verbose_name='nombre', max_length=255, validators=[StringWithoutSlashValidator])
+    last_name = models.CharField(verbose_name='apellido', max_length=255, validators=[StringWithoutSlashValidator])
 
     class Meta():
         ordering = ['first_name', 'last_name']
