@@ -5,12 +5,14 @@
         <button id="sidebarCollapse3" class="nav-item nav-link text-center mx-auto mb-2" href="{% url 'dashboard' %}">Dashboard</button>
     </div>
     <!-- Items -->
-    <div class="active list-group" data-toggle="collapse" aria-expanded="false">
-        <a href="{% url 'user-list' %}" class="list-group-item list-group-item-action active">
-            Usuarios
-        </a>
-        <a href="{% url 'user-list' %}" class="list-group-item list-group-item-action">Eliminar/Modificar Usuario</a>
-    </div>
+    {% if user.get_group == 'Administradores' %}
+        <div class="active list-group" data-toggle="collapse" aria-expanded="false">
+            <a href="{% url 'user-list' %}" class="list-group-item list-group-item-action active">
+                Usuarios
+            </a>
+            <a href="{% url 'user-list' %}" class="list-group-item list-group-item-action">Eliminar/Modificar Usuario</a>
+        </div>
+    {% endif %}
     <div class="active list-group" data-toggle="collapse" aria-expanded="false">
         <a href="{% url 'country-list' %}" class="list-group-item list-group-item-action active">
             Países
@@ -53,10 +55,12 @@
         <a href="{% url 'book-new' %}" class="list-group-item list-group-item-action">Agregar Libro</a>
         <a href="{% url 'book-admin-list' %}" class="list-group-item list-group-item-action">Eliminar/Modificar Libro</a>
     </div>
-    <div class="list-group" data-toggle="collapse" aria-expanded="false">
-        <a href="{% url 'resume-list' %}" class="list-group-item list-group-item-action active">
-            Estadísticas
-        </a>
-        <a href="{% url 'resume-list' %}" class="list-group-item list-group-item-action">Resumen de Ventas</a>
-    </div>
+    {% if user.get_group == 'Administradores' or user.get_group == 'Gerentes' %}
+        <div class="list-group" data-toggle="collapse" aria-expanded="false">
+            <a href="{% url 'resume-list' %}" class="list-group-item list-group-item-action active">
+                Estadísticas
+            </a>
+            <a href="{% url 'resume-list' %}" class="list-group-item list-group-item-action">Resumen de Ventas</a>
+        </div>
+    {% endif %}
 </nav>
