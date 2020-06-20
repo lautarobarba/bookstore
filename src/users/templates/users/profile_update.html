@@ -8,7 +8,7 @@
 {% block content %}
     <div class="container">
         <h1>Editar perfil de: {{ object }}</h1>
-        {% if can_edit or user.get_group == 'Administradores' %}
+        {% if can_edit or user.get_group == 'Administradores' and object.get_group != 'Administradores' %}
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form|crispy }}
@@ -17,6 +17,9 @@
             </form>
         {% else %}
             <h2>No puedes editar el perfil de este usuario</h2>
+            {% if user.get_group == 'Administradores' and object.get_group == 'Administradores' %}
+                <h2>Este usuario pertenece al grupo 'Administradores'</h2>
+            {% endif %}
             <a class="btn btn-primary" href="{% url 'profile-detail' object.id %}">Volver</a>
         {% endif %}
     </div>
