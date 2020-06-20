@@ -13,9 +13,10 @@ from django.http import FileResponse
 from django.template.loader import get_template
 
 #from reportlab.pdfgen import canvas
-#from reportlab.lib.pagesizes import A4
-from reportlab.lib.styles import getSampleStyleSheet
-from reportlab.platypus import Paragraph, SimpleDocTemplate
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak
+from reportlab.lib import colors
 #import itertools
 from django.http import HttpResponse
 from xhtml2pdf import pisa
@@ -152,30 +153,82 @@ class ResumeView(LoginRequiredMixin, ListView):
             queryset = queryset.filter(date__year=1000)
         return queryset
 
-class PrintOrderView(LoginRequiredMixin, ListView):
+class PrintOrderView(LoginRequiredMixin, DetailView):
     model = Order
     template_name = 'shoppingcart/order_print.html'
 
     def get(self, request, *args, **kwargs):
         #Recupero la orden
-        
-        # declaro el tipo de contenido del response
-        pdf_name = 'nombre.pdf'
-        response = HttpResponse(content_type='application/pdf')
-        # nombre del archivo que va a ser devuelto
-        #response['Content-Disposition'] = f'attachment; filename="{pdf_name}"'
-        buffer = BytesIO()
-        pdf_doc = SimpleDocTemplate(buffer, rightMargin=72, leftMargin=72, topMargin=72, bottomMargin=18)
+        order = Order.objects.get(pk=kwargs['pk'])
 
-        doc_content = []
+        #Declaro el tipo de contenido del response
+        response = HttpResponse(content_type='application/pdf')
+
+        buffer = BytesIO()
+        pdf_doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=72, leftMargin=72, topMargin=72, bottomMargin=60)
+
         #Contenido
-        styles = getSampleStyleSheet()
-        title_style = styles["Title"]
-        title = Paragraph('Hola Mundo', title_style)
+        stylesheet = getSampleStyleSheet()
+        stylesheet.add(ParagraphStyle(name='Parrafo', fontName ='Helvetica',fontSize=12, leading=16))
+        stylesheet.add(ParagraphStyle(name='Footer', fontSize=12, leading=16))
+        doc_content = []
+
+        #Título
+        style = stylesheet["Title"]
+        title = Paragraph('Libreria "The Eye Of Minds"', style)
         doc_content.append(title)
 
+        #Datos personales
+        doc_content.append(Spacer(1, 24))
+        style = stylesheet['Parrafo']
+    
+        linea_factura = Paragraph(f'Factura N°: {order.id}', style)
+        doc_content.append(linea_factura)
+        linea_factura = Paragraph(f'Cliente: {order.c_name}', style)
+        doc_content.append(linea_factura)
+        linea_factura = Paragraph(f'Email: {order.c_email}', style)
+        doc_content.append(linea_factura)
+        linea_factura = Paragraph(f'Fecha: {order.date.day}/{order.date.month}/{order.date.year}', style)
+        doc_content.append(linea_factura)
+        linea_factura = Paragraph(f'Hora: {order.date.hour}:{order.date.minute} hrs', style)
+        doc_content.append(linea_factura)
+
+        #Renglones detallados
+        renglones = order.orderline_set.all()
+        doc_content.append(Spacer(1, 24))
+        datos = []
+        datos.append(['Libro', 'Precio', 'Cantidad', 'Total'])
+        for r in renglones:
+            datos.append([f'{r.b_title}', f'${r.b_price}', f'{r.quantity}', f'${r.get_value()}'])
+        datos.append(['Total', '', '', f'${order.get_total()}'])
+
+        tabla = Table(datos, colWidths=(350, None, None, None))
+        style = TableStyle([
+            ('ALIGN', (1,0), (-1,-1), 'CENTER'),
+            ('ALIGN', (0,0), (0,-1), 'LEFT'),
+            ('BACKGROUND', (0,0), (-1,0), colors.grey),
+            ('BACKGROUND', (0,-1), (-1,-1), colors.grey),
+            ('FONTSIZE', (0,0), (-1,0), 14),
+            ('FONTSIZE', (0,-1), (-1,-1), 14),
+            ('FONTSIZE', (0,1), (-1,-1), 12),
+            ('BOTTOMPADDING', (0,0), (-1,0), 10),
+            ('BOTTOMPADDING', (0,1), (-1,-1), 5),
+            ('GRID', (0,0), (-1,-1), 1, colors.black),
+        ])
+        tabla.setStyle(style)
+        doc_content.append(tabla)
+
+        #Footer con nombre del sitio
+        #elements.append(Paragraph("You are in page 2", styles["Normal"]))
+
+        #style = stylesheet['Parrafo']
+        #footer = Paragraph(f'Factura N°: {order.id}', style)
+        #doc_content.append(footer)
+
+        #LAUTI DEL FUTURO. FALTA AGREGARLE UN FOOTER Y EL LOGO CON LA FECHA COMO HEADER
+
+        #Creación del documento
         pdf_doc.build(doc_content)
         response.write(buffer.getvalue())
-        #buffer.close()
         buffer.seek(0)
-        return FileResponse(buffer, as_attachment=True, filename='hello.pdf')
+        return FileResponse(buffer, as_attachment=True, filename=f'factura_{order.id}.pdf')
