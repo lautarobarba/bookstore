@@ -160,7 +160,7 @@ class ResumeView(LoginRequiredMixin, ListView):
 
 class PrintOrderView(LoginRequiredMixin, DetailView):
     model = Order
-    template_name = 'shoppingcart/order_print.html'
+    template_name = 'shoppingcart/order_print_error.html'
 
     def get(self, request, *args, **kwargs):
 
@@ -254,4 +254,12 @@ class PrintOrderView(LoginRequiredMixin, DetailView):
         
         response.write(buffer.getvalue())
         buffer.seek(0)
-        return FileResponse(buffer, as_attachment=True, filename=f'factura_{order.id}.pdf')
+
+        #Control de seguridad. Si no tiene permitido ver la factura
+        #   se lo redirecciona a un templeta de error.
+        u_group = request.user.get_group()
+        owner = request.user.profile.pk == order.c_profile_pk
+        if owner or u_group == 'Administradores' or u_group == 'Gerentes':
+            return FileResponse(buffer, as_attachment=True, filename=f'factura_{order.id}.pdf')
+        else:
+            return super().get(request, *args, **kwargs)
