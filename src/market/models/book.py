@@ -9,7 +9,7 @@ from PIL import Image
 class Book(models.Model):
     title = models.CharField(verbose_name='título', max_length=255)
     isbn = models.BigIntegerField(unique=True)
-    sinopsis = models.CharField(max_length=255)
+    sinopsis = models.TextField(max_length=800)
     price = models.FloatField(verbose_name='precio')
     discount = models.ForeignKey(Discount, verbose_name='descuento', null=True, blank=True, on_delete=models.PROTECT)
     created = models.DateTimeField(verbose_name='creado', auto_now_add=True, null=True)
@@ -40,8 +40,8 @@ class Book(models.Model):
         super().save(*args, **kwargs)
         if self.cover:
             img = Image.open(self.cover.path)
-            if img.height > 400 or img.width > 250:
-                img.thumbnail((400, 200))
+            if img.width > 375 or img.height > 600:
+                img.thumbnail((375, 600))
                 img.save(self.cover.path)
         
     def get_absolute_url(self):

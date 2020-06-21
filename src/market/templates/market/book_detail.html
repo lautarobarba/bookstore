@@ -1,50 +1,38 @@
 {% extends 'base.html' %}
-
 {% block title %}Detalle - Libro{% endblock title %}
 
 {% block content %}
-
     <main class="container">
-        <div class="row justify-content-center">
-            <div class="col-12 col-md-8 col-lg-6">
-                <div class="card mx-auto w-75">
-                    <img src="{{ book.cover.url }}" class="card-img-top card-img-size" alt="#">
-                    <div class="card-body">
-                        <h5 class="card-title text-capitalize font-weight-bold d-inline-block">{{ book.title }}</h5> 
-                        <h4 class="text-wrap float-right d-inline-block"><span class="badge">
-                            {% if book.discount %}
-                                <span class="mr-1"><del>${{ book.price }}</del></span>
-                                <span class="card-text badge badge-primary text-wrap">${{ book.get_price }}</span>
-                            {% else %}
-                                {{ book.price }}
-                            {% endif %}
-                        </span></h4>
-                        <p><strong>Género/s: </strong>{% for genre in book.genres.all %} {{ genre }} {% endfor %}</p>
-                        {% if user.is_authenticated and user.get_group == 'Administradores' %}
-                            <a href="#">Agregar nuevo género</a>
-                        {% endif %}
-                        <p><strong>Autor/es: </strong>{% for author in book.authors.all %} <a href="{% url 'book-author-list' author.first_name author.last_name %}">{{ author }}</a> {% endfor %}</p>
-                        {% if user.is_authenticated and user.get_group == 'Administradores' %}
-                            <a href="#">Agregar nuevo autor</a>
-                        {% endif %}
-                        <p><strong>Editorial: </strong>{{ book.editorial }}</p>
-                        {% if user.is_authenticated and user.get_group == 'Administradores' %}
-                            <a href="#">Agregar nueva editorial</a>
-                        {% endif %}
-                        <p class="card-text text-wrap text-justify"><strong>Sinopsis: </strong>{{ book.sinopsis }}</p>
-                        <div class="text-center">
-                            {% comment %}
-                            <form method="post">
-                                {% csrf_token %}
-                                <input type="submit" class="btn btn-primary" value="Agregar al carro">
-                            </form>
-                            {% endcomment %}
-                            <a href="{{ book.get_add_to_cart }}" class="btn btn-primary">Agregar al carro</a>
-                        </div>
-                    </div>
+        <div class="row">
+            <div class="col">
+                <img src="{{ book.cover.url }}" class="" alt="{{ book.title }}">
+            </div>
+            <div class="col">
+                <div class="row justify-content-center">
+                    <h3 class="card-title text-capitalize font-weight-bold d-inline-block">{{ book.title }}</h3>
+                </div>
+                <p class="text-justify"><strong>Sinopsis: </strong>{{ book.sinopsis }}</p>
+                <p><strong>Género/s: </strong>{% for genre in book.genres.all %} {{ genre }}, {% endfor %}</p>
+                <p><strong>Autor/es: </strong>{% for author in book.authors.all %} <a href="{% url 'book-author-list' author.first_name author.last_name %}">{{ author }}</a> {% endfor %}</p>
+                <p><strong>Editorial: </strong>{{ book.editorial }}</p>
+                <p>
+                    {% if book.discount %}
+                        <h5 class="text-right"><del>${{ book.price }}</del></h5>
+                        <h2 class="text-right">${{ book.get_price }} <span class="badge badge-success">{{ book.discount.value }}% OFF</span></h2>
+                    {% else %}
+                        <h2 class="text-right">${{ book.get_price }}</h2>
+                    {% endif %}
+                </p>
+                <div class="text-center">
+                    {% comment %}
+                    <form method="post">
+                        {% csrf_token %}
+                        <input type="submit" class="btn btn-primary" value="Agregar al carro">
+                    </form>
+                    {% endcomment %}
+                    <a href="{{ book.get_add_to_cart }}" class="btn btn-primary">Agregar al carro</a>
                 </div>
             </div>
         </div>
     </main>
-
 {% endblock content %}
