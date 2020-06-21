@@ -40,7 +40,10 @@
                             <td><a href="{% url 'profile-detail' order.c_profile_pk %}">{{ order.c_email }}</a></td>
                         {% endif %}
                         <td><a href="{% url 'order-detail' order.id %}">{{ order.id }}</a></td>
-                        <td>{{ order.date }}</td>
+                        <!-- Fecha para pantallas grandes -->
+                        <td class="d-none d-md-block">{{ order.date }}</td>
+                        <!-- Fecha para pantallas chicas -->
+                        <td class="d-md-none">{{ order.date|date:"d/m/y" }}</td>
                         <td><strong>${{ order.get_total }}</strong></td>
                     </tr>
                 {% endfor %}

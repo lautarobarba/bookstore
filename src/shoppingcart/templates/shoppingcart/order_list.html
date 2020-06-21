@@ -22,7 +22,10 @@
                     <tr>
                         <th scope="row">{{ forloop.counter }}</th>
                         <td><a href="{% url 'order-detail' order.pk %}">{{ order.id }}</a></td>
-                        <td>{{ order.date }}</td>
+                        <!-- Fecha para pantallas grandes -->
+                        <td class="d-none d-md-block">{{ order.date }}</td>
+                        <!-- Fecha para pantallas chicas -->
+                        <td class="d-md-none">{{ order.date|date:"d/m/y" }}</td>
                         <td>${{ order.get_total }}</td>
                     </tr>
                 {% endfor %}
