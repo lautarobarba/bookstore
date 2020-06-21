@@ -26,6 +26,8 @@ class Book(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['title', 'editorial'], name='unique title in editorial')
         ]
+        verbose_name = "libro"
+        verbose_name_plural = "libros"
 
     def get_price(self):
         if self.discount:

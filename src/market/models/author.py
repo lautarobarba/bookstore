@@ -8,8 +8,9 @@ class Author(models.Model):
 
     class Meta():
         ordering = ['first_name', 'last_name']
-        #Agregar unique(first_name + last_name) 
-        #Para que no se repitan autores
+        unique_together = [['first_name', 'last_name']]
+        verbose_name = "autor"
+        verbose_name_plural = "autores"
 
     def __str__(self):
         fullname = '{0} {1}'.format(self.first_name, self.last_name)

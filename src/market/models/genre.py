@@ -7,6 +7,8 @@ class Genre(models.Model):
 
     class Meta():
         ordering = ['name']
+        verbose_name = "género"
+        verbose_name_plural = "géneros"
 
     def __str__(self):
         return self.name
