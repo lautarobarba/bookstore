@@ -22,6 +22,11 @@ from django.http import HttpResponse
 from xhtml2pdf import pisa
 ###
 
+##PARA PODER ENCONTRAR LA IMAGEN DEL LOGO
+from django.conf import settings
+import os
+from reportlab.lib.utils import ImageReader
+
 
 class OrderCreateView(LoginRequiredMixin, CreateView):
     model = Order
@@ -158,6 +163,32 @@ class PrintOrderView(LoginRequiredMixin, DetailView):
     template_name = 'shoppingcart/order_print.html'
 
     def get(self, request, *args, **kwargs):
+
+        def headerFooter(canvas ,doc):
+            img_path = os.path.join(settings.BASE_DIR, 'static', 'images', 'LogoCompleto.jpg')
+            print(img_path)
+            print(type(img_path))
+            img = ImageReader(img_path)
+
+
+            headerImg = 'imagenHeader' #PATH DEL LOGO
+            hoy = datetime.now()
+            headerDate = f'Fecha: {hoy.day}/{hoy.month}/{hoy.year}'
+            footer = 'The Eye Of Minds - 2020'
+
+            canvas.saveState()
+            #Marco de hoja completa
+            canvas.rect(20, 20, A4[0]-40, A4[1]-40, fill=0)
+
+            #Fecha del header
+            canvas.drawCentredString(A4[0]-100, A4[1]-60, headerDate)
+            #Logo del header
+            canvas.drawImage(img, 30, A4[1]-90, 60, 60)
+
+            #Footer
+            canvas.drawCentredString((A4[0]/2)-3, 50, footer)
+            canvas.restoreState()
+
         #Recupero la orden
         order = Order.objects.get(pk=kwargs['pk'])
 
@@ -165,7 +196,7 @@ class PrintOrderView(LoginRequiredMixin, DetailView):
         response = HttpResponse(content_type='application/pdf')
 
         buffer = BytesIO()
-        pdf_doc = SimpleDocTemplate(buffer, pagesize=A4, rightMargin=72, leftMargin=72, topMargin=72, bottomMargin=60)
+        pdf_doc = SimpleDocTemplate(buffer, title=f'factura_{order.id}', pagesize=A4, rightMargin=72, leftMargin=72, topMargin=72, bottomMargin=60)
 
         #Contenido
         stylesheet = getSampleStyleSheet()
@@ -218,17 +249,9 @@ class PrintOrderView(LoginRequiredMixin, DetailView):
         tabla.setStyle(style)
         doc_content.append(tabla)
 
-        #Footer con nombre del sitio
-        #elements.append(Paragraph("You are in page 2", styles["Normal"]))
-
-        #style = stylesheet['Parrafo']
-        #footer = Paragraph(f'Factura N°: {order.id}', style)
-        #doc_content.append(footer)
-
-        #LAUTI DEL FUTURO. FALTA AGREGARLE UN FOOTER Y EL LOGO CON LA FECHA COMO HEADER
-
         #Creación del documento
-        pdf_doc.build(doc_content)
+        pdf_doc.build(doc_content, onFirstPage=headerFooter, onLaterPages=headerFooter)
+        
         response.write(buffer.getvalue())
         buffer.seek(0)
         return FileResponse(buffer, as_attachment=True, filename=f'factura_{order.id}.pdf')
