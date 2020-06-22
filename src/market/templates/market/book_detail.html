@@ -5,11 +5,11 @@
     <main class="container">
         <div class="row">
             <div class="col-12 col-lg-6 text-center">
-                <img src="{{ book.cover.url }}" class="img-fluid" alt="{{ book.title }}">
+                <img src="{{ book.cover.url }}" class="img-fluid mb-3" alt="{{ book.title }}">
             </div>
             <div class="col-12 col-lg-6">
                 <div class="row justify-content-center">
-                    <h3 class="card-title text-capitalize font-weight-bold d-inline-block">{{ book.title }}</h3>
+                    <h3 class="card-title text-capitalize font-weight-bold d-inline-block mb-2">{{ book.title }}</h3>
                 </div>
                 <p class="text-justify"><strong>Sinopsis: </strong>{{ book.sinopsis }}</p>
                 <p><strong>Género/s: </strong>{% for genre in book.genres.all %} {{ genre }}, {% endfor %}</p>
