@@ -5,7 +5,11 @@
 {% block content %}
     {% if order.c_profile_pk == user.profile.pk or user.get_group == 'Administradores' %}
         <h1 class="text-center">Factura N° {{ order.id }}</h1>
-        <h2>Fecha: {{ order.date }}</h1>
+        <!-- Fecha para pantallas grandes -->
+        <h2 class="d-none d-md-block">Fecha: {{ order.date }}</h2>
+        <!-- Fecha para pantallas chicas -->
+        <h2 class="d-md-none">Fecha: {{ order.date|date:"d/m/y" }}</h2>
+        <!-- <h2>Fecha: {{ order.date }}</h1> -->
         <h2>Cliente: <a href="{% url 'profile-detail' order.c_profile_pk %}">{{ order.c_name }}</a></h1>
         <h2>Email: <a href="{% url 'profile-detail' order.c_profile_pk %}">{{ order.c_email }}</a></h1>
         <table class="table ">

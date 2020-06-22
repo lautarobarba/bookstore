@@ -52,7 +52,7 @@ class OrderCreateView(LoginRequiredMixin, CreateView):
         new_order = Order()
         #Datos del cliente
         if u_client.profile.first_name and u_client.profile.last_name:
-            new_order.c_name = u_client.profile.first_name + u_client.profile.last_name
+            new_order.c_name = u_client.profile.first_name + ' ' +  u_client.profile.last_name
         else:
             new_order.c_name = 'Sin nombre'
         new_order.c_email = u_client.email
@@ -166,8 +166,8 @@ class PrintOrderView(LoginRequiredMixin, DetailView):
 
         def headerFooter(canvas ,doc):
             img_path = os.path.join(settings.BASE_DIR, 'static', 'images', 'LogoCompleto.jpg')
-            print(img_path)
-            print(type(img_path))
+            #print(img_path)
+            #print(type(img_path))
             img = ImageReader(img_path)
 
 
