@@ -25,7 +25,7 @@
                 {% for renglon in order.orderline_set.all %}       
                     <tr>
                         <td><a href="{% url 'book-detail' renglon.b_pk %}">{{ renglon.b_title }}</a></td>
-                        <td class="text-center align-middle">${{ renglon.b_price }}</td>
+                        <td class="text-center align-middle">${{ renglon.b_price|floatformat:2 }}</td>
                         <td class="text-center align-middle">{{ renglon.quantity }}</td>
                         <td class="text-center align-middle">${{ renglon.get_value }}</td>
                     </tr>

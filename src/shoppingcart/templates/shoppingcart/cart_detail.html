@@ -21,11 +21,11 @@
                         <td class="text-center align-middle">
                             {% if renglon.book.discount %}
                                 <h6>
-                                    <span class="card-text badge badge-primary text-wrap"><del>${{ renglon.book.price }}</del></span>
-                                    <span class="card-text badge badge-success text-wrap">${{ renglon.book.get_price }}</span>
+                                    <span class="card-text badge badge-primary text-wrap"><del>${{ renglon.book.price|floatformat:2 }}</del></span>
+                                    <span class="card-text badge badge-success text-wrap">${{ renglon.book.get_price|floatformat:2 }}</span>
                                 </h6>
                             {% else %}
-                                <h6><span class="card-text badge badge-primary text-wrap">${{ renglon.book.price }}</span></h6>
+                                <h6><span class="card-text badge badge-primary text-wrap">${{ renglon.book.price|floatformat:2 }}</span></h6>
                             {% endif %}
                         </td>
                         <td class="text-center align-middle"> 

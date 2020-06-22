@@ -17,10 +17,10 @@
                 <p><strong>Editorial: </strong>{{ book.editorial }}</p>
                 <p>
                     {% if book.discount %}
-                        <h5 class="text-right"><del>${{ book.price }}</del></h5>
-                        <h2 class="text-right">${{ book.get_price }} <span class="badge badge-success">{{ book.discount.value }}% OFF</span></h2>
+                        <h5 class="text-right"><del>${{ book.price|floatformat:2 }}</del></h5>
+                        <h2 class="text-right">${{ book.get_price|floatformat:2 }} <span class="badge badge-success">{{ book.discount.value }}% OFF</span></h2>
                     {% else %}
-                        <h2 class="text-right">${{ book.get_price }}</h2>
+                        <h2 class="text-right">${{ book.get_price|floatformat:2 }}</h2>
                     {% endif %}
                 </p>
                 <div class="text-center">

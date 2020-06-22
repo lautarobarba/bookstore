@@ -23,11 +23,11 @@
                         <td class="text-center align-middle">
                             {% if book.discount %}
                                 <h6>
-                                    <span class="card-text badge badge-primary text-wrap"><del>${{ book.price }}</del></span>
-                                    <span class="card-text badge badge-success text-wrap">${{ book.get_price }}</span>
+                                    <span class="card-text badge badge-primary text-wrap"><del>${{ book.price|floatformat:2 }}</del></span>
+                                    <span class="card-text badge badge-success text-wrap">${{ book.get_price|floatformat:2 }}</span>
                                 </h6>
                             {% else %}
-                                <h6><span class="card-text badge badge-primary text-wrap">${{ book.price }}</span></h6>
+                                <h6><span class="card-text badge badge-primary text-wrap">${{ book.price|floatformat:2 }}</span></h6>
                             {% endif %}
                         </td>
                         <td class="text-center align-middle"><a href="{{ book.get_add_to_cart_from_wishlist }}" class="btn btn-primary p-0"><span class="fa fa-shopping-cart fa-lg btn"></span></a></td>
