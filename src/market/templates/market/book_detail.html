@@ -12,8 +12,8 @@
                     <h3 class="card-title text-capitalize font-weight-bold d-inline-block mb-2">{{ book.title }}</h3>
                 </div>
                 <p class="text-justify"><strong>Sinopsis: </strong>{{ book.sinopsis }}</p>
-                <p><strong>Género/s: </strong>{% for genre in book.genres.all %} {{ genre }}, {% endfor %}</p>
-                <p><strong>Autor/es: </strong>{% for author in book.authors.all %} <a href="{% url 'book-author-list' author.first_name author.last_name %}">{{ author }},</a> {% endfor %}</p>
+                <p><strong>Género/s: </strong>{% for genre in book.genres.all %} {{ genre }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                <p><strong>Autor/es: </strong>{% for author in book.authors.all %} <a href="{% url 'book-author-list' author.first_name author.last_name %}">{{ author }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</p>
                 <p><strong>Editorial: </strong>{{ book.editorial }}</p>
                 <p>
                     {% if book.discount %}

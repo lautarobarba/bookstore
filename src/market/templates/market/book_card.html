@@ -6,7 +6,7 @@
             <span class="book-discount">{{ book.discount }}</span>
         {% endif %}
         <div class="card-body">
-            <h4 class="card-title ">{{ book.title }}</h4>
+            <h4 class="card-title"><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></h4>
 
             {% if book.discount %}
                 <span class="mr-1"><del>${{ book.price|floatformat:2 }}</del></span>
@@ -17,7 +17,7 @@
             <div class="book-description">
                 <p class="text-center text-truncate">{{ book.sinopsis }}</p>
             </div>
-            <div class="book-authors mb-2">
+            <div class="book-authors mb-2 text-truncate">
                 <span class="text-center" >{% for author in book.authors.all %} {{ author }} {% if not forloop.last %}, {% endif %}{% endfor %}</span>
             </div>
             <a href="{{ book.get_absolute_url }}" class="btn btn-primary">VER</a>
