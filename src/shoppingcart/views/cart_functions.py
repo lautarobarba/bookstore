@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, redirect
 from market.models import Book
 from shoppingcart.models import ProductList
 from django.contrib.auth.decorators import login_required
+from django.db.models import F
 
 @login_required
 def add_to_cart(request, pk):
@@ -9,7 +10,7 @@ def add_to_cart(request, pk):
     cart = request.user.cart
 
     o, status = ProductList.objects.get_or_create(cart = cart, book = book)
-    o.quantity += 1
+    o.quantity = F('quantity') + 1
     o.save()
 
     wishlist = request.user.wishlist
@@ -31,7 +32,7 @@ def add_to_cart_from_wishlist(request, pk):
     cart = request.user.cart
 
     o, status = ProductList.objects.get_or_create(cart = cart, book = book)
-    o.quantity += 1
+    o.quantity = F('quantity') + 1
     o.save()
 
     wishlist = request.user.wishlist
@@ -51,7 +52,7 @@ def remove_from_cart(request, pk):
         if(o.quantity == 1):
             cart.books.remove(book)
         else:
-            o.quantity -= 1
+            o.quantity = F('quantity') - 1
             o.save()
 
     return redirect(cart.get_absolute_url())
