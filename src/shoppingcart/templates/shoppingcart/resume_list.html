@@ -44,7 +44,7 @@
                         <td class="d-none d-md-block">{{ order.date }}</td>
                         <!-- Fecha para pantallas chicas -->
                         <td class="d-md-none">{{ order.date|date:"d/m/y" }}</td>
-                        <td><strong>${{ order.get_total }}</strong></td>
+                        <td><strong>${{ order.get_total|floatformat:2 }}</strong></td>
                     </tr>
                 {% endfor %}
             </tbody>

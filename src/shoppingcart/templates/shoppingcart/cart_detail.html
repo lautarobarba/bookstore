@@ -33,14 +33,14 @@
                                 {{ renglon.quantity }}
                             <a href="{{ renglon.book.get_remove_from_cart }}"><i class="fa fa-minus"></i></a>
                         </td>
-                        <td class="text-center align-middle">${{ renglon.get_value }}</td>
+                        <td class="text-center align-middle">${{ renglon.get_value|floatformat:2 }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
             <tfoot>
                 <tr>
                     <th class="text-align-right" id="total" colspan="3">Total :</th>
-                    <td class="text-center align-middle">${{ total }}</td>
+                    <td class="text-center align-middle">${{ total|floatformat:2 }}</td>
                 </tr>
             </tfoot>
         </table>

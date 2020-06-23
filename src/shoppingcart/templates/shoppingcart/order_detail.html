@@ -27,14 +27,14 @@
                         <td><a href="{% url 'book-detail' renglon.b_pk %}">{{ renglon.b_title }}</a></td>
                         <td class="text-center align-middle">${{ renglon.b_price|floatformat:2 }}</td>
                         <td class="text-center align-middle">{{ renglon.quantity }}</td>
-                        <td class="text-center align-middle">${{ renglon.get_value }}</td>
+                        <td class="text-center align-middle">${{ renglon.get_value|floatformat:2 }}</td>
                     </tr>
                 {% endfor %}
             </tbody>
             <tfoot>
                 <tr>
                     <th class="text-align-right" id="total" colspan="3">Total :</th>
-                    <td class="text-center align-middle"><strong>${{ order.get_total }}</strong></td>
+                    <td class="text-center align-middle"><strong>${{ order.get_total|floatformat:2 }}</strong></td>
                 </tr>
             </tfoot>
         </table>

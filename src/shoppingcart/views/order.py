@@ -230,8 +230,8 @@ class PrintOrderView(LoginRequiredMixin, DetailView):
         datos = []
         datos.append(['Libro', 'Precio', 'Cantidad', 'Total'])
         for r in renglones:
-            datos.append([f'{r.b_title}', f'${r.b_price}', f'{r.quantity}', f'${r.get_value()}'])
-        datos.append(['Total', '', '', f'${order.get_total()}'])
+            datos.append([f'{r.b_title}', f'${r.b_price:.2f}', f'{r.quantity}', f'${r.get_value():.2f}'])
+        datos.append(['Total', '', '', f'${order.get_total():.2f}'])
 
         tabla = Table(datos, colWidths=(350, None, None, None))
         style = TableStyle([
