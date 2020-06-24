@@ -6,6 +6,7 @@ from market.models import Book
 from django.urls import reverse_lazy
 from shoppingcart.models import ProductList
 from django.shortcuts import redirect,render
+from django.db.models import Q
 
 # Objetos usados en BookSearchView
 from market.models import Genre, Editorial, Author
@@ -72,6 +73,10 @@ class BookSearchView(ListView):
     
     def get(self, request, *args, **kwargs):
         try:
+            self.titleauthor = request.GET.get('titleauthor')
+        except:
+            self.titleauthor = None
+        try:
             self.title = request.GET.get('title')
         except:
             self.title = None
@@ -91,7 +96,11 @@ class BookSearchView(ListView):
 
     def get_queryset(self):
         queryset = Book.objects.all()
-        if self.title or self.author or self.genre or self.editorial:
+        if self.titleauthor or self.title or self.author or self.genre or self.editorial:
+            if self.titleauthor:
+                queryset =  queryset.filter(Q(title__icontains=self.titleauthor) | 
+                                            Q(authors__first_name__icontains=self.titleauthor)| 
+                                            Q(authors__last_name__icontains=self.titleauthor))
             if self.title:
                 queryset =  queryset.filter(title__icontains=self.title)
             if self.author:
