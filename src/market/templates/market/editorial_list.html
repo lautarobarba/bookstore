@@ -14,7 +14,7 @@
                     <div class="float-left">
                         <a href="{% url 'book-editorial-list' editorial %}">{{ editorial }}</a>
                     </div>
-                    {% if user.is_authenticated and user.get_group == 'Administradores' %}
+                    {% if user.is_authenticated and user.get_group == 'Administradores' or user.get_group == 'Gerentes' or user.get_group == 'Gestores' %}
                         <div>
                             <a class="mx-3 float-right" href="{% url 'editorial-delete' editorial.id %}">Eliminar</a>
                             <a class="mx-3 float-right" href="{% url 'editorial-update' editorial.id %}">Modificar</a>
@@ -27,7 +27,7 @@
         <div class="my-2">
             {% include 'paginator.html' %}
         </div>
-        {% if user.is_authenticated and user.get_group == 'Administradores' %}
+        {% if user.is_authenticated and user.get_group == 'Administradores' or user.get_group == 'Gerentes' or user.get_group == 'Gestores' %}
             <div class="text-center my-0">
                 <a class="btn btn-primary" href="{% url 'editorial-new' %}">Agregar editorial</a>
             </div>

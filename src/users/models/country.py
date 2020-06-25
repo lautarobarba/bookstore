@@ -10,7 +10,11 @@ class Country(models.Model):
 
     def get_absolute_url(self):
         return reverse('country-list')
-
+    
+    def save(self, *args, **kwargs):
+        self.name = self.name.title()
+        super().save(*args, **kwargs)
+        
     class Meta:
         verbose_name = 'país'
         verbose_name_plural = "países"

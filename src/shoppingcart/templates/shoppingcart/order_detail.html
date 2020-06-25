@@ -3,7 +3,7 @@
 {% block title %}Compra{% endblock title %}
 
 {% block content %}
-    {% if order.c_profile_pk == user.profile.pk or user.get_group == 'Administradores' %}
+    {% if order.c_profile_pk == user.profile.pk or user.get_group == 'Administradores' or user.get_group == 'Gerentes' or user.get_group == 'Gestores' %}
         <h1 class="text-center">Factura N° {{ order.id }}</h1>
         <!-- Fecha para pantallas grandes -->
         <h2 class="d-none d-md-block">Fecha: {{ order.date }}</h2>
@@ -47,7 +47,7 @@
 
 
     {% else %}
-        <p> Debes ser el propietario o administrador para poder ver la factura.</p>
+        <p> Debes ser el propietario o parte del staff para poder ver la factura.</p>
         <a class="btn btn-primary" href= "{% url 'home' %}">Inicio</a>
     {% endif %}
 {% endblock content %}

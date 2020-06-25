@@ -9,7 +9,7 @@
 {% block content %}
     <div class="container">
         <h1>Agregar País</h1>
-        {% if user.is_authenticated and user.get_group == 'Administradores' %}
+        {% if user.is_authenticated and user.get_group == 'Administradores' or user.get_group == 'Gerentes' or user.get_group == 'Gestores' %}
             <form method="post">
                 {% csrf_token %}
                 {{ form|crispy }}
@@ -17,7 +17,7 @@
                 <input type="submit" value="Agregar" class="btn btn-primary">
             </form>
         {% else %}
-            <h2>Necesitas ser administrador para agregar un país</h2>
+            <h2>Necesitas ser parte del staff para agregar un país</h2>
             <a class="btn btn-primary" href="{% url 'country-list' %}">Volver</a>
         {% endif %}
     </div>

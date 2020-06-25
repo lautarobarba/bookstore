@@ -8,7 +8,7 @@
     <div class="container">
         <h1 class="text-center">Libros cargados</h1>
         <br>
-        {% if user.get_group == 'Administradores' %}
+        {% if user.get_group == 'Administradores' or user.get_group == 'Gerentes' or user.get_group == 'Gestores' %}
             <ul class="list-group">
                 {% for libro in object_list %}
                     <li class="list-group-item">
@@ -28,7 +28,7 @@
                 <a class="btn btn-primary" href="{% url 'book-new' %}">Agregar libro</a>
             </div>
         {% else %}
-            <h2>Debes ser un administrador para visitar este sitio.</h2>
+            <h2>Debes ser un parte del staff para visitar este sitio.</h2>
             <a class="btn btn-primary" href="{% url 'home' %}">Volver</a>
         {% endif %}
     </div>

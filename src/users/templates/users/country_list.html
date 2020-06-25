@@ -13,7 +13,7 @@
             {% for pais in object_list %}
                 <li class="list-group-item">
                     <div class="float-left title-case">{{ pais.name }}</div>
-                    {% if user.is_authenticated and user.get_group == 'Administradores' %}
+                    {% if user.is_authenticated and user.get_group == 'Administradores' or user.get_group == 'Gerentes' or user.get_group == 'Gestores'  %}
                         <div>
                             <a class="mx-3 float-right" href="{% url 'country-delete' pais.id %}">Eliminar</a>
                             <a class="mx-3 float-right" href="{% url 'country-update' pais.id %}">Modificar</a>
@@ -26,7 +26,7 @@
         <div class="my-2">
             {% include 'paginator.html' %}
         </div>
-        {% if user.is_authenticated and user.get_group == 'Administradores' %}
+        {% if user.is_authenticated and user.get_group == 'Administradores' or user.get_group == 'Gerentes' or user.get_group == 'Gestores' %}
         <div class="text-center my-3">
             <a class="btn btn-primary" href="{% url 'country-new' %}">Agregar país</a>
         </div>

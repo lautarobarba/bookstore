@@ -12,7 +12,7 @@
             {% for descuento in object_list %}
                 <li class="list-group-item">
                     <div class="float-left title-case">{{ descuento }}</div>
-                    {% if user.is_authenticated and user.get_group == 'Administradores' %}
+                    {% if user.is_authenticated and user.get_group == 'Administradores' or user.get_group == 'Gerentes' or user.get_group == 'Gestores' %}
                         <div>
                             <a class="mx-3 float-right" href="{% url 'discount-delete' descuento.id %}">Eliminar</a>
                             <a class="mx-3 float-right" href="{% url 'discount-update' descuento.id %}">Modificar</a>
@@ -25,7 +25,7 @@
         <div class="my-2">
             {% include 'paginator.html' %}
         </div>
-        {% if user.is_authenticated and user.get_group == 'Administradores' %}
+        {% if user.is_authenticated and user.get_group == 'Administradores' or user.get_group == 'Gerentes' or user.get_group == 'Gestores' %}
         <div class="text-center my-3">
             <a class="btn btn-primary" href="{% url 'discount-new' %}">Agregar descuento</a>
         </div>

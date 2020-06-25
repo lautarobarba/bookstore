@@ -101,7 +101,7 @@ class BookSearchView(ListView):
                 queryset =  queryset.filter(Q(title__icontains=self.titleauthor) | 
                                             Q(authors__first_name__icontains=self.titleauthor)| 
                                             Q(authors__last_name__icontains=self.titleauthor))
-            if self.title:
+            if self.title and not self.titleauthor:
                 queryset =  queryset.filter(title__icontains=self.title)
             if self.author:
                 a_first_name = self.author.split()[0]
