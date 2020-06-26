@@ -11,4 +11,4 @@ class HomeView(ListView):
         return context
     
     def get_queryset(self):
-        return Book.objects.all().order_by('created')[:8]
+        return Book.objects.all().order_by('-created')[:8]
