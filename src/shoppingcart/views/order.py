@@ -98,7 +98,7 @@ class ResumeView(LoginRequiredMixin, ListView):
     model = Order
     form_class = Form
     template_name = 'shoppingcart/resume_list.html'
-    paginate_by = 10
+    paginate_by = 20
 
     def get(self, request, *args, **kwargs):
         mensaje = None
