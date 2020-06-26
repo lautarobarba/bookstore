@@ -73,10 +73,6 @@ class BookSearchView(ListView):
     
     def get(self, request, *args, **kwargs):
         try:
-            self.titleauthor = request.GET.get('titleauthor')
-        except:
-            self.titleauthor = None
-        try:
             self.title = request.GET.get('title')
         except:
             self.title = None
@@ -96,12 +92,8 @@ class BookSearchView(ListView):
 
     def get_queryset(self):
         queryset = Book.objects.all()
-        if self.titleauthor or self.title or self.author or self.genre or self.editorial:
-            if self.titleauthor:
-                queryset =  queryset.filter(Q(title__icontains=self.titleauthor) | 
-                                            Q(authors__first_name__icontains=self.titleauthor)| 
-                                            Q(authors__last_name__icontains=self.titleauthor))
-            if self.title and not self.titleauthor:
+        if self.title or self.author or self.genre or self.editorial:
+            if self.title:
                 queryset =  queryset.filter(title__icontains=self.title)
             if self.author:
                 a_first_name = self.author.split()[0]
@@ -117,6 +109,10 @@ class BookSearchView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['titulo'] = self.title
+        context['genero'] = self.genre
+        context['editorial'] = self.editorial
+        context['autor'] = self.author
         context['generos'] = Genre.objects.all()
         context['editoriales'] = Editorial.objects.all()
         context['autores'] = Author.objects.all()
